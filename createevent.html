@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Google Sheets API</title>
+      <link rel="stylesheet" href="css/main.css">
+    <meta charset='utf-8' />
+  </head>
+  <body>
+      <h1>Google Sheets API</h1>
+      
+      <form id="form">
+
+            <h1><b>Please enter the information of the event:</b></h1>
+        <hr size="3"/>
+        <br>
+
+            <label for="Venue">Venue</label> <input id="venue" type="text" value="" /> 
+        <br>
+
+            <label for="location">Location</label><input id="location" type="text" />
+        <br>
+
+            <label for="date">Date</label><input id="date" type="text" />
+        <br>
+        <label for="begins">Begins</label><input id="begins" type="text" />
+        <br>
+        <label for="ends">Ends</label><input id="ends" type="text" />
+        <br>
+      
+      <input id="go" type="submit" value="Create Event" onclick="execute()" >
+        <pre id="content"></pre>
+      </form>
+      
+      
+  
+   <ul>
+       <li><a href="allevents.html">View All Events Page</a></li>
+       <br>
+       <li><a href="availableevents.html">View Available Events Page</a></li>
+       <br>
+       <li><a href="createevent.html">Create Events Page</a></li>
+   </ul>
+   
+    
+    
+    
+   <!-- <input id="go" type="submit" value="Go" onclick="listMajors()"> -->
+
+    <!--Add buttons to initiate auth sequence and sign out-->
+    <button id="authorize-button" style="display: none;">Authorize</button>
+    <button id="signout-button" style="display: none;">Sign Out</button>
+
+    <script src="js/main.js"></script>
+    <script async defer src="https://apis.google.com/js/api.js"
+      onload="this.onload=function(){}; handleClientLoad()"
+      onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
+  </body>
+</html>

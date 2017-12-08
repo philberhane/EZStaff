@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>EZ Staff</title>
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/respond.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset='utf-8' />
+  </head>
+  <body onload = "viewAllEvents()">
+      <h1>Google Sheets API</h1>
+      
+      <input id="go" type="submit" value="View All Events" onclick="listMajors()">
+        <div id="content"></div>
+      
+      
+  
+   <ul>
+       <li><a href="allevents.html">View All Events Page</a></li>
+       <br>
+       <li><a href="availableevents.html">View Available Events Page</a></li>
+       <br>
+       <li><a href="createevent.html">Create Events Page</a></li>
+   </ul>
+    
+    
+    
+   <!-- <input id="go" type="submit" value="Go" onclick="listMajors()"> -->
+
+    <!--Add buttons to initiate auth sequence and sign out-->
+    <button id="authorize-button" style="display: none;">Authorize</button>
+    <button id="signout-button" style="display: none;">Sign Out</button>
+
+    <script src="js/main.js"></script>
+    <script async defer src="https://apis.google.com/js/api.js"
+      onload="this.onload=function(){};handleClientLoad()"
+      onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
+  </body>
+</html>

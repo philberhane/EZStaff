@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Google Sheets API</title>
+      <link rel="stylesheet" href="css/main.css">
+    <meta charset='utf-8' />
+  </head>
+  <body id = "quickstart">
+      <h1>Google Sheets API</h1>
+      
+      
+      <p>Please choose one of the following:</p>
+  
+   <ul>
+       <li><a href="allevents.html">View All Events</a></li>
+       <br>
+       <li><a href="availableevents.html">View Available Events</a></li>
+       <br>
+       <li><a href="createevent.html">Create Event</a></li>
+   </ul>
+    
+    
+    
+   <!-- <input id="go" type="submit" value="Go" onclick="listMajors()"> -->
+
+    <!--Add buttons to initiate auth sequence and sign out-->
+    <button id="authorize-button" style="display: none;">Authorize</button>
+    <button id="signout-button" style="display: none;">Sign Out</button>
+
+
+    <script src="js/main.js"></script>
+    <script async defer src="https://apis.google.com/js/api.js"
+      onload="this.onload=function(){};handleClientLoad()"
+      onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
+  </body>
+</html>

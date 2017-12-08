@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title> EZ Staff </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/respond.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+
+<header>
+  <nav class="navbar navbar-default transparent navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" id="brand" href="index.html" style="font-size: 28px">EZ Staff</a>
+    </div>
+    <div class="navbar-collapse collapse" id="myNavbar">
+      <ul class="nav navbar-nav" id="listitems">
+        <li id="active"><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="features.html">Features</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="#">Demo</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right" id="otherlistitems">
+        <li>  <button class="btn btn-info navbar-btn" id="button">Free 24 Day Trial</button></li>
+        <li id="login"><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<script>$(window).scroll(function() {
+  if ($(document).scrollTop() > 25) {
+    $('nav').removeClass('transparent');
+  } else {
+    $('nav').addClass('transparent');
+  }
+});</script>
+</header>
+
+
+<!--first section -->
+<div class="jumbotron" id="first">
+  <div class="container">
+    <h1>Event Staffing made <strong>Easy</strong></h1>
+<p>
+Submit an event and <span style="font-style: italic">relax</span> as the work is done for you.
+</p>
+<img src="img/scheduling-tablet-2x.png.pagespeed.ce.K1zKVgZfoC (1).png" class="img-responsive"  />
+</div>
+</div>
+
+
+<!-- second section-->
+<div class="grunt-work" id="second">
+  <div class="container">
+<div class="row">
+
+<div class="col-md-6 col-sm-12 col-xs-12">
+<h2>Stop With the Grunt Work!</h2>
+<p>
+  Tired of staying up all night organizing events by pencil and paper? Or what about being stressed when a staff member cancels on you last minute? Well, you're not alone. Luckily, we have solutions for you and many others who have to go through this.
+</p>
+    <p style="color: #31B0D5"><a href="about.html">Learn More</a></p>
+
+</div>
+
+<div class="col-md-6 col-sm-12 col-xs-12">
+<img src="img/Scheduling.jpg" class="img-responsive" style="opacity: .7; width: 99%; border-radius: 1000%" />
+</div>
+
+</div>
+</div>
+</div>
+
+
+<!-- third section -->
+<div class="mordern-work" id="third">
+  <div class="container">
+<div class="row">
+
+  <div class="col-md-6 col-sm-12 col-xs-12">
+<img id="modernpic" src="img/responsivecalendar.png" class="img-responsive" />
+  </div>
+
+  <div class="col-md-6 col-sm-12 col-xs-12">
+  <h2>With Automation comes <strong>Efficiency</strong> and <strong>Free Time</strong></h2>
+  <p>
+   We make event staffing as simple as submitting an event and continuing on with your day. Your staff will receive notifications when there are available events and can either accept or decline. Amazon Flex implemented this type of technology and vastly reduced their business expenses, all while increasing efficiency.
+  </p>
+  <p style="color: #31B0D5"><a href="features.html">Check out our features</a></p>
+
+  </div>
+
+
+</div>
+</div>
+</div>
+
+
+
+<!--fourth section -->
+<div class="demo" id="fourth">
+  <div class="container">
+  <div class="row">
+
+    <div class="col-md-6 col-sm-12  col-xs-12">
+    <h2>Try a Live Demo</h2>
+    <p>
+No sign up or email needed - just a public, working version to explore and test.
+</p>
+  <a href="#" class="btn btn-info" id="button">Open Demo App</a>
+
+    </div>
+
+    <div class="col-md-6 col-sm-12 col-xs-12" id="laptopimg">
+    <img src="img/laptop.jpg" class="img-responsive"  />
+    </div>
+
+
+  </div>
+</div>
+</div>
+
+
+<div class="cta" id="fifth">
+  <div class="container">
+<h2>Start your Free Trial today!</h2>
+<p>
+  No Credit Card required. Get setup and going in 2 minutes!
+</p>
+  <a href="#" class="btn btn-info" id="button">Start my 24 day Free Trial</a>
+</div>
+</div>
+
+<footer>
+  <div class="container">
+<div class="row">
+
+<div class="col-md-4 col-sm-4 col-xs-12">
+  <h3>Visit Us</h3>
+  <p>
+    1111 Fictitional Ave<br />
+    Vallejo, Ca 94589<br /><br />
+    (888)-888-8888<br /><br />
+    info@ezstaff.com
+  </p>
+</div>
+
+<div class="col-md-4 col-sm-4 col-xs-12">
+<h3 >Resources</h3>
+<ul id="resources">
+    
+    <li><a href="#">Live Demo</a></li>
+    <li><a href="#">Support Forum</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="#">Blog</a></li>
+    
+</ul>
+</div>
+
+<div class="col-md-4 col-sm-4 col-xs-12">
+<h3 id="socialmedia">Connect With Us</h3>
+<a href="#"><img id="facebook" src="img/facebook.png"></a>
+<a href="#"><img id="instagram" src="img/instagram.png" ></a>
+<a href="#"><img id="googleplus" src="img/googleplus.png" ></a>
+<a href="#"><img id="linkedin" src="img/linkedin.png" ></a>
+<a href="#"><img id="twitter" src="img/twitter.png" ></a>
+</div>
+
+
+</div>
+</div>
+</footer>
+
+<div class="footerparttwo">
+  <div class="container">
+    <p>
+      &copy 2017 EZ Staff. All Rights Reserved
+    </p>
+  </div>
+</div>
+
+
+
+
+</body>
+
+
+</html>
