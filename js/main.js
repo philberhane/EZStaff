@@ -1,79 +1,6 @@
 //boxwood-charmer-186806 is the project ID
 
-
-
-var CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleusercontent.com';
-      var API_KEY = 'AIzaSyA4yrIsc8ux0pXSOa-pDeCrfgWtMObABOI';
-
-      // Array of API discovery doc URLs for APIs used by the quickstart
-      var DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
-
-      // Authorization scopes required by the API; multiple scopes can be
-      // included, separated by spaces.
-      var SCOPES = 'https://www.googleapis.com/auth/drive'
-      'https://www.googleapis.com/auth/drive.file'
-      'https://www.googleapis.com/auth/spreadsheets';
-
-      var authorizeButton = document.getElementById('authorize-button');
-      var signoutButton = document.getElementById('signout-button');
-
-      /**
-       *  On load, called to load the auth2 library and API client library.
-       */
-      function handleClientLoad() {
-        gapi.load('client:auth2', initClient);
-      }
-
-      /**
-       *  Initializes the API client library and sets up sign-in state
-       *  listeners.
-       */
-
-      function initClient() {
-        gapi.client.init({
-          apiKey: API_KEY,
-          clientId: CLIENT_ID,
-          discoveryDocs: DISCOVERY_DOCS,
-          scope: SCOPES
-        }).then(function () {
-          // Listen for sign-in state changes.
-        /*  gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
-
-          // Handle the initial sign-in state.
-          updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-          authorizeButton.onclick = handleAuthClick;
-          signoutButton.onclick = handleSignoutClick;*/
-        });
-      }
-
-      /**
-       *  Called when the signed in status changes, to update the UI
-       *  appropriately. After a sign-in, the API is called.
-       */
-    /*  function updateSigninStatus(isSignedIn) {
-        if (isSignedIn) {
-          authorizeButton.style.display = 'none';
-          signoutButton.style.display = 'block';
-        } else {
-          authorizeButton.style.display = 'block';
-          signoutButton.style.display = 'none';
-        }
-      }*/
-
-      /**
-       *  Sign in the user upon button click.
-       */
-      function handleAuthClick(event) {
-        gapi.auth2.getAuthInstance().signIn();
-      }
-
-      /**
-       *  Sign out the user upon button click.
-       */
-      function handleSignoutClick(event) {
-        gapi.auth2.getAuthInstance().signOut();
-      }
-
+  
       /**
        * Append a pre element to the body containing the given message
        * as its text node. Used to display the results of the API call.
@@ -110,8 +37,7 @@ var CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuserco
         document.getElementById('contentheader').innerHTML = 'All Events';    
         document.getElementById('content').innerHTML = '';
         var organization = document.getElementById('organization').innerHTML;
-        console.log(response.result.values)
-            console.log(organization)
+       
             
           var range = response.result;
           if (range.values.length > 0) {
@@ -193,8 +119,7 @@ var CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuserco
         document.getElementById('content').innerHTML = '';
         var organization = document.getElementById('organization').innerHTML;
         var username = document.getElementById('username').innerHTML
-        console.log(response.result.values)
-            console.log(organization)
+   
             
           var range = response.result;
           if (range.values.length > 0) {
@@ -272,8 +197,7 @@ function viewAvailableEvents() {
         document.getElementById('content').innerHTML = '';
         var organization = document.getElementById('organization').innerHTML;
         var username = document.getElementById('username').innerHTML
-        console.log(response.result.values)
-            console.log(organization)
+  
             
           var range = response.result;
           if (range.values.length > 0) {
@@ -435,7 +359,6 @@ function acceptEvent() {
      
      inputArrayPushedValues.push(inputArray)
      
- //   console.log(inputArray)
        
          //This pulls an array of inputs
        
@@ -447,7 +370,6 @@ function acceptEvent() {
         
    }
     
-    console.log(inputArrayPushedValues)
     
     
     
@@ -476,7 +398,6 @@ function acceptEvent() {
     
         .then(function(response) {
           // Handle the results here (response.result has the parsed body).
-          console.log("Response", response);
        document.getElementById('content').innerHTML = '';
        document.getElementById('contentheader').innerHTML = '';
        document.getElementById('content').innerHTML = 'You are now staffed for the event!';
@@ -485,7 +406,6 @@ function acceptEvent() {
     
  
         }, function(error) {
-          console.error("Execute error", error);
         });
   }
 
@@ -621,12 +541,28 @@ function execute() {
           // Handle the results here (response.result has the parsed body).
         document.getElementById('content').innerHTML = '';
        document.getElementById('content').innerHTML = 'The event has been created!';
-          console.log("Response", response);
         }, function(error) {
-          console.error("Execute error", error);
         });
   }
 
+
+function preAdminSignUp() {
+     
+    var fullName = document.getElementById('firstName').value + ' ' + document.getElementById('lastName').value
+    var email = document.getElementById('email').value;
+    var password = document.getElementById('password').value;
+    var organization = document.getElementById('organization').value;
+    
+    if ( email.length === 0 || password.length === 0 || organization.length === 0 ) {
+        var message = document.createElement('p')
+                    message.innerHTML = 'Sorry, an error ocurred while signing up!'
+                    message.style.color = 'red'
+                    document.getElementById('content').innerHTML = ''
+                    document.getElementById('content').append(message)   
+    } else {
+        adminSignUp()
+    }
+}
 
 
 
@@ -654,19 +590,25 @@ function adminSignUp() {
           [
             fullName,
             email,
-            password,
             'Admin',
             organization,
+              password,
           ]
         ]
       }
     })
         .then(function(response) {
           // Handle the results here (response.result has the parsed body).
-        alert("You have signed up! Please log in to continue")
-          console.log("Response", response);
+        
+        
+          var message = document.createElement('p')
+                    document.getElementById('content').innerHTML = ''
+                    message.innerHTML = 'You are now signed up! Log in to continue'
+                    message.style.color = '#31B0D5'
+                    document.getElementById('content').append(message)
+        
         }, function(error) {
-          console.error("Execute error", error);
+        
         });
   }
 
@@ -675,7 +617,13 @@ function adminSignUp() {
 function logIn() {
     
     var email = document.getElementById('email').value;
+  
+    var example = document.getElementById('example').value;
+    
+    var entireEmail = email + '@' + example;
+    
     var password = document.getElementById('password').value;
+    
     
     return gapi.client.sheets.spreadsheets.values.get({
       "spreadsheetId": "1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g",
@@ -688,11 +636,19 @@ function logIn() {
           // Handle the results here (response.result has the parsed body).
         var row = response.result.values;
         
-        
+
+
         row.forEach((row) => {
-            if ( password === row[2] && email === row[1] ) {
+            
+    
+     
+            
+            
+            if ( password === row[4] && entireEmail === row[1] ) {
+                document.getElementById('content').innerHTML = ''
+
                 
-                if (row[3] === 'Admin') {
+                if (row[2] === 'Admin') {
                 var homeButton = document.getElementById('homebutton');
                 homeButton.setAttribute("href", "#");
                 homeButton.setAttribute("onclick", "listAllEvents()");
@@ -737,7 +693,6 @@ function logIn() {
                     
                 }
                     
-                    
                 
                 document.getElementById('demobutton').innerHTML = '';
                 
@@ -756,7 +711,7 @@ function logIn() {
                 h3.id = 'organization'
                 var h3two = document.createElement('h3');
                 h3two.id= 'username'
-                var org = document.createTextNode(row[4]);
+                var org = document.createTextNode(row[3]);
                 var welcomeUser = document.createTextNode(row[0]);
                 
                 h3.appendChild(org)
@@ -790,16 +745,7 @@ function logIn() {
                 
                 
                 
-            } else {
-                console.log('there was an error!')
-                var p = document.createElement('p')
-                p.className = 'error'
-                var errorMessage = document.createTextNode('You have entered the wrong username/password!')
-                var h1 = document.getElementById('loginheader')
-                p.appendChild(errorMessage)
-                h1.appendChild(p)
-                //append 'Wrong Username or Password'
-            }
+            } 
         
         })
         
@@ -807,10 +753,9 @@ function logIn() {
         
         
         
-          console.log("Response", response);
+        
         }, function(error) {
-          console.error("Execute error", error);
-        console.log('there was an error!')
+        
         });
   };
 
@@ -826,8 +771,7 @@ function cancelEventList() {
         document.getElementById('content').innerHTML = '';
         var organization = document.getElementById('organization').innerHTML;
         var username = document.getElementById('username').innerHTML
-        console.log(response.result.values)
-            console.log(organization)
+     
             
           var range = response.result;
           if (range.values.length > 0) {
@@ -944,7 +888,6 @@ function cancelEvent() {
      
      inputArrayPushedValues.push(inputArray)
      
- //   console.log(inputArray)
        
          //This pulls an array of inputs
        
@@ -956,7 +899,7 @@ function cancelEvent() {
         
    }
     
-    console.log(inputArrayPushedValues)
+
     
     
     
@@ -985,7 +928,7 @@ function cancelEvent() {
     
         .then(function(response) {
           // Handle the results here (response.result has the parsed body).
-          console.log("Response", response);
+        
        document.getElementById('content').innerHTML = '';
        document.getElementById('content').innerHTML = 'You have cancelled the event!';
      
@@ -993,7 +936,6 @@ function cancelEvent() {
     
  
         }, function(error) {
-          console.error("Execute error", error);
         });
   }
 
@@ -1009,8 +951,7 @@ function editEventList() {
         document.getElementById('content').innerHTML = '';
         var organization = document.getElementById('organization').innerHTML;
         var username = document.getElementById('username').innerHTML
-        console.log(response.result.values)
-            console.log(organization)
+ 
             
           var range = response.result;
           if (range.values.length > 0) {
@@ -1220,7 +1161,6 @@ function venueClassChanges() {
      venueclassArrayPushedValues.push(venueclassArray)
 
      
- //   console.log(inputArray)
        
          //This pulls an array of inputs
        
@@ -1261,13 +1201,13 @@ function venueClassChanges() {
     
         .then(function(response) {
           // Handle the results here (response.result has the parsed body).
-          console.log("Response", response);
+       
      
        //row[0] = input[0].value
     
  
         }, function(error) {
-          console.error("Execute error", error);
+      
         });
   }
 
@@ -1294,8 +1234,7 @@ function locationClassChanges() {
      locationclassArrayPushedValues.push(locationclassArray)
 
      
- //   console.log(inputArray)
-       
+
          //This pulls an array of inputs
        
 
@@ -1335,13 +1274,11 @@ function locationClassChanges() {
     
         .then(function(response) {
           // Handle the results here (response.result has the parsed body).
-          console.log("Response", response);
      
        //row[0] = input[0].value
     
  
         }, function(error) {
-          console.error("Execute error", error);
         });
   }
 
@@ -1367,7 +1304,6 @@ function dateClassChanges() {
      dateclassArrayPushedValues.push(dateclassArray)
 
      
- //   console.log(inputArray)
        
          //This pulls an array of inputs
        
@@ -1408,13 +1344,11 @@ function dateClassChanges() {
     
         .then(function(response) {
           // Handle the results here (response.result has the parsed body).
-          console.log("Response", response);
      
        //row[0] = input[0].value
     
  
         }, function(error) {
-          console.error("Execute error", error);
         });
   }
 
@@ -1440,7 +1374,6 @@ function endsClassChanges() {
      endsclassArrayPushedValues.push(endsclassArray)
 
      
- //   console.log(inputArray)
        
          //This pulls an array of inputs
        
@@ -1481,13 +1414,11 @@ function endsClassChanges() {
     
         .then(function(response) {
           // Handle the results here (response.result has the parsed body).
-          console.log("Response", response);
      
        //row[0] = input[0].value
     
  
         }, function(error) {
-          console.error("Execute error", error);
         });
   }
 
@@ -1514,7 +1445,6 @@ function beginsClassChanges() {
      beginsclassArrayPushedValues.push(beginsclassArray)
 
      
- //   console.log(inputArray)
        
          //This pulls an array of inputs
        
@@ -1555,13 +1485,11 @@ function beginsClassChanges() {
     
         .then(function(response) {
           // Handle the results here (response.result has the parsed body).
-          console.log("Response", response);
      
        //row[0] = input[0].value
     
  
         }, function(error) {
-          console.error("Execute error", error);
         });
   }
 
@@ -1592,7 +1520,6 @@ function staffedClassChanges() {
      staffedclassArrayPushedValues.push(staffedclassArray)
 
      
- //   console.log(inputArray)
        
          //This pulls an array of inputs
        
@@ -1633,13 +1560,11 @@ function staffedClassChanges() {
     
         .then(function(response) {
           // Handle the results here (response.result has the parsed body).
-          console.log("Response", response);
      
        //row[0] = input[0].value
     
  
         }, function(error) {
-          console.error("Execute error", error);
         });
   }
 
@@ -1664,7 +1589,6 @@ function orgClassChanges() {
      
      orgclassArrayPushedValues.push(orgclassArray)
      
- //   console.log(inputArray)
        
          //This pulls an array of inputs
        
@@ -1705,7 +1629,6 @@ function orgClassChanges() {
     
         .then(function(response) {
           // Handle the results here (response.result has the parsed body).
-          console.log("Response", response);
        document.getElementById('content').innerHTML = '';
        document.getElementById('content').innerHTML = 'Your changes have been made!';
      
@@ -1713,7 +1636,6 @@ function orgClassChanges() {
     
  
         }, function(error) {
-          console.error("Execute error", error);
         });
   };
 
@@ -1726,9 +1648,9 @@ function changeValueToInnerHtml(clicked_id) {
    
    var staffedValue = clickedButton.parentElement.previousElementSibling.innerText
    
-   var beginsValue = clickedButton.parentElement.previousElementSibling.previousElementSibling.innerText
+   var beginsValue = clickedButton.parentElement.previousElementSibling.previousElementSibling.innerText.split(' ')[0] + ' ' + clickedButton.parentElement.previousElementSibling.previousElementSibling.innerText.split(' ')[1]
    
-   var endsValue = clickedButton.parentElement.previousElementSibling.previousElementSibling.innerText
+   var endsValue = clickedButton.parentElement.previousElementSibling.previousElementSibling.innerText.split(' ')[3] + ' ' + clickedButton.parentElement.previousElementSibling.previousElementSibling.innerText.split(' ')[4]
    
    var dateValue = clickedButton.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.innerText
    
@@ -1912,49 +1834,194 @@ function madeChangesMessage() {
 
 
 
-/*function inviteUserForm() {
+function inviteUserForm() {
+    
    var selectedArea = document.getElementById('content')
     document.getElementById('contentheader').innerHTML = 'Invite User';   
     
     selectedArea.innerHTML = ''
     
-   
-        var staffed = document.createElement('input')
-        staffed.type = 'text'
-        staffed.className = 'form-control'
-        staffed.id = 'staffed'
-
-
-        staffed.placeholder = 'Enter the staff'
-        var staffedLabel = document.createElement('label')
-        staffedLabel.innerHTML = 'Staffed'
-        selectedArea.appendChild(staffedLabel)
-        selectedArea.appendChild(staffed)
-       
-        
-        
-        
-        var button = document.createElement('button')
-        button.type = 'Submit'
-        button.className = 'btn btn-primary button2'
-        button.innerHTML = 'Make Changes'
-        button.setAttribute("onclick", "assignEventValues(this.id); venueClassChanges(); locationClassChanges(); dateClassChanges(); beginsClassChanges(); endsClassChanges(); staffedClassChanges(); madeChangesMessage();")
-        button.id = 'makechanges'
-        selectedArea.appendChild(button)
+   var form = document.createElement('form')
+   form.id = 'myform'
+    form.setAttribute("onsubmit", "emailjs.sendForm('ezstaff_gmail', 'ez_staff_invite', this); return false;")
+     form.setAttribute("method", "post")
     
+   
+   var emailLabel = document.createElement('label')
+   emailLabel.innerHTML = 'Email'
+   
+   var email = document.createElement('input')
+   
+   email.type = 'text'
+    email.id = 'email'
+    email.autocomplete = 'off'
+   email.placeholder = 'Enter the invited user email'
+    email.className = 'form-control'
+    email.name = 'email'
+    
+   
+
+   
+    
+    var button = document.createElement('button')
+    button.value = 'Send Email'
+    button.innerHTML = 'Send Email'
+    button.id = 'submit'
+    button.type = 'submit'
+    button.className = 'btn btn-primary button2'
+    button.setAttribute("onclick", "inviteUser();");
+    
+    
+    form.appendChild(emailLabel)
+    form.appendChild(email)
+
+    form.appendChild(button)
+    
+
+    
+    selectedArea.appendChild(form)
     
     
 }
 
-*/
+
+function inviteUser() {
+    
+    var email = document.getElementById('email').value
+   
+    var organization = document.getElementById('organization').innerHTML;
+    
+    
+    return gapi.client.sheets.spreadsheets.values.append({
+      "spreadsheetId": "1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g",
+      "range": "M:Q",
+      "includeValuesInResponse": "false",
+      "insertDataOption": "INSERT_ROWS",
+      "responseDateTimeRenderOption": "FORMATTED_STRING",
+      "responseValueRenderOption": "FORMATTED_VALUE",
+      "valueInputOption": "USER_ENTERED",
+      "resource": {
+        "values": [
+          [
+              'Name',
+            email,
+            'Employee',
+            organization,
+              'Password'
+          ]
+        ]
+      }
+    })
+        .then(function(response) {
+          // Handle the results here (response.result has the parsed body).
+        inviteMessage()
+        
+        }, function(error) {
+        });
+  }
 
 
 
+function inviteMessage() {
+    
+     var selectedArea = document.getElementById('content')
+     selectedArea.innerHTML = 'Your invite has been sent!'
+}
 
 
 
+function employeeSignUp() {
+    gapi.client.sheets.spreadsheets.values.get({
+          spreadsheetId: '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
+          range: 'Sheet1!M2:Q',
+        }).then(function(response) {
+            
+        var email = document.getElementById('email').value
+            
+          var range = response.result;
+  
+            for (i = 0; i < range.values.length; i++) {
+                var row = range.values[i];
+                
+                
+                if (email === row[1]) {
+                    
+                    var randomSelectorOnPage = document.getElementById('firstName')
+                    
+                    var organization = document.createElement('input')
+                    
+                    organization.value = row[3]
+                    
+                    organization.id = 'organization'
+                    
+                    
+                    randomSelectorOnPage.appendChild(organization)
+                    
+                    organization.style.display = 'none'
 
-/*emailjs.send("my_service","my_template",{
-  name: "James", 
-  notes: "Check this out!"
-});*/
+                    signEmployeeUp()
+ 
+                } else {
+                    
+                    var selectedArea = document.getElementById('content')
+                    selectedArea.innerHTML = ''
+                    var message = document.createElement('p')
+                    message.innerHTML = 'Sorry, an error ocurred while signing up!'
+                    message.style.color = 'red'
+                    document.getElementById('content').append(message)
+                    
+                }
+            }
+        
+        
+        
+        
+      
+        }, function(response) {
+          appendPre('Error: ' + response.result.error.message);
+        });
+}
+
+
+function signEmployeeUp() {
+
+ var fullName = document.getElementById('firstName').value + ' ' + document.getElementById('lastName').value
+    var email = document.getElementById('email').value;
+    var password = document.getElementById('password').value;
+    var organization = document.getElementById('organization').value;
+    
+    
+    return gapi.client.sheets.spreadsheets.values.append({
+      "spreadsheetId": "1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g",
+      "range": "M:Q",
+      "includeValuesInResponse": "false",
+      "insertDataOption": "INSERT_ROWS",
+      "responseDateTimeRenderOption": "FORMATTED_STRING",
+      "responseValueRenderOption": "FORMATTED_VALUE",
+      "valueInputOption": "USER_ENTERED",
+      "resource": {
+        "values": [
+          [
+            fullName,
+            email,
+            'Employee',
+            organization,
+              password,
+          ]
+        ]
+      }
+    })
+        .then(function(response) {
+          // Handle the results here (response.result has the parsed body).
+       // document.getElementById('signup').innerHTML = 'You have signed up! Log in to continue.'
+        
+          var message = document.createElement('p')
+                    message.innerHTML = 'You are now signed up! Log in to continue'
+                    message.style.color = '#31B0D5'
+                    document.getElementById('content').innerHTML = ''
+                    document.getElementById('content').append(message)
+     //   just clear form values and append the above message below form
+        }, function(error) {
+        });
+
+}

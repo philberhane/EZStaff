@@ -4,6 +4,7 @@
     <title>EZ Staff</title>
        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="js/respond.js"></script>
+    <script type = "text/javascript" src="js/main.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
@@ -25,7 +26,11 @@
     
   </head>
   
-  <header>
+
+ 
+  <body id="loginbody">
+   
+   <header>
   <nav class="navbar navbar-default transparent navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -45,8 +50,8 @@
         <li><a id="demobutton" href="#">Demo</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right" id="otherlistitems">
-          <li>  <a class="btn btn-info navbar-btn"  id="button" href="#">Free 24 Day Trial</a></li>
-        <li id="login"><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          <li>  <a class="btn btn-info navbar-btn"  id="button" href="signup.html">Free 24 Day Trial</a></li>
+        <li id="login"><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
       </ul>
       
     </div>
@@ -60,19 +65,25 @@
   }
 });</script>
 </header>
- 
-  <body id="loginbody">
     <div id="loginpage">
      <div class="container">
       <h1 style=" text-align: center" id="loginheader">Log In</h1>
       <form>
      
           
- 
-  <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
+ <div class='row'>
+  <div class="form-group col-md-3 col-xs-5">
+    <label for="exampleInputEmail1" id='label'>Email address</label>
     <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter your email" autocomplete="off">
   </div>
+  <div class="form-group col-md-1 col-xs-1" style="padding-top: 30px;">
+     <label for="exampleInputEmail1">@</label>
+  </div>
+  <div class="form-group col-md-3 col-xs-6" style="padding-top: 22px;">
+  
+    <input type="email" class="form-control" id="example" aria-describedby="emailHelp" placeholder="example.com" autocomplete="off">
+  </div>
+          </div>
   
   <div class="form-group">
     <label for="exampleInputPassword1">Password</label>
@@ -83,9 +94,11 @@
   
   
   
-          <button id="authorize-button" type="submit" class="btn btn-primary button2"  onclick=" handleAuthClick(); logIn()">Submit</button>
+          <button type="submit" class="btn btn-primary button2"  onclick="logIn()">Submit</button>
           <p>If you'd like to sign up instead, please click <a href="signup.html">here</a>.</p>
 </form>
+      <button id="authorize-button" style="display: none;">Authorize</button>
+    <button id="signout-button" style="display: none;">Sign Out</button>
       </div>
       </div>
       <div class="container">
@@ -95,9 +108,6 @@
      <!-- <div id="content2"></div>-->
       </div>
       
-        <!--Add buttons to initiate auth sequence and sign out-->
- <!--   <button id="authorize-button" style="display: none;">Authorize</button>
-    <button id="signout-button" style="display: none;">Sign Out</button>-->
     
     
     
@@ -151,13 +161,90 @@
   </div>
 </div>
 
+<script type="text/javascript">
+      //boxwood-charmer-186806 is the project ID
+    
+    
 
 
 
-    <script src="js/main.js"></script>
-    <script async defer src="https://apis.google.com/js/api.js"
+var CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleusercontent.com';
+      var API_KEY = 'AIzaSyA4yrIsc8ux0pXSOa-pDeCrfgWtMObABOI';
+
+      // Array of API discovery doc URLs for APIs used by the quickstart
+      var DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
+
+      // Authorization scopes required by the API; multiple scopes can be
+      // included, separated by spaces.
+      var SCOPES = 'https://www.googleapis.com/auth/drive'
+      'https://www.googleapis.com/auth/drive.file'
+      'https://www.googleapis.com/auth/spreadsheets';
+
+      var authorizeButton = document.getElementById('authorize-button');
+      var signoutButton = document.getElementById('signout-button');
+
+      /**
+       *  On load, called to load the auth2 library and API client library.
+       */
+      function handleClientLoad() {
+        gapi.load('client:auth2', initClient);
+      }
+
+      /**
+       *  Initializes the API client library and sets up sign-in state
+       *  listeners.
+       */
+
+      function initClient() {
+        gapi.client.init({
+          apiKey: API_KEY,
+          clientId: CLIENT_ID,
+          discoveryDocs: DISCOVERY_DOCS,
+          scope: SCOPES
+        }).then(function () {
+          // Listen for sign-in state changes.
+          gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+
+       //   Handle the initial sign-in state.
+          updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+          authorizeButton.onclick = handleAuthClick;
+          signoutButton.onclick = handleSignoutClick;
+        });
+      }
+
+      /**
+       *  Called when the signed in status changes, to update the UI
+       *  appropriately. After a sign-in, the API is called.
+       */
+      function updateSigninStatus(isSignedIn) {
+        if (isSignedIn) {
+          authorizeButton.style.display = 'none';
+          signoutButton.style.display = 'block';
+        } else {
+          authorizeButton.style.display = 'block';
+          signoutButton.style.display = 'none';
+        }
+      }
+
+      /**
+       *  Sign in the user upon button click.
+       */
+      function handleAuthClick(event) {
+        gapi.auth2.getAuthInstance().signIn();
+      }
+
+      /**
+       *  Sign out the user upon button click.
+       */
+      function handleSignoutClick(event) {
+        gapi.auth2.getAuthInstance().signOut();
+      }
+      </script>
+
+
+     <script async defer src="https://apis.google.com/js/api.js"
       onload="this.onload=function(){};handleClientLoad()"
       onreadystatechange="if (this.readyState === 'complete') this.onload()">
-    </script>
+      </script>
   </body>
 </html>
