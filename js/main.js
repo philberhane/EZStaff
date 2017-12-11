@@ -14,20 +14,14 @@
       }
 
 
+   
 
-  function liAppend(message) {
-    //    const pre = document.getElementById('content')
-        const textContent = document.createTextNode(message + '\n')
-        const li = document.createElement('li')
-        li.appendChild(textContent)
-    //    pre.appendChild(li)
 
-      }
 
-      /**
-       * Print the names and majors of students in a sample spreadsheet:
-       * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
-       */
+/* This function gets all of the data from A2-G in my spreadsheet and displays
+    the events that follow a specific argument: the Organization throwing the event
+    has to match the Organization that the requesting User is employed by*/
+
       function listAllEvents() {
         gapi.client.sheets.spreadsheets.values.get({
           spreadsheetId: '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
@@ -105,7 +99,10 @@
 
 
 
-
+/* This function gets all of the data from A2-G in my spreadsheet and displays
+    the events that follow a specific argument: the Organization throwing the event
+    has to match the Organization that the requesting User is employed by, and the User staffed to
+    the event has to match the User making the request*/
 
  function viewYourEvents() {
     return gapi.client.sheets.spreadsheets.values.get({
@@ -637,8 +634,10 @@ function logIn() {
 
 
 
-        row.forEach((row) => {
-
+       const range = response.result
+          if (range.values.length > 0) {
+            for (i = 0; i < range.values.length; i++) {
+                const row = range.values[i]
 
 
 
@@ -746,7 +745,9 @@ function logIn() {
 
             }
 
-        })
+        }
+          }
+    
 
 
 

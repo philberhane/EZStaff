@@ -12,6 +12,13 @@
   <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+   <script>$(window).scroll(function() {
+  if ($(document).scrollTop() > 25) {
+    $('nav').removeClass('transparent');
+  } else {
+    $('nav').addClass('transparent');
+  }
+});</script>
    <script type="text/javascript">
    (function(){
       emailjs.init("user_UaK5mQ1mYv1rdoY3RaDpC")
@@ -57,18 +64,12 @@
     </div>
   </div>
 </nav>
-<script>$(window).scroll(function() {
-  if ($(document).scrollTop() > 25) {
-    $('nav').removeClass('transparent');
-  } else {
-    $('nav').addClass('transparent');
-  }
-});</script>
+
 </header>
     <div id="loginpage">
      <div class="container">
       <h1 style=" text-align: center" id="loginheader">Log In</h1>
-      <form>
+      <div>
 
 
  <div class='row'>
@@ -96,7 +97,7 @@
 
           <button type="submit" class="btn btn-primary button2"  onclick="logIn()">Submit</button>
           <p>If you'd like to sign up instead, please click <a href="signup.html">here</a>.</p>
-</form>
+</div>
       <button id="authorize-button" style="display: none;">Authorize</button>
     <button id="signout-button" style="display: none;">Sign Out</button>
       </div>
