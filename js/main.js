@@ -1,5 +1,73 @@
 //boxwood-charmer-186806 is the project ID
+var CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleusercontent.com'
+      var API_KEY = 'AIzaSyA4yrIsc8ux0pXSOa-pDeCrfgWtMObABOI'
 
+      // Array of API discovery doc URLs for APIs used by the quickstart
+      var DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"]
+
+      // Authorization scopes required by the API multiple scopes can be
+      // included, separated by spaces.
+      var SCOPES = 'https://www.googleapis.com/auth/drive'
+      'https://www.googleapis.com/auth/drive.file'
+      'https://www.googleapis.com/auth/spreadsheets'
+
+      var authorizeButton = document.getElementById('authorize-button')
+      var signoutButton = document.getElementById('signout-button')
+
+      /**
+       *  On load, called to load the auth2 library and API client library.
+       */
+      function handleClientLoad() {
+        gapi.load('client:auth2', initClient)
+      }
+
+      /**
+       *  Initializes the API client library and sets up sign-in state
+       *  listeners.
+       */
+
+      function initClient() {
+        gapi.client.init({
+          apiKey: API_KEY,
+          clientId: CLIENT_ID,
+          discoveryDocs: DISCOVERY_DOCS,
+          scope: SCOPES
+        }).then(function () {
+          // Listen for sign-in state changes.
+      //    gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus)
+
+       //   Handle the initial sign-in state.
+   //       updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get())
+   //       authorizeButton.onclick = handleAuthClick
+   //       signoutButton.onclick = handleSignoutClick
+        })
+      }
+
+      /**
+       *  Called when the signed in status changes, to update the UI
+       *  appropriately. After a sign-in, the API is called.
+       */
+    /*  function updateSigninStatus(isSignedIn) {
+        if (isSignedIn) {
+            logIn()
+        //  authorizeButton.style.display = 'none'
+       //   signoutButton.style.display = 'block'
+        } 
+      }*/
+
+      /**
+       *  Sign in the user upon button click.
+       */
+      function handleAuthClick(event) {
+        gapi.auth2.getAuthInstance().signIn()
+      }
+
+      /**
+       *  Sign out the user upon button click.
+       */
+      function handleSignoutClick(event) {
+        gapi.auth2.getAuthInstance().signOut()
+      }
 
       /**
        * Append a pre element to the body containing the given message
@@ -14,7 +82,49 @@
       }
 
 
+
+
+
+ function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 8,
+          center: {lat: -34.397, lng: 150.644}
+        });
+        var geocoder = new google.maps.Geocoder();
+
+        document.getElementById('submit').addEventListener('click', function() {
+          geocodeAddress(geocoder, map);
+        });
+      }
+
+      function geocodeAddress(geocoder, resultsMap) {
+        var address = document.getElementById('address').value;
+        geocoder.geocode({'address': address}, function(results, status) {
+          if (status === 'OK') {
+            resultsMap.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+              map: resultsMap,
+              position: results[0].geometry.location
+            });
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+      }
+
+
+
+
+
+
    
+
+    function collapse() {
+        const navbar = document.getElementById('myNavbar')
+        navbar.setAttribute('aria-expanded', 'false')
+        navbar.style.height = '1px'
+        navbar.className = 'navbar-collapse collapse'
+    }
 
 
 
@@ -25,7 +135,7 @@
       function listAllEvents() {
         gapi.client.sheets.spreadsheets.values.get({
           spreadsheetId: '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
-          range: 'Sheet1!A2:G',
+          range: 'Sheet1!A2:H',
         }).then(function(response) {
 
         document.getElementById('contentheader').innerHTML = 'All Events'
@@ -73,7 +183,7 @@
             li2.innerHTML = row[1]
             li3.innerHTML = row[2]
             li4.innerHTML = row[3] + ' ' + '-' + ' ' + row[4]
-            li5.innerHTML = row[5]
+            li5.innerHTML = row[5] + ' ' + '-' + ' ' + row[7]
 
 
 
@@ -107,7 +217,7 @@
  function viewYourEvents() {
     return gapi.client.sheets.spreadsheets.values.get({
       'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
-     range: 'Sheet1!A2:G',
+     range: 'Sheet1!A2:H',
         }).then(function(response) {
 
 
@@ -122,7 +232,7 @@
             for (i = 0; i < range.values.length; i++) {
                 const row = range.values[i]
 
-                if (row[6] == organization && username === row[5]) {
+             
 
               // Print columns A and E, which correspond to indices 0 and 4
                 const eventInfo = [ row[0], row[1], row[2], row[3], row[4], row[5], row[6] ]
@@ -150,7 +260,34 @@
              const li2 = document.createElement('li')
              const li3 = document.createElement('li')
              const li4 = document.createElement('li')
-
+              const li5= document.createElement('li')
+             
+             
+       //      if ( row[7] === 'Not Checked In') {
+             const button = document.createElement('button')
+        button.setAttribute('onclick', 'getCoordinatesOfAddress(this.id);')
+        button.className = 'btn btn-primary button4'
+        button.className += ' '
+        button.className += 'input'
+        button.value = row[7]
+        button.type = 'submit'
+        button.innerHTML = 'Check In'
+                
+                if (row[7] === 'Checked In') {
+                    button.innerHTML = 'You are checked in'
+                     button.setAttribute('onclick', '')
+                }
+        
+  /*           } else {
+                 const button = document.createElement('button')
+        button.setAttribute('onclick', 'getCoordinatesOfAddress(this.id); getLocation(this.id)')
+        button.className = 'btn btn-primary button4'
+        button.className += ' '
+        button.className += 'input'
+        button.type = 'submit'
+        button.innerHTML = 'You are checked in'
+             }*/
+             
 
 
 
@@ -158,6 +295,7 @@
             li2.innerHTML = row[1]
             li3.innerHTML = row[2]
             li4.innerHTML = row[3] + ' ' + '-' + ' ' + row[4]
+                    li5.appendChild(button)
 
 
 
@@ -165,11 +303,34 @@
                 ulSelector.appendChild(li2)
                  ulSelector.appendChild(li3)
                 ulSelector.appendChild(li4)
+                    ulSelector.appendChild(li5)
+
+                    divSelector.style.display = 'none'
 
 
+
+
+               if (row[5] === username && row[6] === organization) {
+
+
+            divSelector.style.display = 'block'
+
+
+               
+                }
 
                 }
-            }
+    const input = document.getElementsByClassName('input')
+
+     for (i = 0; i < input.length; i++) {
+         input[i].id = 'buttonnumber' + i
+     }
+                
+            
+              
+  
+              
+              
           } else {
             appendPre('There are no events.')
           }
@@ -178,6 +339,157 @@
         })
       }
 
+
+
+function getCoordinatesOfAddress(clicked_id) { 
+    
+
+const geocoder = new google.maps.Geocoder()
+const clickedEvent = document.getElementById(clicked_id)
+clickedEvent.value = 'Checked In'
+
+const coordinatesVariable = document.createElement('input')
+coordinatesVariable.style.display = 'none'
+coordinatesVariable.id = 'coordinates'
+document.getElementById('footer').appendChild(coordinatesVariable)
+    
+    const address = clickedEvent.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.innerHTML
+
+geocoder.geocode( { 'address': address}, function(results, status) {
+
+if (status == google.maps.GeocoderStatus.OK) {
+    const latitude = results[0].geometry.location.lat()
+    const longitude = results[0].geometry.location.lng()
+    const coordinates = document.getElementById('coordinates')
+    
+    coordinates.value = latitude + ' ' + longitude
+    
+    getLocation()
+}
+    } 
+ )
+}
+
+
+
+
+function getLocation() {
+    
+    const currentLocationVariable = document.createElement('input')
+currentLocationVariable.style.display = 'none'
+currentLocationVariable.id = 'currentlocation'
+document.getElementById('footer').appendChild(currentLocationVariable)
+    
+    
+    var currentLocation = document.getElementById('currentlocation')
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition)
+        function showPosition(position) {
+   currentLocation.value = position.coords.latitude + 
+    ' ' + position.coords.longitude;
+} 
+        checkArrival()
+    } else { 
+        document.getElementById('content').innerHTML = ''
+       document.getElementById('contentheader').innerHTML = ''
+       document.getElementById('content').innerHTML = 'Please allow us to check your location'
+    }
+}
+
+
+
+function checkArrival() {
+    var currentLocation = document.getElementById("currentlocation")
+      var coordinates = document.getElementById('coordinates')
+    
+      var firstLatLng = currentLocation.value.split(' ')
+      var secondLatLng = coordinates.value.split(' ')
+    
+    
+    var latitude1 = parseFloat(firstLatLng[0])
+    var longitude1 = parseFloat(firstLatLng[1])
+    var latitude2 = parseFloat(secondLatLng[0])
+    var longitude2 = parseFloat(secondLatLng[1])
+    
+   var distance = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(latitude1, longitude1), new google.maps.LatLng(latitude2, longitude2))
+    
+    if (distance < 100) {
+        checkIn()
+    } 
+    
+  
+
+
+}
+
+
+
+
+
+
+function checkIn() {
+
+    const input = document.getElementsByClassName('input')
+
+
+    const inputArrayPushedValues = []
+
+   for (i = 0; i < input.length; i++) {
+
+    //   input[i].defaultValue = 'Not Staffed'
+     const inputArray = input[i].value
+
+     inputArrayPushedValues.push(inputArray)
+
+
+         //This pulls an array of inputs
+
+
+ /*   if (input[i].value !== '') {
+    const inputValue  = input[i].value
+    }*/
+
+
+   }
+
+
+
+
+
+
+   return gapi.client.sheets.spreadsheets.values.update({
+      'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
+      'range': 'H2',
+      'includeValuesInResponse': 'true',
+      'responseDateTimeRenderOption': 'FORMATTED_STRING',
+      'responseValueRenderOption': 'FORMATTED_VALUE',
+      'valueInputOption': 'USER_ENTERED',
+  //     'metadataValue': 'Not Staffed',
+      'resource': {
+
+        'values': [
+
+            inputArrayPushedValues
+
+        ],
+        'majorDimension': 'COLUMNS',
+      }
+    })
+
+
+
+        .then(function(response) {
+          // Handle the results here (response.result has the parsed body).
+       document.getElementById('content').innerHTML = ''
+       document.getElementById('contentheader').innerHTML = ''
+       document.getElementById('content').innerHTML = 'You have successfully checked in!'
+
+       //row[0] = input[0].value
+
+
+        }, function(error) {
+        })
+  }
 
 
 
@@ -513,7 +825,7 @@ function execute() {
 
     return gapi.client.sheets.spreadsheets.values.append({
       'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
-      'range': 'A:F',
+      'range': 'A:G',
       'includeValuesInResponse': 'false',
       'insertDataOption': 'INSERT_ROWS',
       'responseDateTimeRenderOption': 'FORMATTED_STRING',
@@ -528,7 +840,8 @@ function execute() {
             begins,
             ends,
             'Not Staffed',
-            organization
+            organization,
+              'Not Checked In'
           ]
         ]
       }
@@ -554,7 +867,7 @@ function preAdminSignUp() {
                     message.innerHTML = 'Sorry, an error ocurred while signing up!'
                     message.style.color = 'red'
                     document.getElementById('content').innerHTML = ''
-                    document.getElementById('content').append(message)
+                    document.getElementById('content').appendChild(message)
     } else {
         adminSignUp()
     }
@@ -601,7 +914,7 @@ function adminSignUp() {
                     document.getElementById('content').innerHTML = ''
                     message.innerHTML = 'You are now signed up! Log in to continue'
                     message.style.color = '#31B0D5'
-                    document.getElementById('content').append(message)
+                    document.getElementById('content').appendChild(message)
 
         }, function(error) {
 
@@ -648,44 +961,45 @@ function logIn() {
 
                 if (row[2] === 'Admin') {
                 const homeButton = document.getElementById('homebutton')
+                homeButton.class = 'dropdown-toggle'
                 homeButton.setAttribute('href', '#')
-                homeButton.setAttribute('onclick', 'listAllEvents()')
+                homeButton.setAttribute('onclick', 'listAllEvents(); collapse();')
                 homeButton.innerHTML = 'View All Events'
 
                 const aboutButton = document.getElementById('aboutbutton')
                 aboutButton.setAttribute('href', '#')
-                aboutButton.setAttribute('onclick', 'createEventForm()')
+                aboutButton.setAttribute('onclick', 'createEventForm(); collapse();')
                 aboutButton.innerHTML = 'Create Event'
 
                 const featuresButton = document.getElementById('featuresbutton')
                 featuresButton.setAttribute('href', '#')
-                featuresButton.setAttribute('onclick', 'editEventList()')
+                featuresButton.setAttribute('onclick', 'editEventList(); collapse();')
                 featuresButton.innerHTML = 'Edit Events'
 
                 const pricingButton = document.getElementById('pricingbutton')
                 pricingButton.setAttribute('href', '#')
-                pricingButton.setAttribute('onclick', 'inviteUserForm()')
+                pricingButton.setAttribute('onclick', 'inviteUserForm(); collapse();')
                 pricingButton.innerHTML = 'Invite User'
                 } else {
 
                     const homeButton = document.getElementById('homebutton')
                 homeButton.setAttribute('href', '#')
-                homeButton.setAttribute('onclick', 'listAllEvents()')
+                homeButton.setAttribute('onclick', 'listAllEvents(); collapse();')
                 homeButton.innerHTML = 'View All Events'
 
                 const aboutButton = document.getElementById('aboutbutton')
                 aboutButton.setAttribute('href', '#')
-                aboutButton.setAttribute('onclick', 'viewAvailableEvents()')
+                aboutButton.setAttribute('onclick', 'viewAvailableEvents(); collapse();')
                 aboutButton.innerHTML = 'View Available Events'
 
                 const featuresButton = document.getElementById('featuresbutton')
                 featuresButton.setAttribute('href', '#')
-                featuresButton.setAttribute('onclick', 'viewYourEvents()')
+                featuresButton.setAttribute('onclick', 'viewYourEvents(); collapse();')
                 featuresButton.innerHTML = 'View Your Events'
 
                 const pricingButton = document.getElementById('pricingbutton')
                 pricingButton.setAttribute('href', '#')
-                pricingButton.setAttribute('onclick', 'cancelEventList()')
+                pricingButton.setAttribute('onclick', 'cancelEventList(); collapse();')
                 pricingButton.innerHTML = 'Cancel An Event'
 
 
@@ -693,20 +1007,23 @@ function logIn() {
 
 
                 document.getElementById('demobutton').innerHTML = ''
+                document.getElementById('login').innerHTML = ''
 
                 const loginButton = document.getElementById('button')
+                 loginButton.setAttribute('onclick', 'handleSignoutClick()')
                 loginButton.setAttribute('href', 'login.html')
                 loginButton.className = 'btn btn-primary button2'
                 loginButton.innerHTML = 'Log Out'
 
-                document.getElementById('login').innerHTML = ''
+                const welcomeArea = document.getElementById('loginpage')
 
-                document.getElementById('loginpage').innerHTML = ''
+                welcomeArea.innerHTML = ''
+                welcomeArea.className = 'container welcomearea'
 
 
-                const welcomeArea = document.getElementById('welcomearea')
                 const h3 = document.createElement('h3')
                 h3.id = 'organization'
+                h3.className = 'organization'
                 const h3two = document.createElement('h3')
                 h3two.id= 'username'
                 const org = document.createTextNode(row[3])
@@ -1968,7 +2285,7 @@ function employeeSignUp() {
                     const message = document.createElement('p')
                     message.innerHTML = 'Sorry, an error ocurred while signing up!'
                     message.style.color = 'red'
-                    document.getElementById('content').append(message)
+                    document.getElementById('content').appendChild(message)
 
                 }
             }
@@ -2019,7 +2336,7 @@ function signEmployeeUp() {
                     message.innerHTML = 'You are now signed up! Log in to continue'
                     message.style.color = '#31B0D5'
                     document.getElementById('content').innerHTML = ''
-                    document.getElementById('content').append(message)
+                    document.getElementById('content').appendChild(message)
      //   just clear form values and append the above message below form
         }, function(error) {
         })
