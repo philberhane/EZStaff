@@ -188,7 +188,9 @@ const CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuser
         //    li5.innerHTML = row[9] + ' ' + '-' + ' ' + row[6]
              
             li6.innerHTML = row[8] + ' Staff Members Needed'
+            li6.className = 'blue'
             li7.innerHTML = row[7]
+            li7.className = 'orange'
 
 
 
@@ -639,11 +641,13 @@ function viewAvailableEvents() {
             li7InvisibleValue.value = row[8]
             li7InvisibleValue.className = 'numberofstaffclass'
             li7.appendChild(li7InvisibleValue)
+            li7.className = 'blue'
             
             li8.innerHTML = row[7]
             li8InvisibleValue.value = row[7]
             li8InvisibleValue.className = 'specclass'
             li8.appendChild(li8InvisibleValue)
+            li8.className = 'orange'
                 
             
 
@@ -2754,7 +2758,7 @@ selectedAreaDiv.appendChild(selectedArea)
          staffed.value = staffedValue
          
          const staffedLabel = document.createElement('label')
-         staffedLabel.innerHTML = 'Staffed'
+         staffedLabel.innerHTML = 'Staffed Status'
         
          liLoop.appendChild(staffedLabel)
         liLoop.appendChild(staffed)

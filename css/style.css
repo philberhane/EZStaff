@@ -356,11 +356,18 @@ nav.navbar.transparent {
     padding: 20px;
     text-align: center;
 }
-
+/* background-color: #eee;*/
 .price .grey {
-    background-color: #eee;
+    background-color: rgba(49, 176, 213, 0.71);
+    color: black;
     font-size: 20px;
 }
+
+.blue {
+    background-color: #eee;
+}
+
+
 
 .button {
     background-color: #31B0D5;
