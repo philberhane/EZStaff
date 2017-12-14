@@ -666,3 +666,8 @@ textarea {
     font-size: 18px;
     font-weight: bold;
 }
+
+
+ul {
+    list-style: none;
+}

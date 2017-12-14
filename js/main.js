@@ -1,18 +1,18 @@
 //boxwood-charmer-186806 is the project ID
-var CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleusercontent.com'
-      var API_KEY = 'AIzaSyA4yrIsc8ux0pXSOa-pDeCrfgWtMObABOI'
+const CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleusercontent.com'
+      const API_KEY = 'AIzaSyA4yrIsc8ux0pXSOa-pDeCrfgWtMObABOI'
 
       // Array of API discovery doc URLs for APIs used by the quickstart
-      var DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"]
+      const DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"]
 
       // Authorization scopes required by the API multiple scopes can be
       // included, separated by spaces.
-      var SCOPES = 'https://www.googleapis.com/auth/drive'
+      const SCOPES = 'https://www.googleapis.com/auth/drive'
       'https://www.googleapis.com/auth/drive.file'
       'https://www.googleapis.com/auth/spreadsheets'
 
-      var authorizeButton = document.getElementById('authorize-button')
-      var signoutButton = document.getElementById('signout-button')
+      const authorizeButton = document.getElementById('authorize-button')
+      const signoutButton = document.getElementById('signout-button')
 
       /**
        *  On load, called to load the auth2 library and API client library.
@@ -86,30 +86,30 @@ var CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuserco
 
 
  function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
+        const map = new google.maps.Map(document.getElementById('map'), {
           zoom: 8,
           center: {lat: -34.397, lng: 150.644}
         });
-        var geocoder = new google.maps.Geocoder();
+        const geocoder = new google.maps.Geocoder()
 
         document.getElementById('submit').addEventListener('click', function() {
-          geocodeAddress(geocoder, map);
-        });
+          geocodeAddress(geocoder, map)
+        })
       }
 
       function geocodeAddress(geocoder, resultsMap) {
-        var address = document.getElementById('address').value;
+        const address = document.getElementById('address').value
         geocoder.geocode({'address': address}, function(results, status) {
           if (status === 'OK') {
-            resultsMap.setCenter(results[0].geometry.location);
-            var marker = new google.maps.Marker({
+            resultsMap.setCenter(results[0].geometry.location)
+            const marker = new google.maps.Marker({
               map: resultsMap,
               position: results[0].geometry.location
-            });
+            })
           } else {
             alert('Geocode was not successful for the following reason: ' + status);
           }
-        });
+        })
       }
 
 
@@ -135,7 +135,7 @@ var CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuserco
       function listAllEvents() {
         gapi.client.sheets.spreadsheets.values.get({
           spreadsheetId: '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
-          range: 'Sheet1!A2:H',
+          range: 'Sheet1!A2:DS',
         }).then(function(response) {
 
         document.getElementById('contentheader').innerHTML = 'All Events'
@@ -147,7 +147,7 @@ var CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuserco
             for (i = 0; i < range.values.length; i++) {
                 const row = range.values[i]
 
-                if (row[6] == organization) {
+                if (row[5] === organization) {
 
               // Print columns A and E, which correspond to indices 0 and 4
                 const eventInfo = [ row[0], row[1], row[2], row[3], row[4], row[5], row[6] ]
@@ -175,7 +175,9 @@ var CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuserco
              const li2 = document.createElement('li')
              const li3 = document.createElement('li')
              const li4 = document.createElement('li')
-             const li5 = document.createElement('li')
+            // const li5 = document.createElement('li')
+             const li6 = document.createElement('li')
+             const li7 = document.createElement('li')
 
 
 
@@ -183,7 +185,10 @@ var CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuserco
             li2.innerHTML = row[1]
             li3.innerHTML = row[2]
             li4.innerHTML = row[3] + ' ' + '-' + ' ' + row[4]
-            li5.innerHTML = row[5] + ' ' + '-' + ' ' + row[7]
+        //    li5.innerHTML = row[9] + ' ' + '-' + ' ' + row[6]
+             
+            li6.innerHTML = row[8] + ' Staff Members Needed'
+            li7.innerHTML = row[7]
 
 
 
@@ -191,9 +196,30 @@ var CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuserco
                 ulSelector.appendChild(li2)
                  ulSelector.appendChild(li3)
                 ulSelector.appendChild(li4)
-                ulSelector.appendChild(li5)
-
-
+                ulSelector.appendChild(li6)
+                ulSelector.appendChild(li7)
+            //    ulSelector.appendChild(li5)
+                    
+                    
+                 //   console.log(parseInt(row[8])+9)
+                    
+                    
+            
+                for (j = 9; j < (parseInt(row[8])+9); j++) {     
+                    
+                  const liLoop = document.createElement('li')
+                  
+                    liLoop.innerHTML = row[j]
+                    
+                    ulSelector.appendChild(liLoop)
+                    
+                    if (row[j] === 'Not Staffed') {
+                        liLoop.style.display = 'none'
+                    }
+                    
+                }
+                
+            
                 }
             }
           } else {
@@ -217,7 +243,7 @@ var CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuserco
  function viewYourEvents() {
     return gapi.client.sheets.spreadsheets.values.get({
       'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
-     range: 'Sheet1!A2:H',
+     range: 'Sheet1!A2:DS',
         }).then(function(response) {
 
 
@@ -273,10 +299,7 @@ var CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuserco
         button.type = 'submit'
         button.innerHTML = 'Check In'
                 
-                if (row[7] === 'Checked In') {
-                    button.innerHTML = 'You are checked in'
-                     button.setAttribute('onclick', '')
-                }
+                
         
   /*           } else {
                  const button = document.createElement('button')
@@ -306,18 +329,25 @@ var CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuserco
                     ulSelector.appendChild(li5)
 
                     divSelector.style.display = 'none'
+                
+                
+                 for (j = 9; j < (parseInt(row[8])+9); j++) {    
 
-
-
-
-               if (row[5] === username && row[6] === organization) {
+               if (row[5] === organization && row[j] === username) {
+                   
+                   
 
 
             divSelector.style.display = 'block'
 
 
+               }
+                 }
+
+
+
+
                
-                }
 
                 }
     const input = document.getElementsByClassName('input')
@@ -381,7 +411,7 @@ currentLocationVariable.id = 'currentlocation'
 document.getElementById('footer').appendChild(currentLocationVariable)
     
     
-    var currentLocation = document.getElementById('currentlocation')
+    const currentLocation = document.getElementById('currentlocation')
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition)
         function showPosition(position) {
@@ -399,19 +429,19 @@ document.getElementById('footer').appendChild(currentLocationVariable)
 
 
 function checkArrival() {
-    var currentLocation = document.getElementById("currentlocation")
-      var coordinates = document.getElementById('coordinates')
+    const currentLocation = document.getElementById("currentlocation")
+      const coordinates = document.getElementById('coordinates')
     
-      var firstLatLng = currentLocation.value.split(' ')
-      var secondLatLng = coordinates.value.split(' ')
+      const firstLatLng = currentLocation.value.split(' ')
+      const secondLatLng = coordinates.value.split(' ')
     
     
-    var latitude1 = parseFloat(firstLatLng[0])
-    var longitude1 = parseFloat(firstLatLng[1])
-    var latitude2 = parseFloat(secondLatLng[0])
-    var longitude2 = parseFloat(secondLatLng[1])
+    const latitude1 = parseFloat(firstLatLng[0])
+    const longitude1 = parseFloat(firstLatLng[1])
+    const latitude2 = parseFloat(secondLatLng[0])
+    const longitude2 = parseFloat(secondLatLng[1])
     
-   var distance = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(latitude1, longitude1), new google.maps.LatLng(latitude2, longitude2))
+   const distance = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(latitude1, longitude1), new google.maps.LatLng(latitude2, longitude2))
     
     if (distance < 100) {
         checkIn()
@@ -460,7 +490,7 @@ function checkIn() {
    return gapi.client.sheets.spreadsheets.values.update({
       'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
       'range': 'H2',
-      'includeValuesInResponse': 'true',
+  //    'includeValuesInResponse': 'true',
       'responseDateTimeRenderOption': 'FORMATTED_STRING',
       'responseValueRenderOption': 'FORMATTED_VALUE',
       'valueInputOption': 'USER_ENTERED',
@@ -498,7 +528,7 @@ function checkIn() {
 function viewAvailableEvents() {
     return gapi.client.sheets.spreadsheets.values.get({
       'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
-   range: 'Sheet1!A2:G',
+   range: 'Sheet1!A2:DS',
         }).then(function(response) {
 
         document.getElementById('contentheader').innerHTML = 'Available Events'
@@ -514,13 +544,15 @@ function viewAvailableEvents() {
 
 
         const button = document.createElement('button')
-        button.setAttribute('onclick', 'assignName(this.id); acceptEvent()')
+        button.setAttribute('onclick', 'assignName(this.id);')
         button.className = 'btn btn-primary button2'
         button.className += ' '
-        button.className += 'input'
-        button.value = row[5]
+        button.className += 'editinput staffedclass'
+ //       button.value = row[5]
         button.type = 'submit'
         button.innerHTML = 'Accept Event'
+
+        
 
 
         // Print columns A and E, which correspond to indices 0 and 4
@@ -546,21 +578,78 @@ function viewAvailableEvents() {
 
              const li1 = document.createElement('li')
              li1.className = 'grey'
+            const li1InvisibleValue = document.createElement('button')
+
              const li2 = document.createElement('li')
+              const li2InvisibleValue = document.createElement('button')
+
              const li3 = document.createElement('li')
+              const li3InvisibleValue = document.createElement('button')
+
              const li4 = document.createElement('li')
-             const li5= document.createElement('li')
+              const li4InvisibleValue = document.createElement('button')
+
+             const li5 = document.createElement('li')
+              const li5InvisibleValue = document.createElement('button')
+
+           
+              
+              const li7 = document.createElement('li')
+              const li7InvisibleValue = document.createElement('button')
+              
+              const li8 = document.createElement('li')
+              const li8InvisibleValue = document.createElement('button')
+
+             const invisibleButton = document.createElement('button')
              li5.className = 'buttonlistitem'
             li5.className += 'grey'
+
+            
 
 
 
 
              li1.innerHTML = row[0]
+            li1InvisibleValue.value = row[0]
+            li1InvisibleValue.className = 'venueclass'
+            li1.appendChild(li1InvisibleValue)
+
             li2.innerHTML = row[1]
+             li2InvisibleValue.value = row[1]
+            li2InvisibleValue.className = 'locationclass'
+            li2.appendChild(li2InvisibleValue)
+
             li3.innerHTML = row[2]
+             li3InvisibleValue.value = row[2]
+            li3InvisibleValue.className = 'dateclass'
+            li3.appendChild(li3InvisibleValue)
+
             li4.innerHTML = row[3] + ' ' + '-' + ' ' + row[4]
+            li4InvisibleValue.value = row[3]
+            li4InvisibleValue.className = 'beginsclass'
+            li4.appendChild(li4InvisibleValue)
+            li4InvisibleValue.appendChild(li5InvisibleValue)
+
+            li5InvisibleValue.value = row[4]
+            li5InvisibleValue.className = 'endsclass'
+
+                
+                
+            li7.innerHTML = row[8] + ' Staff Members Needed'
+            li7InvisibleValue.value = row[8]
+            li7InvisibleValue.className = 'numberofstaffclass'
+            li7.appendChild(li7InvisibleValue)
+            
+            li8.innerHTML = row[7]
+            li8InvisibleValue.value = row[7]
+            li8InvisibleValue.className = 'specclass'
+            li8.appendChild(li8InvisibleValue)
+                
+            
+
+
             li5.appendChild(button)
+           
 
 
 
@@ -568,28 +657,101 @@ function viewAvailableEvents() {
                 ulSelector.appendChild(li2)
                  ulSelector.appendChild(li3)
                 ulSelector.appendChild(li4)
+  
+                ulSelector.appendChild(li7)
+                ulSelector.appendChild(li8)
                 ulSelector.appendChild(li5)
+                
+        for (j = 9; j < (parseInt(row[8])+9); j++) {    
+            
+                    
+                  const liLoop = document.createElement('li')
+                  const liLoopInvisibleValue = document.createElement('button')
+                    
+                  liLoop.innerHTML = row[j]
+            liLoopInvisibleValue.value = row[j]
+            liLoopInvisibleValue.className = 'staffedclass loop'
+            liLoopInvisibleValue.id = 'staffednumber' + j
+            liLoop.appendChild(liLoopInvisibleValue)
+                    
+                ulSelector.appendChild(liLoop)
+            
+        liLoopInvisibleValue.style.display = 'none'
+            
+            
+            if (row[j] === 'Not Staffed') {
+                
+                liLoop.style.display = 'none'
+            }
+
+            
+           // console.log(liLoopInvisibleValue)
+                    
+                }
+                
+                ulSelector.appendChild(li5)
+                
+                
+                
+                
+                
 
                 divSelector.style.display = 'none'
 
 
+ for (j = 9; j < (parseInt(row[8])+9); j++) {    
 
-
-               if (row[5] === 'Not Staffed' && row[6] === organization) {
+               if (row[5] === organization && row[j] === 'Not Staffed') {
+                   
+                   
 
 
             divSelector.style.display = 'block'
+                   
 
 
+                   li1InvisibleValue.style.display = 'none'
+                   li2InvisibleValue.style.display = 'none'
+                   li3InvisibleValue.style.display = 'none'
+                   li4InvisibleValue.style.display = 'none'
+                   li5InvisibleValue.style.display = 'none'
+                   invisibleButton.style.display = 'none'
+                   li7InvisibleValue.style.display = 'none'
+                   li8InvisibleValue.style.display = 'none'
+                   
+               }
+                   
+                   
+                   if (row[j] === username) {
+                       
+                       button.parentElement.parentElement.style.display = 'none'
+                       button.parentElement.parentElement.parentElement.style.display = 'none'
+                       divSelector.style.display = 'none'
+                   
 
+                   }
+               
                 }
+                
+                
+                
+                
             }
+              
+              
+           
 
                const input = document.getElementsByClassName('input')
+              const editInput = document.getElementsByClassName('editinput')
 
-     for (i = 0; i < input.length; i++) {
-         input[i].id = 'buttonnumber' + i
+     
+
+        for (i = 0; i < editInput.length; i++) {
+         editInput[i].id = 'editbuttonnumber' + i
      }
+              
+              
+              button.parentElement.parentElement.children
 
           } else {
             appendPre('There are no events.')
@@ -647,74 +809,107 @@ function viewAvailableEvents() {
 function assignName(clicked_id) {
 
     const username = document.getElementById('username').innerHTML
-    document.getElementById(clicked_id).value = username
+    
+    const clickedId = document.getElementById(clicked_id)
+    
+    //clickedId.value = username
+    
+    const arrayOfValues = []
+    
+    for (i = 6; i < clickedId.parentElement.parentElement.children.length-1 ; i++) {
+        
+       arrayOfValues.push(clickedId.parentElement.parentElement.children[i].firstElementChild.value)
+        
+    }
+    
+  
+    
+    arrayOfValues.splice( arrayOfValues.indexOf('Not Staffed'), 1 )
+    
+    arrayOfValues.push(username)
+    
+   
+    
+    arrayOfValues.unshift('')
+    arrayOfValues.unshift('')
+    arrayOfValues.unshift('')
+    arrayOfValues.unshift('')
+    arrayOfValues.unshift('')
+    arrayOfValues.unshift('')
+    
+    
+    for (i = 6; i < clickedId.parentElement.parentElement.children.length-1 ; i++) {
+        
+        
+     clickedId.parentElement.parentElement.children[i].firstElementChild.value = arrayOfValues[i]
+        
+    }
+    
+    
+    
+    staffedClassChanges()
+    
+    acceptEventMessage()
+    
+    
+    
+    
 
 }
 
+function clearNameValues(clicked_id) {
 
 
-function acceptEvent() {
+ const username = document.getElementById('username').innerHTML
+    
+    const clickedId = document.getElementById(clicked_id)
+    
+    //clickedId.value = username
+    
+  //  const arrayOfValues = []
+    
+for (i = 6; i < clickedId.parentElement.parentElement.children.length; i++) {
+    
+        
+       if (clickedId.parentElement.parentElement.children[i].firstElementChild.value === username) {
+    
+            clickedId.parentElement.parentElement.children[i].firstElementChild.value = 'Not Staffed'
 
-    const input = document.getElementsByClassName('input')
+        
+    }
+    
+//    console.log(clickedId.parentElement.parentElement.children[i].firstElementChild.value)
+    
 
-
-    const inputArrayPushedValues = []
-
-   for (i = 0; i < input.length; i++) {
-
-    //   input[i].defaultValue = 'Not Staffed'
-     const inputArray = input[i].value
-
-     inputArrayPushedValues.push(inputArray)
-
-
-         //This pulls an array of inputs
-
-
- /*   if (input[i].value !== '') {
-    const inputValue  = input[i].value
-    }*/
-
-
-   }
-
-
-
-
-
-
-   return gapi.client.sheets.spreadsheets.values.update({
-      'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
-      'range': 'F2',
-      'includeValuesInResponse': 'true',
-      'responseDateTimeRenderOption': 'FORMATTED_STRING',
-      'responseValueRenderOption': 'FORMATTED_VALUE',
-      'valueInputOption': 'USER_ENTERED',
-  //     'metadataValue': 'Not Staffed',
-      'resource': {
-
-        'values': [
-
-            inputArrayPushedValues
-
-        ],
-        'majorDimension': 'COLUMNS',
-      }
-    })
+}
+    
+    staffedClassChanges()
+    cancelEventMessage()
+    
+}
+    
+    
 
 
 
-        .then(function(response) {
-          // Handle the results here (response.result has the parsed body).
+function cancelEventMessage() {
+
+ 
+       document.getElementById('content').innerHTML = ''
+       document.getElementById('contentheader').innerHTML = ''
+       document.getElementById('content').innerHTML = 'You have cancelled the event'
+
+  }
+
+
+
+function acceptEventMessage() {
+
+ 
        document.getElementById('content').innerHTML = ''
        document.getElementById('contentheader').innerHTML = ''
        document.getElementById('content').innerHTML = 'You are now staffed for the event!'
 
-       //row[0] = input[0].value
-
-
-        }, function(error) {
-        })
   }
 
 
@@ -789,6 +984,10 @@ function acceptEvent() {
         divRow2.appendChild(divCol4)
 
         contentSelector.appendChild(divRow2)
+        
+        const divRow3 = document.createElement('div')
+        const divCol5 = document.createElement('div')
+        const divCol6 = document.createElement('div')
 
          const location = document.createElement('input')
         location.type = 'text'
@@ -797,8 +996,42 @@ function acceptEvent() {
         location.placeholder = 'Enter the address of the venue'
         const locationLabel = document.createElement('label')
         locationLabel.innerHTML = 'Location'
-        contentSelector.appendChild(locationLabel)
-        contentSelector.appendChild(location)
+        divCol5.appendChild(locationLabel)
+        divCol5.appendChild(location)
+        
+        
+        const numberOfStaff = document.createElement('input')
+        numberOfStaff.type = 'number'
+        numberOfStaff.className = 'form-control'
+        numberOfStaff.id = 'numberOfStaff'
+        numberOfStaff.placeholder = 'Enter the number of staff needed'
+        const numberOfStaffLabel = document.createElement('label')
+        numberOfStaffLabel.innerHTML = '# of Staff'
+        divCol6.appendChild(numberOfStaffLabel)
+        divCol6.appendChild(numberOfStaff)
+        
+         
+        
+        divCol5.className = 'form-group col-md-6 col-sm-12'
+         divCol6.className = 'form-group col-md-6 col-sm-12'
+        divRow3.className = 'row'
+         divRow3.appendChild(divCol5)
+        divRow3.appendChild(divCol6)
+        contentSelector.appendChild(divRow3)
+        
+        
+        const specs = document.createElement('input')
+        specs.type = 'text'
+        specs.className = 'form-control'
+        specs.id = 'specs'
+        specs.placeholder = 'Enter the types of staff needed, eg. 2 Chefs, 5 Brand Ambassadors, ect'
+        const specsLabel = document.createElement('label')
+        specsLabel.innerHTML = 'Specifications'
+        contentSelector.appendChild(specsLabel)
+        contentSelector.appendChild(specs)
+        
+        
+        
 
         const button = document.createElement('button')
         button.type = 'Submit'
@@ -822,10 +1055,12 @@ function execute() {
     const begins = document.getElementById('begins').value
     const ends = document.getElementById('ends').value
     const organization = document.getElementById('organization').innerHTML
+    const specs = document.getElementById('specs').value
+    const numberOfStaff = document.getElementById('numberOfStaff').value
 
     return gapi.client.sheets.spreadsheets.values.append({
       'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
-      'range': 'A:G',
+      'range': 'A:DS',
       'includeValuesInResponse': 'false',
       'insertDataOption': 'INSERT_ROWS',
       'responseDateTimeRenderOption': 'FORMATTED_STRING',
@@ -839,9 +1074,124 @@ function execute() {
             date,
             begins,
             ends,
-            'Not Staffed',
             organization,
-              'Not Checked In'
+              'Not Checked In',
+              specs,
+              numberOfStaff,
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+               'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
+              'Not Staffed',
           ]
         ]
       }
@@ -888,7 +1238,7 @@ function adminSignUp() {
 
     return gapi.client.sheets.spreadsheets.values.append({
       'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
-      'range': 'M:Q',
+      'range': 'Sheet2!M:R',
       'includeValuesInResponse': 'false',
       'insertDataOption': 'INSERT_ROWS',
       'responseDateTimeRenderOption': 'FORMATTED_STRING',
@@ -901,6 +1251,7 @@ function adminSignUp() {
             email,
             'Admin',
             organization,
+              '',
               password,
           ]
         ]
@@ -936,7 +1287,7 @@ function logIn() {
 
     return gapi.client.sheets.spreadsheets.values.get({
       'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
-      'range': 'Sheet1!M2:Q',
+      'range': 'Sheet2!M2:R',
       'dateTimeRenderOption': 'FORMATTED_STRING',
       'majorDimension': 'ROWS',
       'valueRenderOption': 'FORMATTED_VALUE'
@@ -955,7 +1306,7 @@ function logIn() {
 
 
 
-            if ( password === row[4] && entireEmail === row[1] ) {
+            if ( password === row[5] && entireEmail === row[1] ) {
                 document.getElementById('content').innerHTML = ''
 
 
@@ -1081,7 +1432,7 @@ function logIn() {
 function cancelEventList() {
        return gapi.client.sheets.spreadsheets.values.get({
       'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
-   range: 'Sheet1!A2:G',
+   range: 'Sheet1!A2:DS',
         }).then(function(response) {
 
         document.getElementById('contentheader').innerHTML = 'Cancel Event'
@@ -1097,13 +1448,14 @@ function cancelEventList() {
 
 
         const button = document.createElement('button')
-        button.setAttribute('onclick', 'changeNameToNotStaffed(this.id); cancelEvent()')
+        button.setAttribute('onclick', 'clearNameValues(this.id);')
         button.className = 'btn btn-primary button3'
         button.className += ' '
         button.className += 'input'
         button.value = row[5]
         button.type = 'submit'
         button.innerHTML = 'Cancel Event'
+        button.id = 'buttonidnumber' + i
 
 
         // Print columns A and E, which correspond to indices 0 and 4
@@ -1112,7 +1464,7 @@ function cancelEventList() {
 
 
 
-                const ul = document.createElement('ul')
+            const ul = document.createElement('ul')
                 const div = document.createElement('div')
                 ul.id = 'ulidnumber' + i
                 div.id ='dividnumber' + i
@@ -1129,21 +1481,78 @@ function cancelEventList() {
 
              const li1 = document.createElement('li')
              li1.className = 'grey'
+            const li1InvisibleValue = document.createElement('button')
+
              const li2 = document.createElement('li')
+              const li2InvisibleValue = document.createElement('button')
+
              const li3 = document.createElement('li')
+              const li3InvisibleValue = document.createElement('button')
+
              const li4 = document.createElement('li')
-             const li5= document.createElement('li')
+              const li4InvisibleValue = document.createElement('button')
+
+             const li5 = document.createElement('li')
+              const li5InvisibleValue = document.createElement('button')
+
+           
+              
+              const li7 = document.createElement('li')
+              const li7InvisibleValue = document.createElement('button')
+              
+              const li8 = document.createElement('li')
+              const li8InvisibleValue = document.createElement('button')
+
+             const invisibleButton = document.createElement('button')
              li5.className = 'buttonlistitem'
             li5.className += 'grey'
+
+            
 
 
 
 
              li1.innerHTML = row[0]
+            li1InvisibleValue.value = row[0]
+            li1InvisibleValue.className = 'venueclass'
+            li1.appendChild(li1InvisibleValue)
+
             li2.innerHTML = row[1]
+             li2InvisibleValue.value = row[1]
+            li2InvisibleValue.className = 'locationclass'
+            li2.appendChild(li2InvisibleValue)
+
             li3.innerHTML = row[2]
+             li3InvisibleValue.value = row[2]
+            li3InvisibleValue.className = 'dateclass'
+            li3.appendChild(li3InvisibleValue)
+
             li4.innerHTML = row[3] + ' ' + '-' + ' ' + row[4]
+            li4InvisibleValue.value = row[3]
+            li4InvisibleValue.className = 'beginsclass'
+            li4.appendChild(li4InvisibleValue)
+            li4InvisibleValue.appendChild(li5InvisibleValue)
+
+            li5InvisibleValue.value = row[4]
+            li5InvisibleValue.className = 'endsclass'
+
+                
+                
+            li7.innerHTML = row[8] + ' Staff Members Needed'
+            li7InvisibleValue.value = row[8]
+            li7InvisibleValue.className = 'numberofstaffclass'
+            li7.appendChild(li7InvisibleValue)
+            
+            li8.innerHTML = row[7]
+            li8InvisibleValue.value = row[7]
+            li8InvisibleValue.className = 'specclass'
+            li8.appendChild(li8InvisibleValue)
+                
+            
+
+
             li5.appendChild(button)
+           
 
 
 
@@ -1151,28 +1560,96 @@ function cancelEventList() {
                 ulSelector.appendChild(li2)
                  ulSelector.appendChild(li3)
                 ulSelector.appendChild(li4)
+  
+                ulSelector.appendChild(li7)
+                ulSelector.appendChild(li8)
                 ulSelector.appendChild(li5)
+                
+        for (j = 9; j < (parseInt(row[8])+9); j++) {    
+            
+                    
+                  const liLoop = document.createElement('li')
+                  const liLoopInvisibleValue = document.createElement('button')
+                    
+                  liLoop.innerHTML = row[j]
+            liLoopInvisibleValue.value = row[j]
+            liLoopInvisibleValue.className = 'staffedclass loop'
+            liLoopInvisibleValue.id = 'staffednumber' + j
+            liLoop.appendChild(liLoopInvisibleValue)
+                    
+                ulSelector.appendChild(liLoop)
+            
+        liLoopInvisibleValue.style.display = 'none'
+            
+            
+
+                
+                liLoop.style.display = 'none'
+    
+
+            
+           // console.log(liLoopInvisibleValue)
+                    
+                }
+                
+                ulSelector.appendChild(li5)
+                
+                
+                
+                
+                
 
                 divSelector.style.display = 'none'
 
 
+ for (j = 9; j < (parseInt(row[8])+9); j++) {    
 
-
-               if (row[5] === username && row[6] === organization) {
+               if (row[5] === organization && row[j] === username) {
+                   
+                   
 
 
             divSelector.style.display = 'block'
+                   
 
 
-
+                   li1InvisibleValue.style.display = 'none'
+                   li2InvisibleValue.style.display = 'none'
+                   li3InvisibleValue.style.display = 'none'
+                   li4InvisibleValue.style.display = 'none'
+                   li5InvisibleValue.style.display = 'none'
+                   invisibleButton.style.display = 'none'
+                   li7InvisibleValue.style.display = 'none'
+                   li8InvisibleValue.style.display = 'none'
+                   li7.style.display = 'none'
+                   li8.style.display = 'none'
+                   
+               }
+                   
+                   
+        
+               
                 }
+                
+                
+                
+                
             }
+              
+              
+           
 
                const input = document.getElementsByClassName('input')
+              const editInput = document.getElementsByClassName('editinput')
 
-     for (i = 0; i < input.length; i++) {
-         input[i].id = 'buttonnumber' + i
+     
+
+        for (i = 0; i < editInput.length; i++) {
+         editInput[i].id = 'editbuttonnumber' + i
      }
+              
+              
+              button.parentElement.parentElement.children
 
           } else {
             appendPre('There are no events.')
@@ -1184,37 +1661,6 @@ function cancelEventList() {
 
 
 
-function changeNameToNotStaffed(clicked_id) {
-
-    document.getElementById(clicked_id).value = 'Not Staffed'
-
-}
-
-
-function cancelEvent() {
-
-    const input = document.getElementsByClassName('input')
-
-
-    const inputArrayPushedValues = []
-
-   for (i = 0; i < input.length; i++) {
-
-    //   input[i].defaultValue = 'Not Staffed'
-     const inputArray = input[i].value
-
-     inputArrayPushedValues.push(inputArray)
-
-
-         //This pulls an array of inputs
-
-
- /*   if (input[i].value !== '') {
-    const inputValue  = input[i].value
-    }*/
-
-
-   }
 
 
 
@@ -1222,46 +1668,14 @@ function cancelEvent() {
 
 
 
-   return gapi.client.sheets.spreadsheets.values.update({
-      'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
-      'range': 'F2',
-      'includeValuesInResponse': 'true',
-      'responseDateTimeRenderOption': 'FORMATTED_STRING',
-      'responseValueRenderOption': 'FORMATTED_VALUE',
-      'valueInputOption': 'USER_ENTERED',
-  //     'metadataValue': 'Not Staffed',
-      'resource': {
 
-        'values': [
-
-            inputArrayPushedValues
-
-        ],
-        'majorDimension': 'COLUMNS',
-      }
-    })
-
-
-
-        .then(function(response) {
-          // Handle the results here (response.result has the parsed body).
-
-       document.getElementById('content').innerHTML = ''
-       document.getElementById('content').innerHTML = 'You have cancelled the event!'
-
-       //row[0] = input[0].value
-
-
-        }, function(error) {
-        })
-  }
 
 
 
 function editEventList() {
     return gapi.client.sheets.spreadsheets.values.get({
       'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
-   range: 'Sheet1!A2:G',
+   range: 'Sheet1!A2:DS',
         }).then(function(response) {
 
         document.getElementById('contentheader').innerHTML = 'Edit Events'
@@ -1286,7 +1700,7 @@ function editEventList() {
         button.innerHTML = 'Edit Event'
 
          const button2 = document.createElement('button')
-        button2.setAttribute('onclick', 'clearEventValues(this.id); venueClassChanges(); locationClassChanges(); dateClassChanges(); beginsClassChanges(); endsClassChanges(); staffedClassChanges(); orgClassChanges()')
+        button2.setAttribute('onclick', 'clearEventValues(this.id); staffedClassChanges(); venueClassChanges(); locationClassChanges(); dateClassChanges(); beginsClassChanges(); endsClassChanges(); orgClassChanges(); specClassChanges(); numberofstaffClassChanges();')
         button2.className = 'btn btn-primary button3'
         button2.className += ' '
         button2.className += 'input'
@@ -1331,15 +1745,20 @@ function editEventList() {
              const li5 = document.createElement('li')
               const li5InvisibleValue = document.createElement('button')
 
-             const li6 = document.createElement('li')
-              const li6InvisibleValue = document.createElement('button')
+           
+              
+              const li7 = document.createElement('li')
+              const li7InvisibleValue = document.createElement('button')
+              
+              const li8 = document.createElement('li')
+              const li8InvisibleValue = document.createElement('button')
 
              const invisibleButton = document.createElement('button')
              li5.className = 'buttonlistitem'
             li5.className += 'grey'
 
             invisibleButton.className = 'orgclass'
-                invisibleButton.value = row[6]
+                invisibleButton.value = row[5]
 
 
 
@@ -1368,10 +1787,19 @@ function editEventList() {
             li5InvisibleValue.value = row[4]
             li5InvisibleValue.className = 'endsclass'
 
-            li6.innerHTML = row[5]
-            li6InvisibleValue.value = row[5]
-            li6InvisibleValue.className = 'staffedclass'
-            li6.appendChild(li6InvisibleValue)
+                
+                
+            li7.innerHTML = row[8] + ' Staff Members Needed'
+            li7InvisibleValue.value = row[8]
+            li7InvisibleValue.className = 'numberofstaffclass'
+            li7.appendChild(li7InvisibleValue)
+            
+            li8.innerHTML = row[7]
+            li8InvisibleValue.value = row[7]
+            li8InvisibleValue.className = 'specclass'
+            li8.appendChild(li8InvisibleValue)
+                
+            
 
 
             li5.appendChild(button)
@@ -1387,15 +1815,44 @@ function editEventList() {
                 ulSelector.appendChild(li2)
                  ulSelector.appendChild(li3)
                 ulSelector.appendChild(li4)
-                ulSelector.appendChild(li6)
+  
+                ulSelector.appendChild(li7)
+                ulSelector.appendChild(li8)
                 ulSelector.appendChild(li5)
+                
+        for (j = 9; j < (parseInt(row[8])+9); j++) {     
+                    
+                  const liLoop = document.createElement('li')
+                  const liLoopInvisibleValue = document.createElement('button')
+                    
+                  liLoop.innerHTML = row[j]
+            liLoopInvisibleValue.value = row[j]
+            liLoopInvisibleValue.className = 'staffedclass'
+            liLoopInvisibleValue.id = 'staffednumber' + j
+            liLoop.appendChild(liLoopInvisibleValue)
+                    
+                ulSelector.appendChild(liLoop)
+            
+        liLoopInvisibleValue.style.display = 'none'
+
+            
+           // console.log(liLoopInvisibleValue)
+                    
+                }
+                
+                ulSelector.appendChild(li5)
+                
+                
+                
+                
+                
 
                 divSelector.style.display = 'none'
 
 
 
 
-               if (row[6] === organization) {
+               if (row[5] === organization) {
 
 
             divSelector.style.display = 'block'
@@ -1406,8 +1863,10 @@ function editEventList() {
                    li3InvisibleValue.style.display = 'none'
                    li4InvisibleValue.style.display = 'none'
                    li5InvisibleValue.style.display = 'none'
-                   li6InvisibleValue.style.display = 'none'
                    invisibleButton.style.display = 'none'
+                   li7InvisibleValue.style.display = 'none'
+                   li8InvisibleValue.style.display = 'none'
+                   
 
 
 
@@ -1440,22 +1899,150 @@ function clearEventValues(clicked_id) {
 
 
 
+    const clearValues = document.getElementById(clicked_id).parentElement.parentElement.children
+    
     document.getElementById(clicked_id).firstElementChild.value = ''
-
-    document.getElementById(clicked_id).parentElement.previousElementSibling.firstElementChild.value = ''
-
-    document.getElementById(clicked_id).parentElement.previousElementSibling.previousElementSibling.firstElementChild.value = ''
-
-    document.getElementById(clicked_id).parentElement.previousElementSibling.previousElementSibling.firstElementChild.firstElementChild.value = ''
-
-    document.getElementById(clicked_id).parentElement.previousElementSibling.previousElementSibling.previousElementSibling.firstElementChild.value = ''
-
-    document.getElementById(clicked_id).parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.firstElementChild.value = ''
-
-    document.getElementById(clicked_id).parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.firstElementChild.value = ''
-
-
+    document.getElementById(clicked_id).parentElement.parentElement.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild.firstElementChild.value = ''
+    
+    
+    for (i = 0; i < clearValues.length; i++) {
+        clearValues[i].firstElementChild.value = '' 
+        
+        
+    }
+    
+    
 }
+
+
+
+
+function specClassChanges() {
+
+    const specclass = document.getElementsByClassName('specclass')
+
+
+
+    const specclassArrayPushedValues = []
+
+
+   for (i = 0; i < specclass.length; i++) {
+
+    //   input[i].defaultValue = 'Not Staffed'
+     const specclassArray = specclass[i].value
+
+
+     specclassArrayPushedValues.push(specclassArray)
+
+
+
+         //This pulls an array of inputs
+
+
+ /*   if (input[i].value !== '') {
+    const inputValue  = input[i].value
+    }*/
+
+
+   }
+    
+    return gapi.client.sheets.spreadsheets.values.update({
+      'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
+      'range': 'Sheet1!H2',
+  //    'includeValuesInResponse': 'true',
+      'responseDateTimeRenderOption': 'FORMATTED_STRING',
+      'responseValueRenderOption': 'FORMATTED_VALUE',
+      'valueInputOption': 'USER_ENTERED',
+  //     'metadataValue': 'Not Staffed',
+      'resource': {
+
+        'values': [
+
+            specclassArrayPushedValues
+
+        ],
+        'majorDimension': 'COLUMNS',
+      }
+    })
+
+
+
+        .then(function(response) {
+          // Handle the results here (response.result has the parsed body).
+
+
+       //row[0] = input[0].value
+
+
+        }, function(error) {
+
+        })
+  }
+    
+    
+    
+
+function numberofstaffClassChanges() {
+
+    const numberofstaffclass = document.getElementsByClassName('numberofstaffclass')
+
+
+
+    const numberofstaffclassArrayPushedValues = []
+
+
+   for (i = 0; i < numberofstaffclass.length; i++) {
+
+    //   input[i].defaultValue = 'Not Staffed'
+     const numberofstaffclassArray = numberofstaffclass[i].value
+
+
+     numberofstaffclassArrayPushedValues.push(numberofstaffclassArray)
+
+
+
+         //This pulls an array of inputs
+
+
+ /*   if (input[i].value !== '') {
+    const inputValue  = input[i].value
+    }*/
+
+
+   }
+    
+    return gapi.client.sheets.spreadsheets.values.update({
+      'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
+      'range': 'Sheet1!I2',
+  //    'includeValuesInResponse': 'true',
+      'responseDateTimeRenderOption': 'FORMATTED_STRING',
+      'responseValueRenderOption': 'FORMATTED_VALUE',
+      'valueInputOption': 'USER_ENTERED',
+  //     'metadataValue': 'Not Staffed',
+      'resource': {
+
+        'values': [
+
+            numberofstaffclassArrayPushedValues
+
+        ],
+        'majorDimension': 'COLUMNS',
+      }
+    })
+
+
+
+        .then(function(response) {
+          // Handle the results here (response.result has the parsed body).
+
+
+       //row[0] = input[0].value
+
+
+        }, function(error) {
+
+        })
+  }
 
 
 
@@ -1497,8 +2084,8 @@ function venueClassChanges() {
 
    return gapi.client.sheets.spreadsheets.values.update({
       'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
-      'range': 'A2',
-      'includeValuesInResponse': 'true',
+      'range': 'Sheet1!A2',
+  //    'includeValuesInResponse': 'true',
       'responseDateTimeRenderOption': 'FORMATTED_STRING',
       'responseValueRenderOption': 'FORMATTED_VALUE',
       'valueInputOption': 'USER_ENTERED',
@@ -1570,8 +2157,8 @@ function locationClassChanges() {
 
    return gapi.client.sheets.spreadsheets.values.update({
       'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
-      'range': 'B2',
-      'includeValuesInResponse': 'true',
+      'range': 'Sheet1!B2',
+    //  'includeValuesInResponse': 'true',
       'responseDateTimeRenderOption': 'FORMATTED_STRING',
       'responseValueRenderOption': 'FORMATTED_VALUE',
       'valueInputOption': 'USER_ENTERED',
@@ -1641,7 +2228,7 @@ function dateClassChanges() {
    return gapi.client.sheets.spreadsheets.values.update({
       'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
       'range': 'C2',
-      'includeValuesInResponse': 'true',
+  //    'includeValuesInResponse': 'true',
       'responseDateTimeRenderOption': 'FORMATTED_STRING',
       'responseValueRenderOption': 'FORMATTED_VALUE',
       'valueInputOption': 'USER_ENTERED',
@@ -1710,8 +2297,8 @@ function endsClassChanges() {
 
    return gapi.client.sheets.spreadsheets.values.update({
       'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
-      'range': 'E2',
-      'includeValuesInResponse': 'true',
+      'range': 'Sheet1!E2',
+    //  'includeValuesInResponse': 'true',
       'responseDateTimeRenderOption': 'FORMATTED_STRING',
       'responseValueRenderOption': 'FORMATTED_VALUE',
       'valueInputOption': 'USER_ENTERED',
@@ -1781,8 +2368,8 @@ function beginsClassChanges() {
 
    return gapi.client.sheets.spreadsheets.values.update({
       'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
-      'range': 'D2',
-      'includeValuesInResponse': 'true',
+      'range': 'Sheet1!D2',
+   //   'includeValuesInResponse': 'true',
       'responseDateTimeRenderOption': 'FORMATTED_STRING',
       'responseValueRenderOption': 'FORMATTED_VALUE',
       'valueInputOption': 'USER_ENTERED',
@@ -1814,63 +2401,22 @@ function beginsClassChanges() {
 
 
 
-
-
-
-
-
-function staffedClassChanges() {
-
-    const staffedclass = document.getElementsByClassName('staffedclass')
-
-
-
-    const staffedclassArrayPushedValues = []
-
-
-   for (i = 0; i < staffedclass.length; i++) {
-
-    //   input[i].defaultValue = 'Not Staffed'
-     const staffedclassArray = staffedclass[i].value
-
-
-     staffedclassArrayPushedValues.push(staffedclassArray)
-
-
-
-         //This pulls an array of inputs
-
-
- /*   if (input[i].value !== '') {
-    const inputValue  = input[i].value
-    }*/
-
-
-   }
-
-
-
-
-
-
-
-   return gapi.client.sheets.spreadsheets.values.update({
+function staffedClassAssignValues(arrayOfArrays) {
+    
+    
+         return gapi.client.sheets.spreadsheets.values.update({
       'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
-      'range': 'F2',
-      'includeValuesInResponse': 'true',
+      'range': 'Sheet1!J2:DS',
+   //   'includeValuesInResponse': 'true',
       'responseDateTimeRenderOption': 'FORMATTED_STRING',
       'responseValueRenderOption': 'FORMATTED_VALUE',
       'valueInputOption': 'USER_ENTERED',
-  //     'metadataValue': 'Not Staffed',
+       
+
       'resource': {
 
-        'values': [
-
-            staffedclassArrayPushedValues
-
-        ],
-        'majorDimension': 'COLUMNS',
-      }
+        'values': arrayOfArrays,
+}
     })
 
 
@@ -1878,11 +2424,83 @@ function staffedClassChanges() {
         .then(function(response) {
           // Handle the results here (response.result has the parsed body).
 
-       //row[0] = input[0].value
+       
 
 
         }, function(error) {
         })
+        
+        
+        
+        
+        
+    }
+
+
+
+
+function staffedClassChanges() {
+    
+    const ulSelector = document.getElementsByClassName('price')
+
+//    const staffedclass = document.getElementsByClassName('staffedclass')
+
+   
+//    console.log(staffedclass)
+
+    
+const arrayOfArrays = []
+    
+    
+      for (i = 0; i < ulSelector.length; i++) {
+         ulSelector[i].children
+          const someArray = []
+          
+          
+
+     
+          
+          for (j = 6; j < ulSelector[i].children.length-1; j++) {
+
+            
+       
+            
+            const staffValuesOrganized = ulSelector[i].children[j].firstElementChild
+            
+          const staffValuesOrganizedValue = staffValuesOrganized.value
+            
+            someArray.push(staffValuesOrganizedValue)
+            
+            
+   }
+          
+        const cutOffNumber = ulSelector[i].firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild.value
+        
+     //   console.log(cutOffNumber)
+      //    console.log(someArray)
+        
+        
+        arrayOfArrays.push(someArray)
+          
+          
+              
+              
+              
+          
+          
+          
+      }
+    
+   // console.log(arrayOfArrays)
+    
+    
+    staffedClassAssignValues(arrayOfArrays)
+
+
+
+    
+    //.querySelectorAll(".example");  
+    
   }
 
 
@@ -1925,8 +2543,8 @@ function orgClassChanges() {
 
    return gapi.client.sheets.spreadsheets.values.update({
       'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
-      'range': 'G2',
-      'includeValuesInResponse': 'true',
+      'range': 'Sheet1!F2',
+     // 'includeValuesInResponse': 'true',
       'responseDateTimeRenderOption': 'FORMATTED_STRING',
       'responseValueRenderOption': 'FORMATTED_VALUE',
       'valueInputOption': 'USER_ENTERED',
@@ -1961,27 +2579,37 @@ function changeValueToInnerHtml(clicked_id) {
     const clickedButton = document.getElementById(clicked_id)
 
    const selectedAreaUl = clickedButton.parentElement.parentElement
-   const selectedArea = clickedButton.parentElement.parentElement.parentElement
+   const selectedAreaDiv = clickedButton.parentElement.parentElement.parentElement
 
-   const staffedValue = clickedButton.parentElement.previousElementSibling.innerText
+   //const staffedValue = clickedButton.parentElement.previousElementSibling.innerText
 
-   const beginsValue = clickedButton.parentElement.previousElementSibling.previousElementSibling.innerText.split(' ')[0] + ' ' + clickedButton.parentElement.previousElementSibling.previousElementSibling.innerText.split(' ')[1]
+   const beginsValue = clickedButton.parentElement.parentElement.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.innerText.split(' ')[0] + ' ' + clickedButton.parentElement.parentElement.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.innerText.split(' ')[1]
 
-   const endsValue = clickedButton.parentElement.previousElementSibling.previousElementSibling.innerText.split(' ')[3] + ' ' + clickedButton.parentElement.previousElementSibling.previousElementSibling.innerText.split(' ')[4]
+   const endsValue = clickedButton.parentElement.parentElement.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.innerText.split(' ')[3] + ' ' + clickedButton.parentElement.parentElement.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.innerText.split(' ')[4]
 
-   const dateValue = clickedButton.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.innerText
+   const dateValue = clickedButton.parentElement.parentElement.firstElementChild.nextElementSibling.nextElementSibling.innerText
 
-   const locationValue = clickedButton.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerText
+   const locationValue = clickedButton.parentElement.parentElement.firstElementChild.nextElementSibling.innerText
 
-   const venueValue = clickedButton.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerText
+   const venueValue = clickedButton.parentElement.parentElement.firstElementChild.innerText
+   
+   const numberOfStaffValue = clickedButton.parentElement.parentElement.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.innerText.split(' ')[0]
+   
+    const specsValue = clickedButton.parentElement.parentElement.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.innerText
+    
+    
+   
+   
+   
+   
 
    selectedAreaUl.style.display = 'none'
 
 
+const selectedArea = document.createElement ('ul')
+selectedAreaDiv.appendChild(selectedArea)
 
-
-
-
+        const li1 = document.createElement('li')
         const venue = document.createElement('input')
         venue.type = 'text'
         venue.className = 'form-control'
@@ -1991,10 +2619,12 @@ function changeValueToInnerHtml(clicked_id) {
         const venueLabel = document.createElement('label')
         venueLabel.innerHTML = 'Venue'
         venue.value = venueValue
-        selectedArea.appendChild(venueLabel)
-        selectedArea.appendChild(venue)
+        li1.appendChild(venueLabel)
+        li1.appendChild(venue)
+        selectedArea.appendChild(li1)
 
-
+        
+        const li2 = document.createElement('li')
         const location = document.createElement('input')
         location.type = 'text'
         location.className = 'form-control'
@@ -2004,10 +2634,12 @@ function changeValueToInnerHtml(clicked_id) {
         location.placeholder = 'Enter the address of the venue'
         const locationLabel = document.createElement('label')
         locationLabel.innerHTML = 'Location'
-        selectedArea.appendChild(locationLabel)
-        selectedArea.appendChild(location)
+        li2.appendChild(locationLabel)
+        li2.appendChild(location)
+        selectedArea.appendChild(li2)
 
-
+        
+        const li3 = document.createElement('li')
         const date = document.createElement('input')
         date.type = 'text'
         date.className = 'form-control'
@@ -2019,12 +2651,13 @@ function changeValueToInnerHtml(clicked_id) {
         dateLabel.innerHTML = 'Date'
 
 
-        selectedArea.appendChild(dateLabel)
-    selectedArea.appendChild(date)
+        li3.appendChild(dateLabel)
+    li3.appendChild(date)
+    selectedArea.appendChild(li3)
 
 
 
-
+        const li4 = document.createElement('li')
         const divRow2 = document.createElement('div')
         const divCol3 = document.createElement('div')
         divRow2.className = 'row'
@@ -2060,11 +2693,12 @@ function changeValueToInnerHtml(clicked_id) {
          divRow2.appendChild(divCol3)
         divRow2.appendChild(divCol4)
 
-        selectedArea.appendChild(divRow2)
+        li4.appendChild(divRow2)
+        selectedArea.appendChild(li4)
 
 
 
-        const staffed = document.createElement('input')
+      /*  const staffed = document.createElement('input')
         staffed.type = 'text'
         staffed.className = 'form-control'
         staffed.id = 'staffed'
@@ -2074,18 +2708,70 @@ function changeValueToInnerHtml(clicked_id) {
         const staffedLabel = document.createElement('label')
         staffedLabel.innerHTML = 'Staffed'
         selectedArea.appendChild(staffedLabel)
-        selectedArea.appendChild(staffed)
+        selectedArea.appendChild(staffed)*/
+
+        const li5 = document.createElement('li')
+        const numberOfStaff = document.createElement('input')
+        numberOfStaff.type = 'number'
+        numberOfStaff.className = 'form-control'
+        numberOfStaff.id = 'numberOfStaff'
+
+        numberOfStaff.placeholder = 'Enter the number of staff members needed'
+        numberOfStaff.value = numberOfStaffValue
+        const numberOfStaffLabel = document.createElement('label')
+        numberOfStaffLabel.innerHTML = '# of Staff Members'
+    
+        li5.appendChild(numberOfStaffLabel)
+        li5.appendChild(numberOfStaff)
+    selectedArea.appendChild(li5)
+    
+    
+        const li6 = document.createElement('li')
+        const specs = document.createElement('input')
+        specs.type = 'text'
+        specs.className = 'form-control'
+        specs.id = 'specs'
+
+        specs.placeholder = 'Enter the specifications of the event'
+        specs.value = specsValue
+        const specsLabel = document.createElement('label')
+        specsLabel.innerHTML = 'Specifications'
+    
+        li6.appendChild(specsLabel)
+        li6.appendChild(specs)
+        selectedArea.appendChild(li6)
+    
+    
+  
+    
+     for (j = 6; j < selectedAreaUl.children.length-1; j++) {
+         const liLoop = document.createElement('li')
+        const staffed = document.createElement('input')
+        staffed.className = 'form-control'
+         staffed.id = 'staffednumber' + j
+              
+         const staffedValue = selectedAreaUl.children[j].innerText
+         staffed.value = staffedValue
+         
+         const staffedLabel = document.createElement('label')
+         staffedLabel.innerHTML = 'Staffed'
+        
+         liLoop.appendChild(staffedLabel)
+        liLoop.appendChild(staffed)
+         selectedArea.appendChild(liLoop)
+     }
 
 
-
-
+        const li7 = document.createElement('li')
         const button = document.createElement('button')
         button.type = 'Submit'
         button.className = 'btn btn-primary button2'
         button.innerHTML = 'Make Changes'
-        button.setAttribute('onclick', 'assignEventValues(this.id); venueClassChanges(); locationClassChanges(); dateClassChanges(); beginsClassChanges(); endsClassChanges(); staffedClassChanges(); madeChangesMessage()')
+        button.setAttribute('onclick', 'assignEventValues(this.id); numberofstaffClassChanges(); venueClassChanges(); locationClassChanges(); dateClassChanges(); beginsClassChanges(); endsClassChanges(); staffedClassChanges(); specClassChanges(); madeChangesMessage();')
         button.id = 'makechanges'
-        selectedArea.appendChild(button)
+        li7.appendChild(button)
+   
+        selectedArea.appendChild(li7)
 
 
 }
@@ -2094,51 +2780,63 @@ function changeValueToInnerHtml(clicked_id) {
 function assignEventValues(clicked_id) {
 
     const selector = document.getElementById(clicked_id)
+    
+    const hiddenUl = selector.parentElement.parentElement.previousElementSibling
+    
+    const displayedUl = selector.parentElement.parentElement
 
-    const staffed = selector.previousElementSibling.value
-
-    const begins = selector.previousElementSibling.previousElementSibling.previousElementSibling.firstElementChild.firstElementChild.nextElementSibling.value
-
-    const ends = selector.previousElementSibling.previousElementSibling.previousElementSibling.firstElementChild.nextElementSibling.firstElementChild.nextElementSibling.value
-
-    const date = selector.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.value
-
-    const location = selector.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.value
-
-    const venue = selector.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.value
-
-
-    const invisibleVenue = selector.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.firstElementChild.firstElementChild
-
-
+    
+    const venue = displayedUl.firstElementChild.firstElementChild.nextElementSibling.value
+    const invisibleVenue = hiddenUl.firstElementChild.firstElementChild
     invisibleVenue.value = venue
-
-
-    const invisibleLocation = selector.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.firstElementChild.nextElementSibling.firstElementChild
-
+    
+    const location = displayedUl.firstElementChild.nextElementSibling.firstElementChild.nextElementSibling.value
+    const invisibleLocation = hiddenUl.firstElementChild.nextElementSibling.firstElementChild
     invisibleLocation.value = location
-
-    const invisibleDate = selector.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.firstElementChild.nextElementSibling.nextElementSibling.firstElementChild
-
+    
+     const date = displayedUl.firstElementChild.nextElementSibling.nextElementSibling.firstElementChild.nextElementSibling.value
+    const invisibleDate = hiddenUl.firstElementChild.nextElementSibling.nextElementSibling.firstElementChild
     invisibleDate.value = date
-
-    const invisibleBegins = selector.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild
-
+    
+    const begins = displayedUl.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild.firstElementChild.firstElementChild.nextElementSibling.value
+    const invisibleBegins = hiddenUl.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild
     invisibleBegins.value = begins
-
-    const invisibleEnds = selector.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild.firstElementChild
-
+    
+    const ends = displayedUl.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild.firstElementChild.nextElementSibling.firstElementChild.nextElementSibling.value
+    const invisibleEnds = hiddenUl.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild.firstElementChild
     invisibleEnds.value = ends
+    
+    
+    
+    const numberOfStaffMembers = displayedUl.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild.nextElementSibling.value
+    const invisibleNumberOfStaffMembers = hiddenUl.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild
+    invisibleNumberOfStaffMembers.value = numberOfStaffMembers
+    
+    const specs = displayedUl.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild.nextElementSibling.value
+    const invisibleSpecs = hiddenUl.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild
+    invisibleSpecs.value = specs
 
-    const invisibleStaffed = selector.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild
+   
 
-    invisibleStaffed.value = staffed
-
-    if (invisibleStaffed.value === '') {
+    
+    
+    
+     for (j = 6; j < displayedUl.children.length-1; j++) {
+         
+         const staffed = displayedUl.children[j].firstElementChild.nextElementSibling.value
+         
+         const invisibleStaffed = hiddenUl.children[j].firstElementChild
+         
+         invisibleStaffed.value = staffed
+         
+         if (invisibleStaffed.value === '') {
 
         invisibleStaffed.value = 'Not Staffed'
 
     }
+     }
+    
+    
 
 }
 
@@ -2175,6 +2873,20 @@ function inviteUserForm() {
    email.placeholder = 'Enter the invited user email'
     email.className = 'form-control'
     email.name = 'email'
+    
+      
+    const roleLabel = document.createElement('label')
+   roleLabel.innerHTML = 'Role'
+
+   const role = document.createElement('input')
+
+   role.type = 'text'
+    role.id = 'role'
+    role.autocomplete = 'off'
+   role.placeholder = 'Enter the role of the user, eg. Chef, Brand Ambassador, ect'
+    role.className = 'form-control'
+    role.name = 'role'
+    
 
 
 
@@ -2191,6 +2903,9 @@ function inviteUserForm() {
 
     form.appendChild(emailLabel)
     form.appendChild(email)
+    
+    form.appendChild(roleLabel)
+    form.appendChild(role)
 
     form.appendChild(button)
 
@@ -2205,14 +2920,16 @@ function inviteUserForm() {
 function inviteUser() {
 
     const email = document.getElementById('email').value
+    
+    const role = document.getElementById('role').value
 
     const organization = document.getElementById('organization').innerHTML
 
 
     return gapi.client.sheets.spreadsheets.values.append({
       'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
-      'range': 'M:Q',
-      'includeValuesInResponse': 'false',
+      'range': 'Sheet2!M:R',
+   //   'includeValuesInResponse': 'false',
       'insertDataOption': 'INSERT_ROWS',
       'responseDateTimeRenderOption': 'FORMATTED_STRING',
       'responseValueRenderOption': 'FORMATTED_VALUE',
@@ -2224,6 +2941,7 @@ function inviteUser() {
             email,
             'Employee',
             organization,
+              role,
               'Password'
           ]
         ]
@@ -2250,10 +2968,11 @@ function inviteMessage() {
 function employeeSignUp() {
     gapi.client.sheets.spreadsheets.values.get({
           spreadsheetId: '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
-          range: 'Sheet1!M2:Q',
+          range: 'Sheet1!M2:R',
         }).then(function(response) {
 
         const email = document.getElementById('email').value
+       
 
           const range = response.result
 
@@ -2264,8 +2983,16 @@ function employeeSignUp() {
                 if (email === row[1]) {
 
                     const randomSelectorOnPage = document.getElementById('firstName')
+                    
+                    
 
                     const organization = document.createElement('input')
+                    
+                    const role = document.createElement('role')
+                    
+                    role.value = row[4]
+                    
+                    role.id = 'role'
 
                     organization.value = row[3]
 
@@ -2273,8 +3000,10 @@ function employeeSignUp() {
 
 
                     randomSelectorOnPage.appendChild(organization)
+                    randomSelectorOnPage.appendChild(role)
 
                     organization.style.display = 'none'
+                    role.style.display = 'none'
 
                     signEmployeeUp()
 
@@ -2301,16 +3030,18 @@ function employeeSignUp() {
 
 
 function signEmployeeUp() {
-
- const fullName = document.getElementById('firstName').value + ' ' + document.getElementById('lastName').value
+    
+const role = document.getElementById('role').value
+ const fullName = document.getElementById('firstName').value + ' ' + document.getElementById('lastName').value + '(' + role + ')'
     const email = document.getElementById('email').value
     const password = document.getElementById('password').value
     const organization = document.getElementById('organization').value
+    
 
 
     return gapi.client.sheets.spreadsheets.values.append({
       'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
-      'range': 'M:Q',
+      'range': 'Sheet2!M:R',
       'includeValuesInResponse': 'false',
       'insertDataOption': 'INSERT_ROWS',
       'responseDateTimeRenderOption': 'FORMATTED_STRING',
@@ -2323,7 +3054,8 @@ function signEmployeeUp() {
             email,
             'Employee',
             organization,
-              password,
+              role,
+              password
           ]
         ]
       }
