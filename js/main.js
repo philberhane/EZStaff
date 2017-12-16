@@ -23,7 +23,7 @@ const CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuser
 
       /**
        *  Initializes the API client library and sets up sign-in state
-       *  listeners.
+       *  listeners (Google Sheets)
        */
 
       function initClient() {
@@ -42,18 +42,6 @@ const CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuser
    //       signoutButton.onclick = handleSignoutClick
         })
       }
-
-      /**
-       *  Called when the signed in status changes, to update the UI
-       *  appropriately. After a sign-in, the API is called.
-       */
-    /*  function updateSigninStatus(isSignedIn) {
-        if (isSignedIn) {
-            logIn()
-        //  authorizeButton.style.display = 'none'
-       //   signoutButton.style.display = 'block'
-        } 
-      }*/
 
       /**
        *  Sign in the user upon button click.
@@ -84,7 +72,8 @@ const CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuser
 
 
 
-
+// Initializes the Google Maps API. In order to use it's 'calculate distance' function, I needed to have an actual map on the page. And so, I did that, and just
+//made the map hidden.
  function initMap() {
         const map = new google.maps.Map(document.getElementById('map'), {
           zoom: 8,
@@ -117,7 +106,8 @@ const CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuser
 
 
 
-   
+   /* After logging in, the pages in the Bootstrap navbar are actually functions. Because they're no longer links, the drop
+    down menu doesn't collapse. This function fixes that */
 
     function collapse() {
         const navbar = document.getElementById('myNavbar')
@@ -128,7 +118,7 @@ const CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuser
 
 
 
-/* This function gets all of the data from A2-G in my spreadsheet and displays
+/* This function gets all of the data from A2-DS in my spreadsheet and displays
     the events that follow a specific argument: the Organization throwing the event
     has to match the Organization that the requesting User is employed by*/
 
@@ -148,9 +138,6 @@ const CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuser
                 const row = range.values[i]
 
                 if (row[5] === organization) {
-
-              // Print columns A and E, which correspond to indices 0 and 4
-                const eventInfo = [ row[0], row[1], row[2], row[3], row[4], row[5], row[6] ]
 
 
 
@@ -175,7 +162,6 @@ const CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuser
              const li2 = document.createElement('li')
              const li3 = document.createElement('li')
              const li4 = document.createElement('li')
-            // const li5 = document.createElement('li')
              const li6 = document.createElement('li')
              const li7 = document.createElement('li')
 
@@ -185,7 +171,6 @@ const CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuser
             li2.innerHTML = row[1]
             li3.innerHTML = row[2]
             li4.innerHTML = row[3] + ' ' + '-' + ' ' + row[4]
-        //    li5.innerHTML = row[9] + ' ' + '-' + ' ' + row[6]
              
             li6.innerHTML = row[8] + ' Staff Members Needed'
             li6.className = 'blue'
@@ -200,13 +185,10 @@ const CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuser
                 ulSelector.appendChild(li4)
                 ulSelector.appendChild(li6)
                 ulSelector.appendChild(li7)
-            //    ulSelector.appendChild(li5)
+    
                     
-                    
-                 //   console.log(parseInt(row[8])+9)
-                    
-                    
-            
+            /*This loops specifically through all of the cells that have to do with the 'Staff Status'. For better UI, I made the 'Not Staffed'
+            portion hidden*/
                 for (j = 9; j < (parseInt(row[8])+9); j++) {     
                     
                   const liLoop = document.createElement('li')
@@ -237,10 +219,10 @@ const CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuser
 
 
 
-/* This function gets all of the data from A2-G in my spreadsheet and displays
+/* This function gets all of the data from A2-DS in my spreadsheet and displays
     the events that follow a specific argument: the Organization throwing the event
     has to match the Organization that the requesting User is employed by, and the User staffed to
-    the event has to match the User making the request*/
+    the event has to match the User making the request */
 
  function viewYourEvents() {
     return gapi.client.sheets.spreadsheets.values.get({
@@ -260,10 +242,7 @@ const CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuser
             for (i = 0; i < range.values.length; i++) {
                 const row = range.values[i]
 
-             
 
-              // Print columns A and E, which correspond to indices 0 and 4
-                const eventInfo = [ row[0], row[1], row[2], row[3], row[4], row[5], row[6] ]
 
 
 
@@ -290,9 +269,8 @@ const CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuser
              const li4 = document.createElement('li')
               const li5= document.createElement('li')
              
-             
-       //      if ( row[7] === 'Not Checked In') {
-             const button = document.createElement('button')
+        // This adds a button/function, so that the user can check-in to the event     
+        const button = document.createElement('button')
         button.setAttribute('onclick', 'getCoordinatesOfAddress(this.id);')
         button.className = 'btn btn-primary button4'
         button.className += ' '
@@ -301,26 +279,13 @@ const CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuser
         button.type = 'submit'
         button.innerHTML = 'Check In'
                 
-                
-        
-  /*           } else {
-                 const button = document.createElement('button')
-        button.setAttribute('onclick', 'getCoordinatesOfAddress(this.id); getLocation(this.id)')
-        button.className = 'btn btn-primary button4'
-        button.className += ' '
-        button.className += 'input'
-        button.type = 'submit'
-        button.innerHTML = 'You are checked in'
-             }*/
-             
-
 
 
              li1.innerHTML = row[0]
             li2.innerHTML = row[1]
             li3.innerHTML = row[2]
             li4.innerHTML = row[3] + ' ' + '-' + ' ' + row[4]
-                    li5.appendChild(button)
+            li5.appendChild(button)
 
 
 
@@ -332,7 +297,7 @@ const CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuser
 
                     divSelector.style.display = 'none'
                 
-                
+             // After retreiving all of the usernames, this loop displays events that correlate to the user's username   
                  for (j = 9; j < (parseInt(row[8])+9); j++) {    
 
                if (row[5] === organization && row[j] === username) {
@@ -372,7 +337,7 @@ const CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuser
       }
 
 
-
+// After the user clicks 'check in', this gets the coordinates of the event's address, and then runs a function to get the user's location
 function getCoordinatesOfAddress(clicked_id) { 
     
 
@@ -404,7 +369,7 @@ if (status == google.maps.GeocoderStatus.OK) {
 
 
 
-
+// This function gets the location of the user, then runs a function to calculate the distance between the event and user
 function getLocation() {
     
     const currentLocationVariable = document.createElement('input')
@@ -421,15 +386,12 @@ document.getElementById('footer').appendChild(currentLocationVariable)
     ' ' + position.coords.longitude;
 } 
         checkArrival()
-    } else { 
-        document.getElementById('content').innerHTML = ''
-       document.getElementById('contentheader').innerHTML = ''
-       document.getElementById('content').innerHTML = 'Please allow us to check your location'
     }
 }
 
 
-
+/* This function calculates the distance between the event and user. If the distance is under 100 meters,
+it runs a function that displays a check-in message*/
 function checkArrival() {
     const currentLocation = document.getElementById("currentlocation")
       const coordinates = document.getElementById('coordinates')
@@ -458,60 +420,11 @@ function checkArrival() {
 
 
 
-
+/* This function lets the user know they've checked in. Sooner than later, I plan on having this function send an email to the
+administator, notifying them of the check-in */
 function checkIn() {
 
-    const input = document.getElementsByClassName('input')
-
-
-    const inputArrayPushedValues = []
-
-   for (i = 0; i < input.length; i++) {
-
-    //   input[i].defaultValue = 'Not Staffed'
-     const inputArray = input[i].value
-
-     inputArrayPushedValues.push(inputArray)
-
-
-         //This pulls an array of inputs
-
-
- /*   if (input[i].value !== '') {
-    const inputValue  = input[i].value
-    }*/
-
-
-   }
-
-
-
-
-
-
-   return gapi.client.sheets.spreadsheets.values.update({
-      'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
-      'range': 'H2',
-  //    'includeValuesInResponse': 'true',
-      'responseDateTimeRenderOption': 'FORMATTED_STRING',
-      'responseValueRenderOption': 'FORMATTED_VALUE',
-      'valueInputOption': 'USER_ENTERED',
-  //     'metadataValue': 'Not Staffed',
-      'resource': {
-
-        'values': [
-
-            inputArrayPushedValues
-
-        ],
-        'majorDimension': 'COLUMNS',
-      }
-    })
-
-
-
-        .then(function(response) {
-          // Handle the results here (response.result has the parsed body).
+ 
        document.getElementById('content').innerHTML = ''
        document.getElementById('contentheader').innerHTML = ''
        document.getElementById('content').innerHTML = 'You have successfully checked in!'
@@ -519,14 +432,13 @@ function checkIn() {
        //row[0] = input[0].value
 
 
-        }, function(error) {
-        })
+  
   }
 
 
 
 
-
+// This function displays the events that still need staff members, as well as a button for the user to accept the event.
 function viewAvailableEvents() {
     return gapi.client.sheets.spreadsheets.values.get({
       'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
@@ -550,16 +462,10 @@ function viewAvailableEvents() {
         button.className = 'btn btn-primary button2'
         button.className += ' '
         button.className += 'editinput staffedclass'
- //       button.value = row[5]
         button.type = 'submit'
         button.innerHTML = 'Accept Event'
 
         
-
-
-        // Print columns A and E, which correspond to indices 0 and 4
-                const eventInfo = [ row[0], row[1], row[2], row[3], row[4], row[5], row[6] ]
-
 
 
 
@@ -702,7 +608,7 @@ function viewAvailableEvents() {
 
                 divSelector.style.display = 'none'
 
-
+//This loops through all of the events and only displays the ones that aren't fully staffed
  for (j = 9; j < (parseInt(row[8])+9); j++) {    
 
                if (row[5] === organization && row[j] === 'Not Staffed') {
@@ -725,7 +631,7 @@ function viewAvailableEvents() {
                    
                }
                    
-                   
+           //This hides events that the user is already staffed for        
                    if (row[j] === username) {
                        
                        button.parentElement.parentElement.style.display = 'none'
@@ -769,47 +675,13 @@ function viewAvailableEvents() {
 
 
 
-  /*      const li = document.createElement('li')
-        const button = document.createElement('button')
-        button.setAttribute('onclick', 'assignName(this.id) acceptEvent()')
-        button.className = 'button2'
-        button.className += ' '
-        button.className += 'input'
-        button.value = row[5]
-        button.type = 'submit'
-        button.innerHTML = 'Accept Event'
-        li.style.display = 'none'
+ 
 
 
 
 
-        const contentSelector = document.getElementById('content')
-
-
-
-        const textContent = document.createTextNode(row + '\n')
-        li.appendChild(textContent)
-        li.appendChild(button)
-        contentSelector.appendChild(li)
-
-            if (row[5] === 'Not Staffed' && row[6] === organization) {
-                li.style.display = 'block'
-            }
-
-
-
-             })
-
-        const input = document.getElementsByClassName('input')
-
-     for (i = 0 i < input.length i++) {
-         input[i].id = 'buttonnumber' + i
-     }*/
-
-
-
-
-
+/*After the user hits 'Accept Event', this function assigns their name to the event. It then gathers a multidimensional arrays of usernames, then runs 
+a function to make the changes to the spreadsheet, as well as a function to display a mesage*/
 function assignName(clicked_id) {
 
     const username = document.getElementById('username').innerHTML
@@ -861,16 +733,15 @@ function assignName(clicked_id) {
 
 }
 
+/* This function activates when the user cancels an event. It changes their name to 'Not Staffed'. It then gathers a multidimensional arrays of usernames, then runs 
+a function to make the changes to the spreadsheet, as well as a function to display a mesage*/
 function clearNameValues(clicked_id) {
 
 
  const username = document.getElementById('username').innerHTML
     
     const clickedId = document.getElementById(clicked_id)
-    
-    //clickedId.value = username
-    
-  //  const arrayOfValues = []
+
     
 for (i = 6; i < clickedId.parentElement.parentElement.children.length; i++) {
     
@@ -882,7 +753,6 @@ for (i = 6; i < clickedId.parentElement.parentElement.children.length; i++) {
         
     }
     
-//    console.log(clickedId.parentElement.parentElement.children[i].firstElementChild.value)
     
 
 }
@@ -895,7 +765,7 @@ for (i = 6; i < clickedId.parentElement.parentElement.children.length; i++) {
     
 
 
-
+//This displays a message notifying the user that they cancelled the event
 function cancelEventMessage() {
 
  
@@ -906,7 +776,7 @@ function cancelEventMessage() {
   }
 
 
-
+// This displays a message notifying the user that they accepted the event
 function acceptEventMessage() {
 
  
@@ -917,8 +787,8 @@ function acceptEventMessage() {
   }
 
 
+// This runs a function that displays a form for the admin to create an event with
     function createEventForm() {
-      //  const row = response.result.values
 
         const contentSelector = document.getElementById('content')
         contentSelector.innerHTML = ''
@@ -1050,7 +920,7 @@ function acceptEventMessage() {
 
 
 
-
+// This is a function that takes all of the values from the 'Create Event Form' and stores the data in Google Sheets
 function execute() {
 
     const venue = document.getElementById('venue').value
@@ -1209,6 +1079,8 @@ function execute() {
   }
 
 
+/* This is the preliminary step for an Administrator to sign up. It makes sure that the 'Sign Up' page's form is fully
+filled out before running the function that signs the Admin up*/
 function preAdminSignUp() {
 
     const fullName = document.getElementById('firstName').value + ' ' + document.getElementById('lastName').value
@@ -1231,7 +1103,7 @@ function preAdminSignUp() {
 
 
 
-
+// This function takes the values of the signup form and stores them in the Sheets
 function adminSignUp() {
 
     const fullName = document.getElementById('firstName').value + ' ' + document.getElementById('lastName').value
@@ -1242,7 +1114,7 @@ function adminSignUp() {
 
     return gapi.client.sheets.spreadsheets.values.append({
       'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
-      'range': 'Sheet2!M:R',
+      'range': 'Sheet2!H:M',
       'includeValuesInResponse': 'false',
       'insertDataOption': 'INSERT_ROWS',
       'responseDateTimeRenderOption': 'FORMATTED_STRING',
@@ -1277,7 +1149,8 @@ function adminSignUp() {
   }
 
 
-
+/* This grabs the email and password entered, correlates it to the sheets, and signs the user in,
+rendering a different menu depending on whether the user is an Admin or Employee*/
 function logIn() {
 
     const email = document.getElementById('email').value
@@ -1432,7 +1305,7 @@ function logIn() {
   }
 
 
-
+/* This pops up a list of events for the user and gives them the option to cancel the event */
 function cancelEventList() {
        return gapi.client.sheets.spreadsheets.values.get({
       'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
@@ -1675,7 +1548,7 @@ function cancelEventList() {
 
 
 
-
+/* This pops up a list of events for the admin and gives them the option to delete or edit */
 function editEventList() {
     return gapi.client.sheets.spreadsheets.values.get({
       'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
@@ -1898,7 +1771,7 @@ function editEventList() {
 
 
 
-
+// If the admin chooses to delete an event, this grabs all of the values of the event and clears them
 function clearEventValues(clicked_id) {
 
 
@@ -1920,7 +1793,7 @@ function clearEventValues(clicked_id) {
 
 
 
-
+//This applies whatever changes are made to the Specifications of an event
 function specClassChanges() {
 
     const specclass = document.getElementsByClassName('specclass')
@@ -1985,6 +1858,7 @@ function specClassChanges() {
     
     
     
+//This applies whatever changes are made to the Staff Number of an event
 
 function numberofstaffClassChanges() {
 
@@ -2050,6 +1924,7 @@ function numberofstaffClassChanges() {
 
 
 
+//This applies whatever changes are made to the Venue of an event
 
 function venueClassChanges() {
 
@@ -2123,6 +1998,7 @@ function venueClassChanges() {
 
 
 
+//This applies whatever changes are made to the Location of an event
 
 function locationClassChanges() {
 
@@ -2193,6 +2069,7 @@ function locationClassChanges() {
 
 
 
+//This applies whatever changes are made to the Date of an event
 
 function dateClassChanges() {
 
@@ -2263,7 +2140,7 @@ function dateClassChanges() {
 
 
 
-
+//This applies whatever changes are made to the ending time of an event
 function endsClassChanges() {
 
     const endsclass = document.getElementsByClassName('endsclass')
@@ -2333,6 +2210,7 @@ function endsClassChanges() {
 
 
 
+//This applies whatever changes are made to the beginning time of an event
 
 
 function beginsClassChanges() {
@@ -2404,6 +2282,7 @@ function beginsClassChanges() {
 
 
 
+//This takes the multidimensional array of staff members and stores/updates the Sheets
 
 function staffedClassAssignValues(arrayOfArrays) {
     
@@ -2442,6 +2321,7 @@ function staffedClassAssignValues(arrayOfArrays) {
 
 
 
+//This applies whatever changes are made to the Staff of an event
 
 function staffedClassChanges() {
     
@@ -2509,7 +2389,7 @@ const arrayOfArrays = []
 
 
 
-
+//This applies whatever changes are made to the Organization of an event
 function orgClassChanges() {
 
 
@@ -2579,6 +2459,8 @@ function orgClassChanges() {
   }
 
 
+
+//When the admin chooses to edit an event, this converts the data into an editable form
 function changeValueToInnerHtml(clicked_id) {
     const clickedButton = document.getElementById(clicked_id)
 
@@ -2780,7 +2662,8 @@ selectedAreaDiv.appendChild(selectedArea)
 
 }
 
-
+/* This saves the edited data of the event when the admin clicks 'Make Changes' before running a series of functions that
+update the event information */
 function assignEventValues(clicked_id) {
 
     const selector = document.getElementById(clicked_id)
@@ -2844,7 +2727,7 @@ function assignEventValues(clicked_id) {
 
 }
 
-
+// This lets the admin know that the event changes have been successfully made
 function madeChangesMessage() {
      document.getElementById('content').innerHTML = ''
        document.getElementById('content').innerHTML = 'Your changes have been made!'
@@ -2852,7 +2735,9 @@ function madeChangesMessage() {
 }
 
 
-
+/* This function creates a form for the admin to invite a staff member to the application. 
+After submitting, it saves the user data into the Sheets database, and sends the staff member an 'Employee Sign Up' page link
+using a Javascript Email API*/
 function inviteUserForm() {
 
    const selectedArea = document.getElementById('content')
@@ -2862,8 +2747,8 @@ function inviteUserForm() {
 
    const form = document.createElement('form')
    form.id = 'myform'
-    form.setAttribute('onsubmit', 'emailjs.sendForm("ezstaff_gmail", "ez_staff_invite", this) return false')
-     form.setAttribute('method', 'post')
+    form.setAttribute('onsubmit', 'emailjs.sendForm("ezstaff_gmail", "ez_staff_invite", this); return false;')
+    form.setAttribute('method', 'post')
 
 
    const emailLabel = document.createElement('label')
@@ -2892,8 +2777,19 @@ function inviteUserForm() {
     role.name = 'role'
     
 
-
-
+    
+    const subject = document.createElement('input')
+    subject.type = 'text'
+    subject.value = 'You have been invited to EZ Staff!'
+    subject.style.display = 'none'
+    subject.name = 'subject'
+    
+    const message = document.createElement('input')
+    message.type = 'text'
+    message.value = 'You have Been invited to the EZ Staff Web Application! Click to get started! http://ezstaff.shiftmediamanagement.com/employeesignup.html'
+    message.style.display = 'none'
+    message.name = 'message'
+    
 
 
     const button = document.createElement('button')
@@ -2910,6 +2806,9 @@ function inviteUserForm() {
     
     form.appendChild(roleLabel)
     form.appendChild(role)
+    
+    form.appendChild(subject)
+    form.appendChild(message)
 
     form.appendChild(button)
 
@@ -2921,6 +2820,9 @@ function inviteUserForm() {
 }
 
 
+/*This function saves the staff member's name and email into the database, so that when they're signing up, the application knows
+their email was invited to the app, as well as what organization they're part of
+*/
 function inviteUser() {
 
     const email = document.getElementById('email').value
@@ -2932,7 +2834,7 @@ function inviteUser() {
 
     return gapi.client.sheets.spreadsheets.values.append({
       'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
-      'range': 'Sheet2!M:R',
+      'range': 'Sheet2!H:M',
    //   'includeValuesInResponse': 'false',
       'insertDataOption': 'INSERT_ROWS',
       'responseDateTimeRenderOption': 'FORMATTED_STRING',
@@ -2960,7 +2862,7 @@ function inviteUser() {
   }
 
 
-
+// This shows the admin that their invite has been successfully sent.
 function inviteMessage() {
 
      const selectedArea = document.getElementById('content')
@@ -2968,11 +2870,11 @@ function inviteMessage() {
 }
 
 
-
+// This correlates the data entered by the staff member to the data in the sheets and decides what organization they're in before signing them up
 function employeeSignUp() {
     gapi.client.sheets.spreadsheets.values.get({
           spreadsheetId: '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
-          range: 'Sheet1!M2:R',
+          range: 'Sheet2!M2:R',
         }).then(function(response) {
 
         const email = document.getElementById('email').value
@@ -2986,7 +2888,7 @@ function employeeSignUp() {
 
                 if (email === row[1]) {
 
-                    const randomSelectorOnPage = document.getElementById('firstName')
+                    const randomSelectorOnPage = document.getElementById('footer')
                     
                     
 
@@ -3028,11 +2930,10 @@ function employeeSignUp() {
 
 
         }, function(response) {
-          appendPre('Error: ' + response.result.error.message)
         })
 }
 
-
+// This signs the staff member up for the application
 function signEmployeeUp() {
     
 const role = document.getElementById('role').value
@@ -3045,7 +2946,7 @@ const role = document.getElementById('role').value
 
     return gapi.client.sheets.spreadsheets.values.append({
       'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
-      'range': 'Sheet2!M:R',
+      'range': 'Sheet2!H:M',
       'includeValuesInResponse': 'false',
       'insertDataOption': 'INSERT_ROWS',
       'responseDateTimeRenderOption': 'FORMATTED_STRING',
