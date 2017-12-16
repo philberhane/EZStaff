@@ -3,7 +3,7 @@ const CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuser
       const API_KEY = 'AIzaSyA4yrIsc8ux0pXSOa-pDeCrfgWtMObABOI'
 
       // Array of API discovery doc URLs for APIs used by the quickstart
-      const DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"]
+      const DISCOVERY_DOCS = ['https://sheets.googleapis.com/$discovery/rest?version=v4']
 
       // Authorization scopes required by the API multiple scopes can be
       // included, separated by spaces.
@@ -78,7 +78,7 @@ const CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuser
         const map = new google.maps.Map(document.getElementById('map'), {
           zoom: 8,
           center: {lat: -34.397, lng: 150.644}
-        });
+        })
         const geocoder = new google.maps.Geocoder()
 
         document.getElementById('submit').addEventListener('click', function() {
@@ -96,7 +96,7 @@ const CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuser
               position: results[0].geometry.location
             })
           } else {
-            alert('Geocode was not successful for the following reason: ' + status);
+            alert('Geocode was not successful for the following reason: ' + status)
           }
         })
       }
@@ -171,7 +171,7 @@ const CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuser
             li2.innerHTML = row[1]
             li3.innerHTML = row[2]
             li4.innerHTML = row[3] + ' ' + '-' + ' ' + row[4]
-             
+
             li6.innerHTML = row[8] + ' Staff Members Needed'
             li6.className = 'blue'
             li7.innerHTML = row[7]
@@ -185,25 +185,25 @@ const CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuser
                 ulSelector.appendChild(li4)
                 ulSelector.appendChild(li6)
                 ulSelector.appendChild(li7)
-    
-                    
+
+
             /*This loops specifically through all of the cells that have to do with the 'Staff Status'. For better UI, I made the 'Not Staffed'
             portion hidden*/
-                for (j = 9; j < (parseInt(row[8])+9); j++) {     
-                    
+                for (j = 9; j < (parseInt(row[8])+9); j++) {
+
                   const liLoop = document.createElement('li')
-                  
+
                     liLoop.innerHTML = row[j]
-                    
+
                     ulSelector.appendChild(liLoop)
-                    
+
                     if (row[j] === 'Not Staffed') {
                         liLoop.style.display = 'none'
                     }
-                    
+
                 }
-                
-            
+
+
                 }
             }
           } else {
@@ -268,8 +268,8 @@ const CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuser
              const li3 = document.createElement('li')
              const li4 = document.createElement('li')
               const li5= document.createElement('li')
-             
-        // This adds a button/function, so that the user can check-in to the event     
+
+        // This adds a button/function, so that the user can check-in to the event
         const button = document.createElement('button')
         button.setAttribute('onclick', 'getCoordinatesOfAddress(this.id);')
         button.className = 'btn btn-primary button4'
@@ -278,7 +278,7 @@ const CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuser
         button.value = row[7]
         button.type = 'submit'
         button.innerHTML = 'Check In'
-                
+
 
 
              li1.innerHTML = row[0]
@@ -296,13 +296,13 @@ const CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuser
                     ulSelector.appendChild(li5)
 
                     divSelector.style.display = 'none'
-                
-             // After retreiving all of the usernames, this loop displays events that correlate to the user's username   
-                 for (j = 9; j < (parseInt(row[8])+9); j++) {    
+
+             // After retreiving all of the usernames, this loop displays events that correlate to the user's username
+                 for (j = 9; j < (parseInt(row[8])+9); j++) {
 
                if (row[5] === organization && row[j] === username) {
-                   
-                   
+
+
 
 
             divSelector.style.display = 'block'
@@ -314,7 +314,7 @@ const CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuser
 
 
 
-               
+
 
                 }
     const input = document.getElementsByClassName('input')
@@ -322,12 +322,12 @@ const CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuser
      for (i = 0; i < input.length; i++) {
          input[i].id = 'buttonnumber' + i
      }
-                
-            
-              
-  
-              
-              
+
+
+
+
+
+
           } else {
             appendPre('There are no events.')
           }
@@ -338,8 +338,8 @@ const CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuser
 
 
 // After the user clicks 'check in', this gets the coordinates of the event's address, and then runs a function to get the user's location
-function getCoordinatesOfAddress(clicked_id) { 
-    
+function getCoordinatesOfAddress(clicked_id) {
+
 
 const geocoder = new google.maps.Geocoder()
 const clickedEvent = document.getElementById(clicked_id)
@@ -349,7 +349,7 @@ const coordinatesVariable = document.createElement('input')
 coordinatesVariable.style.display = 'none'
 coordinatesVariable.id = 'coordinates'
 document.getElementById('footer').appendChild(coordinatesVariable)
-    
+
     const address = clickedEvent.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.innerHTML
 
 geocoder.geocode( { 'address': address}, function(results, status) {
@@ -358,12 +358,12 @@ if (status == google.maps.GeocoderStatus.OK) {
     const latitude = results[0].geometry.location.lat()
     const longitude = results[0].geometry.location.lng()
     const coordinates = document.getElementById('coordinates')
-    
+
     coordinates.value = latitude + ' ' + longitude
-    
+
     getLocation()
 }
-    } 
+    }
  )
 }
 
@@ -371,20 +371,20 @@ if (status == google.maps.GeocoderStatus.OK) {
 
 // This function gets the location of the user, then runs a function to calculate the distance between the event and user
 function getLocation() {
-    
+
     const currentLocationVariable = document.createElement('input')
 currentLocationVariable.style.display = 'none'
 currentLocationVariable.id = 'currentlocation'
 document.getElementById('footer').appendChild(currentLocationVariable)
-    
-    
+
+
     const currentLocation = document.getElementById('currentlocation')
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition)
         function showPosition(position) {
-   currentLocation.value = position.coords.latitude + 
-    ' ' + position.coords.longitude;
-} 
+   currentLocation.value = position.coords.latitude +
+    ' ' + position.coords.longitude
+}
         checkArrival()
     }
 }
@@ -393,25 +393,25 @@ document.getElementById('footer').appendChild(currentLocationVariable)
 /* This function calculates the distance between the event and user. If the distance is under 100 meters,
 it runs a function that displays a check-in message*/
 function checkArrival() {
-    const currentLocation = document.getElementById("currentlocation")
+    const currentLocation = document.getElementById('currentlocation')
       const coordinates = document.getElementById('coordinates')
-    
+
       const firstLatLng = currentLocation.value.split(' ')
       const secondLatLng = coordinates.value.split(' ')
-    
-    
+
+
     const latitude1 = parseFloat(firstLatLng[0])
     const longitude1 = parseFloat(firstLatLng[1])
     const latitude2 = parseFloat(secondLatLng[0])
     const longitude2 = parseFloat(secondLatLng[1])
-    
+
    const distance = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(latitude1, longitude1), new google.maps.LatLng(latitude2, longitude2))
-    
+
     if (distance < 100) {
         checkIn()
-    } 
-    
-  
+    }
+
+
 
 
 }
@@ -424,7 +424,7 @@ function checkArrival() {
 administator, notifying them of the check-in */
 function checkIn() {
 
- 
+
        document.getElementById('content').innerHTML = ''
        document.getElementById('contentheader').innerHTML = ''
        document.getElementById('content').innerHTML = 'You have successfully checked in!'
@@ -432,7 +432,7 @@ function checkIn() {
        //row[0] = input[0].value
 
 
-  
+
   }
 
 
@@ -465,7 +465,7 @@ function viewAvailableEvents() {
         button.type = 'submit'
         button.innerHTML = 'Accept Event'
 
-        
+
 
 
 
@@ -500,11 +500,11 @@ function viewAvailableEvents() {
              const li5 = document.createElement('li')
               const li5InvisibleValue = document.createElement('button')
 
-           
-              
+
+
               const li7 = document.createElement('li')
               const li7InvisibleValue = document.createElement('button')
-              
+
               const li8 = document.createElement('li')
               const li8InvisibleValue = document.createElement('button')
 
@@ -512,7 +512,7 @@ function viewAvailableEvents() {
              li5.className = 'buttonlistitem'
             li5.className += 'grey'
 
-            
+
 
 
 
@@ -541,25 +541,25 @@ function viewAvailableEvents() {
             li5InvisibleValue.value = row[4]
             li5InvisibleValue.className = 'endsclass'
 
-                
-                
+
+
             li7.innerHTML = row[8] + ' Staff Members Needed'
             li7InvisibleValue.value = row[8]
             li7InvisibleValue.className = 'numberofstaffclass'
             li7.appendChild(li7InvisibleValue)
             li7.className = 'blue'
-            
+
             li8.innerHTML = row[7]
             li8InvisibleValue.value = row[7]
             li8InvisibleValue.className = 'specclass'
             li8.appendChild(li8InvisibleValue)
             li8.className = 'orange'
-                
-            
+
+
 
 
             li5.appendChild(button)
-           
+
 
 
 
@@ -567,57 +567,57 @@ function viewAvailableEvents() {
                 ulSelector.appendChild(li2)
                  ulSelector.appendChild(li3)
                 ulSelector.appendChild(li4)
-  
+
                 ulSelector.appendChild(li7)
                 ulSelector.appendChild(li8)
                 ulSelector.appendChild(li5)
-                
-        for (j = 9; j < (parseInt(row[8])+9); j++) {    
-            
-                    
+
+        for (j = 9; j < (parseInt(row[8])+9); j++) {
+
+
                   const liLoop = document.createElement('li')
                   const liLoopInvisibleValue = document.createElement('button')
-                    
+
                   liLoop.innerHTML = row[j]
             liLoopInvisibleValue.value = row[j]
             liLoopInvisibleValue.className = 'staffedclass loop'
             liLoopInvisibleValue.id = 'staffednumber' + j
             liLoop.appendChild(liLoopInvisibleValue)
-                    
+
                 ulSelector.appendChild(liLoop)
-            
+
         liLoopInvisibleValue.style.display = 'none'
-            
-            
+
+
             if (row[j] === 'Not Staffed') {
-                
+
                 liLoop.style.display = 'none'
             }
 
-            
+
            // console.log(liLoopInvisibleValue)
-                    
+
                 }
-                
+
                 ulSelector.appendChild(li5)
-                
-                
-                
-                
-                
+
+
+
+
+
 
                 divSelector.style.display = 'none'
 
 //This loops through all of the events and only displays the ones that aren't fully staffed
- for (j = 9; j < (parseInt(row[8])+9); j++) {    
+ for (j = 9; j < (parseInt(row[8])+9); j++) {
 
                if (row[5] === organization && row[j] === 'Not Staffed') {
-                   
-                   
+
+
 
 
             divSelector.style.display = 'block'
-                   
+
 
 
                    li1InvisibleValue.style.display = 'none'
@@ -628,39 +628,39 @@ function viewAvailableEvents() {
                    invisibleButton.style.display = 'none'
                    li7InvisibleValue.style.display = 'none'
                    li8InvisibleValue.style.display = 'none'
-                   
+
                }
-                   
-           //This hides events that the user is already staffed for        
+
+           //This hides events that the user is already staffed for
                    if (row[j] === username) {
-                       
+
                        button.parentElement.parentElement.style.display = 'none'
                        button.parentElement.parentElement.parentElement.style.display = 'none'
                        divSelector.style.display = 'none'
-                   
+
 
                    }
-               
+
                 }
-                
-                
-                
-                
+
+
+
+
             }
-              
-              
-           
+
+
+
 
                const input = document.getElementsByClassName('input')
               const editInput = document.getElementsByClassName('editinput')
 
-     
+
 
         for (i = 0; i < editInput.length; i++) {
          editInput[i].id = 'editbuttonnumber' + i
      }
-              
-              
+
+
               button.parentElement.parentElement.children
 
           } else {
@@ -675,100 +675,100 @@ function viewAvailableEvents() {
 
 
 
- 
 
 
 
 
-/*After the user hits 'Accept Event', this function assigns their name to the event. It then gathers a multidimensional arrays of usernames, then runs 
+
+/*After the user hits 'Accept Event', this function assigns their name to the event. It then gathers a multidimensional arrays of usernames, then runs
 a function to make the changes to the spreadsheet, as well as a function to display a mesage*/
 function assignName(clicked_id) {
 
     const username = document.getElementById('username').innerHTML
-    
+
     const clickedId = document.getElementById(clicked_id)
-    
+
     //clickedId.value = username
-    
+
     const arrayOfValues = []
-    
+
     for (i = 6; i < clickedId.parentElement.parentElement.children.length-1 ; i++) {
-        
+
        arrayOfValues.push(clickedId.parentElement.parentElement.children[i].firstElementChild.value)
-        
+
     }
-    
-  
-    
+
+
+
     arrayOfValues.splice( arrayOfValues.indexOf('Not Staffed'), 1 )
-    
+
     arrayOfValues.push(username)
-    
-   
-    
+
+
+
     arrayOfValues.unshift('')
     arrayOfValues.unshift('')
     arrayOfValues.unshift('')
     arrayOfValues.unshift('')
     arrayOfValues.unshift('')
     arrayOfValues.unshift('')
-    
-    
+
+
     for (i = 6; i < clickedId.parentElement.parentElement.children.length-1 ; i++) {
-        
-        
+
+
      clickedId.parentElement.parentElement.children[i].firstElementChild.value = arrayOfValues[i]
-        
+
     }
-    
-    
-    
+
+
+
     staffedClassChanges()
-    
+
     acceptEventMessage()
-    
-    
-    
-    
+
+
+
+
 
 }
 
-/* This function activates when the user cancels an event. It changes their name to 'Not Staffed'. It then gathers a multidimensional arrays of usernames, then runs 
+/* This function activates when the user cancels an event. It changes their name to 'Not Staffed'. It then gathers a multidimensional arrays of usernames, then runs
 a function to make the changes to the spreadsheet, as well as a function to display a mesage*/
 function clearNameValues(clicked_id) {
 
 
  const username = document.getElementById('username').innerHTML
-    
+
     const clickedId = document.getElementById(clicked_id)
 
-    
+
 for (i = 6; i < clickedId.parentElement.parentElement.children.length; i++) {
-    
-        
+
+
        if (clickedId.parentElement.parentElement.children[i].firstElementChild.value === username) {
-    
+
             clickedId.parentElement.parentElement.children[i].firstElementChild.value = 'Not Staffed'
 
-        
+
     }
-    
-    
+
+
 
 }
-    
+
     staffedClassChanges()
     cancelEventMessage()
-    
+
 }
-    
-    
+
+
 
 
 //This displays a message notifying the user that they cancelled the event
 function cancelEventMessage() {
 
- 
+
        document.getElementById('content').innerHTML = ''
        document.getElementById('contentheader').innerHTML = ''
        document.getElementById('content').innerHTML = 'You have cancelled the event'
@@ -779,7 +779,7 @@ function cancelEventMessage() {
 // This displays a message notifying the user that they accepted the event
 function acceptEventMessage() {
 
- 
+
        document.getElementById('content').innerHTML = ''
        document.getElementById('contentheader').innerHTML = ''
        document.getElementById('content').innerHTML = 'You are now staffed for the event!'
@@ -858,7 +858,7 @@ function acceptEventMessage() {
         divRow2.appendChild(divCol4)
 
         contentSelector.appendChild(divRow2)
-        
+
         const divRow3 = document.createElement('div')
         const divCol5 = document.createElement('div')
         const divCol6 = document.createElement('div')
@@ -872,8 +872,8 @@ function acceptEventMessage() {
         locationLabel.innerHTML = 'Location'
         divCol5.appendChild(locationLabel)
         divCol5.appendChild(location)
-        
-        
+
+
         const numberOfStaff = document.createElement('input')
         numberOfStaff.type = 'number'
         numberOfStaff.className = 'form-control'
@@ -883,17 +883,17 @@ function acceptEventMessage() {
         numberOfStaffLabel.innerHTML = '# of Staff'
         divCol6.appendChild(numberOfStaffLabel)
         divCol6.appendChild(numberOfStaff)
-        
-         
-        
+
+
+
         divCol5.className = 'form-group col-md-6 col-sm-12'
          divCol6.className = 'form-group col-md-6 col-sm-12'
         divRow3.className = 'row'
          divRow3.appendChild(divCol5)
         divRow3.appendChild(divCol6)
         contentSelector.appendChild(divRow3)
-        
-        
+
+
         const specs = document.createElement('input')
         specs.type = 'text'
         specs.className = 'form-control'
@@ -903,9 +903,9 @@ function acceptEventMessage() {
         specsLabel.innerHTML = 'Specifications'
         contentSelector.appendChild(specsLabel)
         contentSelector.appendChild(specs)
-        
-        
-        
+
+
+
 
         const button = document.createElement('button')
         button.type = 'Submit'
@@ -1292,7 +1292,7 @@ function logIn() {
 
         }
           }
-    
+
 
 
 
@@ -1372,11 +1372,11 @@ function cancelEventList() {
              const li5 = document.createElement('li')
               const li5InvisibleValue = document.createElement('button')
 
-           
-              
+
+
               const li7 = document.createElement('li')
               const li7InvisibleValue = document.createElement('button')
-              
+
               const li8 = document.createElement('li')
               const li8InvisibleValue = document.createElement('button')
 
@@ -1384,7 +1384,7 @@ function cancelEventList() {
              li5.className = 'buttonlistitem'
             li5.className += 'grey'
 
-            
+
 
 
 
@@ -1413,23 +1413,23 @@ function cancelEventList() {
             li5InvisibleValue.value = row[4]
             li5InvisibleValue.className = 'endsclass'
 
-                
-                
+
+
             li7.innerHTML = row[8] + ' Staff Members Needed'
             li7InvisibleValue.value = row[8]
             li7InvisibleValue.className = 'numberofstaffclass'
             li7.appendChild(li7InvisibleValue)
-            
+
             li8.innerHTML = row[7]
             li8InvisibleValue.value = row[7]
             li8InvisibleValue.className = 'specclass'
             li8.appendChild(li8InvisibleValue)
-                
-            
+
+
 
 
             li5.appendChild(button)
-           
+
 
 
 
@@ -1437,57 +1437,57 @@ function cancelEventList() {
                 ulSelector.appendChild(li2)
                  ulSelector.appendChild(li3)
                 ulSelector.appendChild(li4)
-  
+
                 ulSelector.appendChild(li7)
                 ulSelector.appendChild(li8)
                 ulSelector.appendChild(li5)
-                
-        for (j = 9; j < (parseInt(row[8])+9); j++) {    
-            
-                    
+
+        for (j = 9; j < (parseInt(row[8])+9); j++) {
+
+
                   const liLoop = document.createElement('li')
                   const liLoopInvisibleValue = document.createElement('button')
-                    
+
                   liLoop.innerHTML = row[j]
             liLoopInvisibleValue.value = row[j]
             liLoopInvisibleValue.className = 'staffedclass loop'
             liLoopInvisibleValue.id = 'staffednumber' + j
             liLoop.appendChild(liLoopInvisibleValue)
-                    
+
                 ulSelector.appendChild(liLoop)
-            
+
         liLoopInvisibleValue.style.display = 'none'
-            
-            
 
-                
+
+
+
                 liLoop.style.display = 'none'
-    
 
-            
+
+
            // console.log(liLoopInvisibleValue)
-                    
+
                 }
-                
+
                 ulSelector.appendChild(li5)
-                
-                
-                
-                
-                
+
+
+
+
+
 
                 divSelector.style.display = 'none'
 
 
- for (j = 9; j < (parseInt(row[8])+9); j++) {    
+ for (j = 9; j < (parseInt(row[8])+9); j++) {
 
                if (row[5] === organization && row[j] === username) {
-                   
-                   
+
+
 
 
             divSelector.style.display = 'block'
-                   
+
 
 
                    li1InvisibleValue.style.display = 'none'
@@ -1500,32 +1500,32 @@ function cancelEventList() {
                    li8InvisibleValue.style.display = 'none'
                    li7.style.display = 'none'
                    li8.style.display = 'none'
-                   
+
                }
-                   
-                   
-        
-               
+
+
+
+
                 }
-                
-                
-                
-                
+
+
+
+
             }
-              
-              
-           
+
+
+
 
                const input = document.getElementsByClassName('input')
               const editInput = document.getElementsByClassName('editinput')
 
-     
+
 
         for (i = 0; i < editInput.length; i++) {
          editInput[i].id = 'editbuttonnumber' + i
      }
-              
-              
+
+
               button.parentElement.parentElement.children
 
           } else {
@@ -1622,11 +1622,11 @@ function editEventList() {
              const li5 = document.createElement('li')
               const li5InvisibleValue = document.createElement('button')
 
-           
-              
+
+
               const li7 = document.createElement('li')
               const li7InvisibleValue = document.createElement('button')
-              
+
               const li8 = document.createElement('li')
               const li8InvisibleValue = document.createElement('button')
 
@@ -1664,19 +1664,19 @@ function editEventList() {
             li5InvisibleValue.value = row[4]
             li5InvisibleValue.className = 'endsclass'
 
-                
-                
+
+
             li7.innerHTML = row[8] + ' Staff Members Needed'
             li7InvisibleValue.value = row[8]
             li7InvisibleValue.className = 'numberofstaffclass'
             li7.appendChild(li7InvisibleValue)
-            
+
             li8.innerHTML = row[7]
             li8InvisibleValue.value = row[7]
             li8InvisibleValue.className = 'specclass'
             li8.appendChild(li8InvisibleValue)
-                
-            
+
+
 
 
             li5.appendChild(button)
@@ -1692,37 +1692,37 @@ function editEventList() {
                 ulSelector.appendChild(li2)
                  ulSelector.appendChild(li3)
                 ulSelector.appendChild(li4)
-  
+
                 ulSelector.appendChild(li7)
                 ulSelector.appendChild(li8)
                 ulSelector.appendChild(li5)
-                
-        for (j = 9; j < (parseInt(row[8])+9); j++) {     
-                    
+
+        for (j = 9; j < (parseInt(row[8])+9); j++) {
+
                   const liLoop = document.createElement('li')
                   const liLoopInvisibleValue = document.createElement('button')
-                    
+
                   liLoop.innerHTML = row[j]
             liLoopInvisibleValue.value = row[j]
             liLoopInvisibleValue.className = 'staffedclass'
             liLoopInvisibleValue.id = 'staffednumber' + j
             liLoop.appendChild(liLoopInvisibleValue)
-                    
+
                 ulSelector.appendChild(liLoop)
-            
+
         liLoopInvisibleValue.style.display = 'none'
 
-            
+
            // console.log(liLoopInvisibleValue)
-                    
+
                 }
-                
+
                 ulSelector.appendChild(li5)
-                
-                
-                
-                
-                
+
+
+
+
+
 
                 divSelector.style.display = 'none'
 
@@ -1743,7 +1743,7 @@ function editEventList() {
                    invisibleButton.style.display = 'none'
                    li7InvisibleValue.style.display = 'none'
                    li8InvisibleValue.style.display = 'none'
-                   
+
 
 
 
@@ -1777,18 +1777,18 @@ function clearEventValues(clicked_id) {
 
 
     const clearValues = document.getElementById(clicked_id).parentElement.parentElement.children
-    
+
     document.getElementById(clicked_id).firstElementChild.value = ''
     document.getElementById(clicked_id).parentElement.parentElement.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild.firstElementChild.value = ''
-    
-    
+
+
     for (i = 0; i < clearValues.length; i++) {
-        clearValues[i].firstElementChild.value = '' 
-        
-        
+        clearValues[i].firstElementChild.value = ''
+
+
     }
-    
-    
+
+
 }
 
 
@@ -1822,7 +1822,7 @@ function specClassChanges() {
 
 
    }
-    
+
     return gapi.client.sheets.spreadsheets.values.update({
       'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
       'range': 'Sheet1!H2',
@@ -1855,9 +1855,9 @@ function specClassChanges() {
 
         })
   }
-    
-    
-    
+
+
+
 //This applies whatever changes are made to the Staff Number of an event
 
 function numberofstaffClassChanges() {
@@ -1888,7 +1888,7 @@ function numberofstaffClassChanges() {
 
 
    }
-    
+
     return gapi.client.sheets.spreadsheets.values.update({
       'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
       'range': 'Sheet1!I2',
@@ -2285,8 +2285,8 @@ function beginsClassChanges() {
 //This takes the multidimensional array of staff members and stores/updates the Sheets
 
 function staffedClassAssignValues(arrayOfArrays) {
-    
-    
+
+
          return gapi.client.sheets.spreadsheets.values.update({
       'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
       'range': 'Sheet1!J2:DS',
@@ -2294,7 +2294,7 @@ function staffedClassAssignValues(arrayOfArrays) {
       'responseDateTimeRenderOption': 'FORMATTED_STRING',
       'responseValueRenderOption': 'FORMATTED_VALUE',
       'valueInputOption': 'USER_ENTERED',
-       
+
 
       'resource': {
 
@@ -2307,16 +2307,16 @@ function staffedClassAssignValues(arrayOfArrays) {
         .then(function(response) {
           // Handle the results here (response.result has the parsed body).
 
-       
+
 
 
         }, function(error) {
         })
-        
-        
-        
-        
-        
+
+
+
+
+
     }
 
 
@@ -2324,67 +2324,67 @@ function staffedClassAssignValues(arrayOfArrays) {
 //This applies whatever changes are made to the Staff of an event
 
 function staffedClassChanges() {
-    
+
     const ulSelector = document.getElementsByClassName('price')
 
 //    const staffedclass = document.getElementsByClassName('staffedclass')
 
-   
+
 //    console.log(staffedclass)
 
-    
+
 const arrayOfArrays = []
-    
-    
+
+
       for (i = 0; i < ulSelector.length; i++) {
          ulSelector[i].children
           const someArray = []
-          
-          
 
-     
-          
+
+
+
+
           for (j = 6; j < ulSelector[i].children.length-1; j++) {
 
-            
-       
-            
+
+
+
             const staffValuesOrganized = ulSelector[i].children[j].firstElementChild
-            
+
           const staffValuesOrganizedValue = staffValuesOrganized.value
-            
+
             someArray.push(staffValuesOrganizedValue)
-            
-            
+
+
    }
-          
+
         const cutOffNumber = ulSelector[i].firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild.value
-        
+
      //   console.log(cutOffNumber)
       //    console.log(someArray)
-        
-        
+
+
         arrayOfArrays.push(someArray)
-          
-          
-              
-              
-              
-          
-          
-          
+
+
+
+
+
+
+
+
       }
-    
+
    // console.log(arrayOfArrays)
-    
-    
+
+
     staffedClassAssignValues(arrayOfArrays)
 
 
 
-    
-    //.querySelectorAll(".example");  
-    
+
+    //.querySelectorAll(".example");
+
   }
 
 
@@ -2478,16 +2478,16 @@ function changeValueToInnerHtml(clicked_id) {
    const locationValue = clickedButton.parentElement.parentElement.firstElementChild.nextElementSibling.innerText
 
    const venueValue = clickedButton.parentElement.parentElement.firstElementChild.innerText
-   
+
    const numberOfStaffValue = clickedButton.parentElement.parentElement.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.innerText.split(' ')[0]
-   
+
     const specsValue = clickedButton.parentElement.parentElement.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.innerText
-    
-    
-   
-   
-   
-   
+
+
+
+
+
+
 
    selectedAreaUl.style.display = 'none'
 
@@ -2509,7 +2509,7 @@ selectedAreaDiv.appendChild(selectedArea)
         li1.appendChild(venue)
         selectedArea.appendChild(li1)
 
-        
+
         const li2 = document.createElement('li')
         const location = document.createElement('input')
         location.type = 'text'
@@ -2524,7 +2524,7 @@ selectedAreaDiv.appendChild(selectedArea)
         li2.appendChild(location)
         selectedArea.appendChild(li2)
 
-        
+
         const li3 = document.createElement('li')
         const date = document.createElement('input')
         date.type = 'text'
@@ -2606,12 +2606,12 @@ selectedAreaDiv.appendChild(selectedArea)
         numberOfStaff.value = numberOfStaffValue
         const numberOfStaffLabel = document.createElement('label')
         numberOfStaffLabel.innerHTML = '# of Staff Members'
-    
+
         li5.appendChild(numberOfStaffLabel)
         li5.appendChild(numberOfStaff)
     selectedArea.appendChild(li5)
-    
-    
+
+
         const li6 = document.createElement('li')
         const specs = document.createElement('input')
         specs.type = 'text'
@@ -2622,26 +2622,26 @@ selectedAreaDiv.appendChild(selectedArea)
         specs.value = specsValue
         const specsLabel = document.createElement('label')
         specsLabel.innerHTML = 'Specifications'
-    
+
         li6.appendChild(specsLabel)
         li6.appendChild(specs)
         selectedArea.appendChild(li6)
-    
-    
-  
-    
+
+
+
+
      for (j = 6; j < selectedAreaUl.children.length-1; j++) {
          const liLoop = document.createElement('li')
         const staffed = document.createElement('input')
         staffed.className = 'form-control'
          staffed.id = 'staffednumber' + j
-              
+
          const staffedValue = selectedAreaUl.children[j].innerText
          staffed.value = staffedValue
-         
+
          const staffedLabel = document.createElement('label')
          staffedLabel.innerHTML = 'Staffed Status'
-        
+
          liLoop.appendChild(staffedLabel)
         liLoop.appendChild(staffed)
          selectedArea.appendChild(liLoop)
@@ -2656,7 +2656,7 @@ selectedAreaDiv.appendChild(selectedArea)
         button.setAttribute('onclick', 'assignEventValues(this.id); numberofstaffClassChanges(); venueClassChanges(); locationClassChanges(); dateClassChanges(); beginsClassChanges(); endsClassChanges(); staffedClassChanges(); specClassChanges(); madeChangesMessage();')
         button.id = 'makechanges'
         li7.appendChild(button)
-   
+
         selectedArea.appendChild(li7)
 
 
@@ -2667,63 +2667,63 @@ update the event information */
 function assignEventValues(clicked_id) {
 
     const selector = document.getElementById(clicked_id)
-    
+
     const hiddenUl = selector.parentElement.parentElement.previousElementSibling
-    
+
     const displayedUl = selector.parentElement.parentElement
 
-    
+
     const venue = displayedUl.firstElementChild.firstElementChild.nextElementSibling.value
     const invisibleVenue = hiddenUl.firstElementChild.firstElementChild
     invisibleVenue.value = venue
-    
+
     const location = displayedUl.firstElementChild.nextElementSibling.firstElementChild.nextElementSibling.value
     const invisibleLocation = hiddenUl.firstElementChild.nextElementSibling.firstElementChild
     invisibleLocation.value = location
-    
+
      const date = displayedUl.firstElementChild.nextElementSibling.nextElementSibling.firstElementChild.nextElementSibling.value
     const invisibleDate = hiddenUl.firstElementChild.nextElementSibling.nextElementSibling.firstElementChild
     invisibleDate.value = date
-    
+
     const begins = displayedUl.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild.firstElementChild.firstElementChild.nextElementSibling.value
     const invisibleBegins = hiddenUl.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild
     invisibleBegins.value = begins
-    
+
     const ends = displayedUl.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild.firstElementChild.nextElementSibling.firstElementChild.nextElementSibling.value
     const invisibleEnds = hiddenUl.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild.firstElementChild
     invisibleEnds.value = ends
-    
-    
-    
+
+
+
     const numberOfStaffMembers = displayedUl.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild.nextElementSibling.value
     const invisibleNumberOfStaffMembers = hiddenUl.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild
     invisibleNumberOfStaffMembers.value = numberOfStaffMembers
-    
+
     const specs = displayedUl.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild.nextElementSibling.value
     const invisibleSpecs = hiddenUl.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild
     invisibleSpecs.value = specs
 
-   
 
-    
-    
-    
+
+
+
+
      for (j = 6; j < displayedUl.children.length-1; j++) {
-         
+
          const staffed = displayedUl.children[j].firstElementChild.nextElementSibling.value
-         
+
          const invisibleStaffed = hiddenUl.children[j].firstElementChild
-         
+
          invisibleStaffed.value = staffed
-         
+
          if (invisibleStaffed.value === '') {
 
         invisibleStaffed.value = 'Not Staffed'
 
     }
      }
-    
-    
+
+
 
 }
 
@@ -2735,7 +2735,7 @@ function madeChangesMessage() {
 }
 
 
-/* This function creates a form for the admin to invite a staff member to the application. 
+/* This function creates a form for the admin to invite a staff member to the application.
 After submitting, it saves the user data into the Sheets database, and sends the staff member an 'Employee Sign Up' page link
 using a Javascript Email API*/
 function inviteUserForm() {
@@ -2762,8 +2762,8 @@ function inviteUserForm() {
    email.placeholder = 'Enter the invited user email'
     email.className = 'form-control'
     email.name = 'email'
-    
-      
+
+
     const roleLabel = document.createElement('label')
    roleLabel.innerHTML = 'Role'
 
@@ -2775,21 +2775,21 @@ function inviteUserForm() {
    role.placeholder = 'Enter the role of the user, eg. Chef, Brand Ambassador, ect'
     role.className = 'form-control'
     role.name = 'role'
-    
 
-    
+
+
     const subject = document.createElement('input')
     subject.type = 'text'
     subject.value = 'You have been invited to EZ Staff!'
     subject.style.display = 'none'
     subject.name = 'subject'
-    
+
     const message = document.createElement('input')
     message.type = 'text'
     message.value = 'You have Been invited to the EZ Staff Web Application! Click to get started! http://ezstaff.shiftmediamanagement.com/employeesignup.html'
     message.style.display = 'none'
     message.name = 'message'
-    
+
 
 
     const button = document.createElement('button')
@@ -2803,10 +2803,10 @@ function inviteUserForm() {
 
     form.appendChild(emailLabel)
     form.appendChild(email)
-    
+
     form.appendChild(roleLabel)
     form.appendChild(role)
-    
+
     form.appendChild(subject)
     form.appendChild(message)
 
@@ -2826,7 +2826,7 @@ their email was invited to the app, as well as what organization they're part of
 function inviteUser() {
 
     const email = document.getElementById('email').value
-    
+
     const role = document.getElementById('role').value
 
     const organization = document.getElementById('organization').innerHTML
@@ -2878,7 +2878,7 @@ function employeeSignUp() {
         }).then(function(response) {
 
         const email = document.getElementById('email').value
-       
+
 
           const range = response.result
 
@@ -2889,15 +2889,15 @@ function employeeSignUp() {
                 if (email === row[1]) {
 
                     const randomSelectorOnPage = document.getElementById('footer')
-                    
-                    
+
+
 
                     const organization = document.createElement('input')
-                    
+
                     const role = document.createElement('role')
-                    
+
                     role.value = row[4]
-                    
+
                     role.id = 'role'
 
                     organization.value = row[3]
@@ -2935,13 +2935,13 @@ function employeeSignUp() {
 
 // This signs the staff member up for the application
 function signEmployeeUp() {
-    
+
 const role = document.getElementById('role').value
  const fullName = document.getElementById('firstName').value + ' ' + document.getElementById('lastName').value + '(' + role + ')'
     const email = document.getElementById('email').value
     const password = document.getElementById('password').value
     const organization = document.getElementById('organization').value
-    
+
 
 
     return gapi.client.sheets.spreadsheets.values.append({
