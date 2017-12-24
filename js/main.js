@@ -72,6 +72,13 @@ const CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuser
 
 
 
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+
+
 // Initializes the Google Maps API. In order to use it's 'calculate distance' function, I needed to have an actual map on the page. And so, I did that, and just
 //made the map hidden.
  function initMap() {
@@ -247,7 +254,7 @@ const CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuser
 
 
 
-                const ul = document.createElement('ul')
+                const ul = document.createElement('form')
                 const div = document.createElement('div')
                 ul.id = 'ulidnumber' + i
                 div.id ='dividnumber' + i
@@ -293,7 +300,34 @@ const CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuser
                 ulSelector.appendChild(li2)
                  ulSelector.appendChild(li3)
                 ulSelector.appendChild(li4)
-                    ulSelector.appendChild(li5)
+                
+       /*           const subject = document.createElement('input')
+    subject.type = 'text'
+    subject.value = 'A staff member has been checked in!'
+    subject.style.display = 'none'
+    subject.name = 'subject'
+
+    const message = document.createElement('input')
+    message.type = 'text'
+    message.style.display = 'none'
+    message.name = 'message'
+                
+    message.value = username + ' has checked into the ' + row[0] + ' event! '*/
+                
+         //       ulSelector.setAttribute('method', 'post')
+                
+                
+                
+                
+                
+
+                ulSelector.appendChild(li5)
+                
+        //         li5.firstElementChild.appendChild(subject)
+                
+       //         li5.firstElementChild.appendChild(message)
+                
+        //        toAdmin(li5)
 
                     divSelector.style.display = 'none'
 
@@ -340,15 +374,15 @@ const CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuser
 // After the user clicks 'check in', this gets the coordinates of the event's address, and then runs a function to get the user's location
 function getCoordinatesOfAddress(clicked_id) {
 
-
+document.getElementById(clicked_id).id = 'clickedid'
 const geocoder = new google.maps.Geocoder()
-const clickedEvent = document.getElementById(clicked_id)
+const clickedEvent = document.getElementById('clickedid')
 clickedEvent.value = 'Checked In'
 
 const coordinatesVariable = document.createElement('input')
 coordinatesVariable.style.display = 'none'
 coordinatesVariable.id = 'coordinates'
-document.getElementById('footer').appendChild(coordinatesVariable)
+clickedEvent.appendChild(coordinatesVariable)
 
     const address = clickedEvent.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.innerHTML
 
@@ -361,10 +395,10 @@ if (status == google.maps.GeocoderStatus.OK) {
 
     coordinates.value = latitude + ' ' + longitude
 
-    getLocation()
 }
     }
  )
+    getLocation()
 }
 
 
@@ -375,7 +409,7 @@ function getLocation() {
     const currentLocationVariable = document.createElement('input')
 currentLocationVariable.style.display = 'none'
 currentLocationVariable.id = 'currentlocation'
-document.getElementById('footer').appendChild(currentLocationVariable)
+document.getElementById('coordinates').parentElement.appendChild(currentLocationVariable)
 
 
     const currentLocation = document.getElementById('currentlocation')
@@ -385,8 +419,8 @@ document.getElementById('footer').appendChild(currentLocationVariable)
    currentLocation.value = position.coords.latitude +
     ' ' + position.coords.longitude
 }
-        checkArrival()
     }
+    checkArrival()
 }
 
 
@@ -408,6 +442,16 @@ function checkArrival() {
    const distance = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(latitude1, longitude1), new google.maps.LatLng(latitude2, longitude2))
 
     if (distance < 100) {
+        
+     //  const ulForm = document.getElementById('currentlocation').parentElement.parentElement.parentElement
+        
+        
+    //    ulForm.id = 'myform'
+        
+        
+//emailjs.sendForm("ezstaff_gmail", "ez_staff_invite", 'myform')
+
+        
         checkIn()
     }
 
@@ -423,11 +467,73 @@ function checkArrival() {
 /* This function lets the user know they've checked in. Sooner than later, I plan on having this function send an email to the
 administator, notifying them of the check-in */
 function checkIn() {
+ const username = document.getElementById('username').innerHTML
+ const coordinates = document.getElementById('coordinates')
+ 
+ const location = clickedid.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerText
+    
+       // Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+    modal.style.display = "block";
+    
+ const form = document.getElementById('modalcontent')
+ form.innerHTML = ''
+ 
+  form.setAttribute('onsubmit', 'emailjs.sendForm("ezstaff_gmail", "ez_staff_invite", this); return false;')
+                form.setAttribute('method', 'post')
+    
+    
+     const subject = document.createElement('input')
+    subject.type = 'text'
+    subject.value = 'An event has been checked into!'
+    subject.style.display = 'none'
+    subject.name = 'subject'
+
+    const message = document.createElement('input')
+    message.type = 'text'
+    message.style.display = 'none'
+    message.name = 'message'
+                
+    message.value = username + ' has checked into the ' + location + ' event! Click here to check it out http://ezstaff.shiftmediamanagement.com/login.html '
+    
+    form.appendChild(subject)
+    form.appendChild(message)    
+    toAdminCheckIn(form)
+    
+    const li = document.createElement('li')
+    li.id = 'confirmli'
+    li.innerHTML = 'Do you wish to check-in?'
+    const button = document.createElement('button')
+    button.className = 'btn btn-primary button4'
+    button.innerHTML = 'Check In'
+    
+    form.appendChild(li)
+    form.appendChild(button)
 
 
-       document.getElementById('content').innerHTML = ''
-       document.getElementById('contentheader').innerHTML = ''
-       document.getElementById('content').innerHTML = 'You have successfully checked in!'
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+button.onclick = function() {
+    modal.style.display = "none";
+    document.getElementById('contentheader').innerHTML = ''
+    document.getElementById('content').innerHTML = 'You have successfully checked into the event!'
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+}
 
        //row[0] = input[0].value
 
@@ -464,12 +570,14 @@ function viewAvailableEvents() {
         button.className += 'editinput staffedclass'
         button.type = 'submit'
         button.innerHTML = 'Accept Event'
+                
+                
 
 
 
 
 
-                const ul = document.createElement('ul')
+                const ul = document.createElement('form')
                 const div = document.createElement('div')
                 ul.id = 'ulidnumber' + i
                 div.id ='dividnumber' + i
@@ -480,9 +588,18 @@ function viewAvailableEvents() {
                  const pre = document.getElementById('content')
                 div.appendChild(ul)
                 pre.appendChild(div)
+                
+   
+
+                
+                
+                
 
              const ulSelector = document.getElementById('ulidnumber' + i)
              const divSelector = document.getElementById('dividnumber' + i)
+             
+             ulSelector.setAttribute('onsubmit', 'emailjs.sendForm("ezstaff_gmail", "ez_staff_invite", this); return false;')
+                ulSelector.setAttribute('method', 'post')
 
              const li1 = document.createElement('li')
              li1.className = 'grey'
@@ -521,6 +638,7 @@ function viewAvailableEvents() {
             li1InvisibleValue.value = row[0]
             li1InvisibleValue.className = 'venueclass'
             li1.appendChild(li1InvisibleValue)
+    
 
             li2.innerHTML = row[1]
              li2InvisibleValue.value = row[1]
@@ -598,8 +716,34 @@ function viewAvailableEvents() {
            // console.log(liLoopInvisibleValue)
 
                 }
+                
+                const subject = document.createElement('input')
+    subject.type = 'text'
+    subject.value = 'An event has been accepted!'
+    subject.style.display = 'none'
+    subject.name = 'subject'
+
+    const message = document.createElement('input')
+    message.type = 'text'
+    message.style.display = 'none'
+    message.name = 'message'
+                
+    message.value = username + ' has accepted the ' + row[0] + ' event! Click here to check it out http://ezstaff.shiftmediamanagement.com/login.html '
+                
+                
+                
+                
+                
 
                 ulSelector.appendChild(li5)
+                
+                 li5.firstElementChild.appendChild(subject)
+                
+                li5.firstElementChild.appendChild(message)
+                
+                toAdmin(li5)
+                
+                
 
 
 
@@ -735,12 +879,12 @@ function assignName(clicked_id) {
 
 /* This function activates when the user cancels an event. It changes their name to 'Not Staffed'. It then gathers a multidimensional arrays of usernames, then runs
 a function to make the changes to the spreadsheet, as well as a function to display a mesage*/
-function clearNameValues(clicked_id) {
+function clearNameValues() {
 
 
  const username = document.getElementById('username').innerHTML
 
-    const clickedId = document.getElementById(clicked_id)
+    const clickedId = document.getElementById('clickedid')
 
 
 for (i = 6; i < clickedId.parentElement.parentElement.children.length; i++) {
@@ -793,6 +937,51 @@ function acceptEventMessage() {
         const contentSelector = document.getElementById('content')
         contentSelector.innerHTML = ''
         document.getElementById('contentheader').innerHTML = 'Create Event'
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+          const form = document.createElement('form')
+   form.id = 'myform'
+    form.setAttribute('onsubmit', 'emailjs.sendForm("ezstaff_gmail", "ez_staff_invite", this); return false;')
+    form.setAttribute('method', 'post')
+
+
+   
+
+
+    const subject = document.createElement('input')
+    subject.type = 'text'
+    subject.value = 'An event has been added!'
+    subject.style.display = 'none'
+    subject.name = 'subject'
+
+    const message = document.createElement('input')
+    message.type = 'text'
+    message.value = 'A new event has been added and is available! Click here to check it out http://ezstaff.shiftmediamanagement.com/login.html '
+    message.style.display = 'none'
+    message.name = 'message'
+        
+        
+        
+        form.appendChild(subject)
+        form.appendChild(message)
+        
+        
+        
+        
+        
+        
+        
+        
+        
 
         const divRow1 = document.createElement('div')
         const divCol1 = document.createElement('div')
@@ -823,7 +1012,7 @@ function acceptEventMessage() {
         divRow1.appendChild(divCol1)
         divRow1.appendChild(divCol2)
 
-        contentSelector.appendChild(divRow1)
+        form.appendChild(divRow1)
 
 
 
@@ -857,7 +1046,7 @@ function acceptEventMessage() {
          divRow2.appendChild(divCol3)
         divRow2.appendChild(divCol4)
 
-        contentSelector.appendChild(divRow2)
+        form.appendChild(divRow2)
 
         const divRow3 = document.createElement('div')
         const divCol5 = document.createElement('div')
@@ -891,7 +1080,7 @@ function acceptEventMessage() {
         divRow3.className = 'row'
          divRow3.appendChild(divCol5)
         divRow3.appendChild(divCol6)
-        contentSelector.appendChild(divRow3)
+        form.appendChild(divRow3)
 
 
         const specs = document.createElement('input')
@@ -901,8 +1090,8 @@ function acceptEventMessage() {
         specs.placeholder = 'Enter the types of staff needed, eg. 2 Chefs, 5 Brand Ambassadors, ect'
         const specsLabel = document.createElement('label')
         specsLabel.innerHTML = 'Specifications'
-        contentSelector.appendChild(specsLabel)
-        contentSelector.appendChild(specs)
+        form.appendChild(specsLabel)
+        form.appendChild(specs)
 
 
 
@@ -913,10 +1102,258 @@ function acceptEventMessage() {
         button.innerHTML = 'Create Event'
         button.setAttribute('onclick', 'execute()')
         button.id = 'createeventbutton'
-        contentSelector.appendChild(button)
+        form.appendChild(button)
+        
+        contentSelector.appendChild(form)
+        
+        toEmployees()
 
 
     }
+
+
+
+
+function toEmployees () {
+    
+    const organization = document.getElementById('organization').innerHTML
+    
+     return gapi.client.sheets.spreadsheets.values.get({
+      'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
+      'range': 'Sheet2!M2:R',
+      'dateTimeRenderOption': 'FORMATTED_STRING',
+      'majorDimension': 'ROWS',
+      'valueRenderOption': 'FORMATTED_VALUE'
+    })
+        .then(function(response) {
+          // Handle the results here (response.result has the parsed body).
+
+
+
+       const range = response.result
+          if (range.values.length > 0) {
+            for (i = 0; i < range.values.length; i++) {
+                const row = range.values[i]
+                
+                if (row[2] === 'Employee' && row[3] === organization) {
+                
+                
+   const email = document.createElement('input')
+   email.type = 'text'
+   // email.id = 'email'
+    email.autocomplete = 'off'
+   email.style.display = 'none'
+    email.name = 'email'
+                email.value = row[1]
+                document.getElementById('myform').appendChild(email)
+                }
+                
+                
+                
+                }
+                
+                }
+                 }, function(error) {
+
+        })
+    
+    
+}
+
+
+
+function toEmployeesDelete (form) {
+    
+    const organization = document.getElementById('organization').innerHTML
+    
+     return gapi.client.sheets.spreadsheets.values.get({
+      'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
+      'range': 'Sheet2!M2:R',
+      'dateTimeRenderOption': 'FORMATTED_STRING',
+      'majorDimension': 'ROWS',
+      'valueRenderOption': 'FORMATTED_VALUE'
+    })
+        .then(function(response) {
+          // Handle the results here (response.result has the parsed body).
+
+
+
+       const range = response.result
+          if (range.values.length > 0) {
+            for (i = 0; i < range.values.length; i++) {
+                const row = range.values[i]
+                
+                if (row[2] === 'Employee' && row[3] === organization) {
+                
+                
+   const email = document.createElement('input')
+   email.type = 'text'
+   // email.id = 'email'
+    email.autocomplete = 'off'
+   email.style.display = 'none'
+    email.name = 'email'
+                email.value = row[1]
+                form.appendChild(email)
+                }
+                
+                
+                
+                }
+                
+                }
+                 }, function(error) {
+
+        })
+    
+    
+}
+
+
+
+function toAdmin(li5) {
+    
+    const organization = document.getElementById('organization').innerHTML
+    
+     return gapi.client.sheets.spreadsheets.values.get({
+      'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
+      'range': 'Sheet2!M2:R',
+      'dateTimeRenderOption': 'FORMATTED_STRING',
+      'majorDimension': 'ROWS',
+      'valueRenderOption': 'FORMATTED_VALUE'
+    })
+        .then(function(response) {
+          // Handle the results here (response.result has the parsed body).
+
+
+
+       const range = response.result
+          if (range.values.length > 0) {
+            for (i = 0; i < range.values.length; i++) {
+                const row = range.values[i]
+                
+                if (row[2] === 'Admin' && row[3] === organization) {
+                
+                
+   const email = document.createElement('input')
+   email.type = 'text'
+   // email.id = 'email'
+    email.autocomplete = 'off'
+   email.style.display = 'none'
+    email.name = 'email'
+                email.value = row[1]
+                li5.firstElementChild.appendChild(email)
+                }
+                
+                
+                
+                }
+                
+                }
+                 }, function(error) {
+
+        })
+    
+    
+}
+
+
+
+
+function toAdminCheckIn(form) {
+    
+    const organization = document.getElementById('organization').innerHTML
+    
+     return gapi.client.sheets.spreadsheets.values.get({
+      'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
+      'range': 'Sheet2!M2:R',
+      'dateTimeRenderOption': 'FORMATTED_STRING',
+      'majorDimension': 'ROWS',
+      'valueRenderOption': 'FORMATTED_VALUE'
+    })
+        .then(function(response) {
+          // Handle the results here (response.result has the parsed body).
+
+
+
+       const range = response.result
+          if (range.values.length > 0) {
+            for (i = 0; i < range.values.length; i++) {
+                const row = range.values[i]
+                
+                if (row[2] === 'Admin' && row[3] === organization) {
+                
+                
+   const email = document.createElement('input')
+   email.type = 'text'
+   // email.id = 'email'
+    email.autocomplete = 'off'
+   email.style.display = 'none'
+    email.name = 'email'
+                email.value = row[1]
+                form.appendChild(email)
+                }
+                
+                
+                
+                }
+                
+                }
+                 }, function(error) {
+
+        })
+    
+    
+}
+
+
+function toAll(li5) {
+    
+    const organization = document.getElementById('organization').innerHTML
+    const username = document.getElementById('organization').innerHTML
+    
+     return gapi.client.sheets.spreadsheets.values.get({
+      'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
+      'range': 'Sheet2!M2:R',
+      'dateTimeRenderOption': 'FORMATTED_STRING',
+      'majorDimension': 'ROWS',
+      'valueRenderOption': 'FORMATTED_VALUE'
+    })
+        .then(function(response) {
+          // Handle the results here (response.result has the parsed body).
+
+
+
+       const range = response.result
+          if (range.values.length > 0) {
+            for (i = 0; i < range.values.length; i++) {
+                const row = range.values[i]
+                
+                
+         if (row[3] === organization) {
+                
+                
+   const email = document.createElement('input')
+   email.type = 'text'
+   // email.id = 'email'
+    email.autocomplete = 'off'
+   email.style.display = 'none'
+    email.name = 'email'
+                email.value = row[1]
+                li5.firstElementChild.appendChild(email)
+                }
+                
+                
+                
+                }
+                
+                }
+                 }, function(error) {
+
+        })
+    
+    
+}
+
 
 
 
@@ -934,7 +1371,7 @@ function execute() {
 
     return gapi.client.sheets.spreadsheets.values.append({
       'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
-      'range': 'A:DS',
+      'range': 'Sheet1!A:DS',
       'includeValuesInResponse': 'false',
       'insertDataOption': 'INSERT_ROWS',
       'responseDateTimeRenderOption': 'FORMATTED_STRING',
@@ -1111,6 +1548,19 @@ function adminSignUp() {
     const password = document.getElementById('password').value
     const organization = document.getElementById('organization').value
 
+    var someDate = new Date();
+var numberOfDaysToAdd = 14;
+someDate.setDate(someDate.getDate() + numberOfDaysToAdd); 
+
+var dd = someDate.getDate();
+var mm = someDate.getMonth() + 1;
+var y = someDate.getFullYear();
+
+var someFormattedDate = dd + '/'+ mm + '/'+ y;
+
+    
+    
+    
 
     return gapi.client.sheets.spreadsheets.values.append({
       'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
@@ -1129,6 +1579,9 @@ function adminSignUp() {
             organization,
               '',
               password,
+              'Free Trial',
+              someFormattedDate
+              
           ]
         ]
       }
@@ -1164,7 +1617,7 @@ function logIn() {
 
     return gapi.client.sheets.spreadsheets.values.get({
       'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
-      'range': 'Sheet2!M2:R',
+      'range': 'Sheet2!M2:T',
       'dateTimeRenderOption': 'FORMATTED_STRING',
       'majorDimension': 'ROWS',
       'valueRenderOption': 'FORMATTED_VALUE'
@@ -1232,10 +1685,22 @@ function logIn() {
 
 
                 }
+                
+               
+                
+                if (row[2] === 'Admin' && row[6] !== 'Free Trial') {
+                document.getElementById('login').innerText = 'View Plans'
+                document.getElementById('login').className = 'btn btn-primary button4'
+                    
+                document.getElementById('login').setAttribute('onclick', 'displayPlans();')
+                }
+                
+                if (row[2] === 'Employee') {
+                  document.getElementById('login').innerHTML = ''  
+                }
 
 
                 document.getElementById('demobutton').innerHTML = ''
-                document.getElementById('login').innerHTML = ''
 
                 const loginButton = document.getElementById('button')
                  loginButton.setAttribute('onclick', 'handleSignoutClick()')
@@ -1280,8 +1745,50 @@ function logIn() {
 
 
                 document.getElementById('content').setAttribute('style', 'padding-bottom: 210px')
+                
+                
+                
+              
+ if (row[2] === 'Admin' && row[6] === 'Free Trial') {
+                document.getElementById('login').innerText = 'Upgrade Plan'
+                document.getElementById('login').className = 'btn btn-primary button4'
+                    
+                document.getElementById('login').setAttribute('onclick', 'displayPlans();')
+                    
+                    
+                     const expiration = new Date(row[7])
+                    
+                    var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth()+1; //January is 0!
+var yyyy = today.getFullYear();
 
+if(dd<10) {
+    dd = '0'+dd
+} 
 
+if(mm<10) {
+    mm = '0'+mm
+} 
+
+today = mm + '/' + dd + '/' + yyyy;
+                    
+                    const todayDate = new Date(today)
+                
+                    
+                    if (todayDate >= expiration) {
+                        document.getElementById('homebutton').innerHTML = ''
+                        document.getElementById('aboutbutton').innerHTML = ''
+                        document.getElementById('featuresbutton').innerHTML = ''
+                        document.getElementById('pricingbutton').innerHTML = ''
+                        
+                document.getElementById('contentheader').innerHTML = 'Trial Expired!'
+                document.getElementById('content').innerHTML = 'Your trial has ended. Please upgrade your plan to continue.'
+                        
+                        document.getElementById('loginpage').innerHTML = ''
+         
+                    }
+                }
 
 
 
@@ -1305,6 +1812,157 @@ function logIn() {
   }
 
 
+
+function displayPlans() {
+    
+    var handler = StripeCheckout.configure({
+  key: "pk_test_1MCYLYHQDa4DwnBoKd5CqoaP",
+  image: "https://stripe.com/img/documentation/checkout/marketplace.png",
+  name: "EZ Staff",
+  description: "Basic Subscription ($19.99 per month)",
+  panelLabel: "Upgrade",
+  allowRememberMe: false
+});
+    
+    var handler2 = StripeCheckout.configure({
+  key: "pk_test_1MCYLYHQDa4DwnBoKd5CqoaP",
+  image: "https://stripe.com/img/documentation/checkout/marketplace.png",
+  name: "EZ Staff",
+  description: "Pro Subscription ($49.99 per month)",
+  panelLabel: "Upgrade",
+  allowRememberMe: false
+});
+    
+    var handler3 = StripeCheckout.configure({
+  key: "pk_test_1MCYLYHQDa4DwnBoKd5CqoaP",
+  image: "https://stripe.com/img/documentation/checkout/marketplace.png",
+  name: "EZ Staff",
+  description: "Enterprise Subscription ($49.99 per month)",
+  panelLabel: "Upgrade",
+  allowRememberMe: false
+});
+    
+    document.getElementById('contentheader').innerHTML = 'Plans'
+        document.getElementById('content').innerHTML = ''
+    
+    const column1 = document.createElement('div')
+    column1.className = 'columns'
+    const ul1 = document.createElement('ul')
+    ul1.className = 'price'
+    const li1 = document.createElement('li')
+    li1.className = 'header'
+    li1.innerText = 'Basic'
+    const li2 = document.createElement('li')
+    li2.className = 'greyy'
+    li2.innerText = '$ 19.99 / month'
+    const li3 = document.createElement('li')
+    li3.innerText = '10 Staff Members'
+    const li4 = document.createElement('li')
+    li4.innerText = 'Unlimited Events'
+    const li5 = document.createElement('li')
+    li5.innerText = 'No Contract/Commitment'
+    const li6 = document.createElement('li')
+    li6.innerText = '24/7 Support'
+    const li7 = document.createElement('li')
+    li7.className = 'greyy'
+    const button1 = document.createElement('button')
+    button1.innerText = 'Upgrade'
+    button1.className = 'btn btn-info navbar-btn button2'
+    button1.addEventListener('click', function(e) {
+  handler.open();
+  e.preventDefault();
+    })
+    column1.appendChild(ul1)
+    ul1.appendChild(li1)
+    ul1.appendChild(li2)
+    ul1.appendChild(li3)
+    ul1.appendChild(li4)
+    ul1.appendChild(li5)
+    ul1.appendChild(li6)
+    ul1.appendChild(li7)
+    li7.appendChild(button1)
+    document.getElementById('content').appendChild(column1)
+    
+    const column2 = document.createElement('div')
+    column2.className = 'columns'
+    const ul2 = document.createElement('ul')
+    ul2.className = 'price'
+    const li8 = document.createElement('li')
+    li8.className = 'headerblue'
+    li8.innerText = 'Pro'
+    const li9 = document.createElement('li')
+    li9.className = 'greyy'
+    li9.innerText = '$ 49.99 / month'
+    const li10 = document.createElement('li')
+    li10.innerText = '25 Staff Members'
+    const li11 = document.createElement('li')
+    li11.innerText = 'Unlimited Events'
+    const li12 = document.createElement('li')
+    li12.innerText = 'No Contract/Commitment'
+    const li13 = document.createElement('li')
+    li13.innerText = '24/7 Support'
+    const li14 = document.createElement('li')
+    li14.className = 'greyy'
+    const button2 = document.createElement('button')
+    button2.innerText = 'Upgrade'
+    button2.className = 'btn btn-info navbar-btn button2'
+        button2.addEventListener('click', function(e) {
+  handler2.open();
+  e.preventDefault();
+        })
+    column2.appendChild(ul2)
+    ul2.appendChild(li8)
+    ul2.appendChild(li9)
+    ul2.appendChild(li10)
+    ul2.appendChild(li11)
+    ul2.appendChild(li12)
+    ul2.appendChild(li13)
+    ul2.appendChild(li14)
+    li14.appendChild(button2)
+    document.getElementById('content').appendChild(column2)
+    
+    const column3 = document.createElement('div')
+    column3.className = 'columns'
+    const ul3 = document.createElement('ul')
+    ul3.className = 'price'
+    const li15 = document.createElement('li')
+    li15.className = 'header'
+    li15.innerText = 'Enterprise'
+    const li16 = document.createElement('li')
+    li16.className = 'greyy'
+    li16.innerText = '$ 119.99 / month'
+    const li17 = document.createElement('li')
+    li17.innerText = 'Unlimited Staff Members'
+    const li18 = document.createElement('li')
+    li18.innerText = 'Unlimited Events'
+    const li19 = document.createElement('li')
+    li19.innerText = 'No Contract/Commitment'
+    const li20 = document.createElement('li')
+    li20.innerText = '24/7 Support'
+    const li21 = document.createElement('li')
+    li21.className = 'greyy'
+    const button3 = document.createElement('button')
+    button3.innerText = 'Upgrade'
+    button3.className = 'btn btn-info navbar-btn button2'
+ button3.addEventListener('click', function(e) {
+  handler3.open();
+  e.preventDefault();
+ })
+    column3.appendChild(ul3)
+    ul3.appendChild(li15)
+    ul3.appendChild(li16)
+    ul3.appendChild(li17)
+    ul3.appendChild(li18)
+    ul3.appendChild(li19)
+    ul3.appendChild(li20)
+    ul3.appendChild(li21)
+    li21.appendChild(button3)
+    document.getElementById('content').appendChild(column3)
+    
+    
+}
+
+
 /* This pops up a list of events for the user and gives them the option to cancel the event */
 function cancelEventList() {
        return gapi.client.sheets.spreadsheets.values.get({
@@ -1325,7 +1983,7 @@ function cancelEventList() {
 
 
         const button = document.createElement('button')
-        button.setAttribute('onclick', 'clearNameValues(this.id);')
+        button.setAttribute('onclick', 'cancelpopup(this.id);')
         button.className = 'btn btn-primary button3'
         button.className += ' '
         button.className += 'input'
@@ -1341,7 +1999,7 @@ function cancelEventList() {
 
 
 
-            const ul = document.createElement('ul')
+            const ul = document.createElement('form')
                 const div = document.createElement('div')
                 ul.id = 'ulidnumber' + i
                 div.id ='dividnumber' + i
@@ -1355,6 +2013,10 @@ function cancelEventList() {
 
              const ulSelector = document.getElementById('ulidnumber' + i)
              const divSelector = document.getElementById('dividnumber' + i)
+             
+             
+              // ulSelector.setAttribute('onsubmit', 'emailjs.sendForm("ezstaff_gmail", "ez_staff_invite", this); return false;')
+              //  ulSelector.setAttribute('method', 'post')
 
              const li1 = document.createElement('li')
              li1.className = 'grey'
@@ -1440,7 +2102,6 @@ function cancelEventList() {
 
                 ulSelector.appendChild(li7)
                 ulSelector.appendChild(li8)
-                ulSelector.appendChild(li5)
 
         for (j = 9; j < (parseInt(row[8])+9); j++) {
 
@@ -1468,9 +2129,10 @@ function cancelEventList() {
            // console.log(liLoopInvisibleValue)
 
                 }
-
+                
                 ulSelector.appendChild(li5)
 
+    
 
 
 
@@ -1540,7 +2202,163 @@ function cancelEventList() {
 
 
 
+function cancelpopup(clicked_id) {
+    document.getElementById(clicked_id).id = 'clickedid'
+    
+    const venue = document.getElementById('clickedid').parentElement.parentElement.firstElementChild.innerText
+    
+    const username = document.getElementById('username').innerHTML
+    
+      // Get the modal
+var modal = document.getElementById('myModal');
 
+// Get the button that opens the modal
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+    modal.style.display = "block";
+    
+ const form = document.getElementById('modalcontent')
+ form.innerHTML = ''
+    
+ form.setAttribute('onsubmit', 'emailjs.sendForm("ezstaff_gmail", "ez_staff_invite", this); return false;')
+                form.setAttribute('method', 'post')
+    
+    
+    
+     const subject = document.createElement('input')
+    subject.type = 'text'
+    subject.value = 'An event has been cancelled!'
+    subject.style.display = 'none'
+    subject.name = 'subject'
+
+    const message = document.createElement('input')
+    message.type = 'text'
+    message.style.display = 'none'
+    message.name = 'message'
+                
+    message.value = username + ' has cancelled the ' + venue + ' event, meaning it is now available! Click here to check it out http://ezstaff.shiftmediamanagement.com/login.html '
+    
+    
+    
+    
+    
+     const li = document.createElement('li')
+    li.id = 'confirmli'
+    li.innerHTML = 'Are you sure you would like to cancel the event?'
+    const buttonn = document.createElement('button')
+    buttonn.className = 'btn btn-primary button3'
+    buttonn.innerHTML = 'Cancel Event'
+    
+    
+    form.appendChild(subject)
+    form.appendChild(message)
+    toAdminCheckIn(form)
+    
+    form.appendChild(li)
+    form.appendChild(buttonn)
+
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+
+
+buttonn.setAttribute('onclick', 'noModalDisplay(); clearNameValues();')
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+}
+    
+}
+
+function noModalDisplay() {
+    var modal = document.getElementById('myModal');
+     modal.style.display = "none";
+
+}
+
+
+function clearEventPopup(clicked_id) {
+    document.getElementById(clicked_id).id = 'clickedid'
+    
+    const venue = document.getElementById('clickedid').parentElement.parentElement.firstElementChild.innerText
+    
+    const username = document.getElementById('username').innerHTML
+    
+      // Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+    modal.style.display = "block";
+    
+ const form = document.getElementById('modalcontent')
+ form.innerHTML = ''
+    
+ form.setAttribute('onsubmit', 'emailjs.sendForm("ezstaff_gmail", "ez_staff_invite", this); return false;')
+                form.setAttribute('method', 'post')
+    
+    
+    
+     const subject = document.createElement('input')
+    subject.type = 'text'
+    subject.value = 'An event has been deleted!'
+    subject.style.display = 'none'
+    subject.name = 'subject'
+
+    const message = document.createElement('input')
+    message.type = 'text'
+    message.style.display = 'none'
+    message.name = 'message'
+                
+    message.value = username + ' has deleted the ' + venue + ' event. Click here to check it out http://ezstaff.shiftmediamanagement.com/login.html '
+    
+    
+    
+    
+    
+     const li = document.createElement('li')
+    li.id = 'confirmli'
+    li.innerHTML = 'Are you sure you would like to delete the event?'
+    const buttonn = document.createElement('button')
+    buttonn.className = 'btn btn-primary button3'
+    buttonn.innerHTML = 'Delete Event'
+    
+    
+    form.appendChild(subject)
+    form.appendChild(message)
+    toEmployeesDelete(form)
+    
+    form.appendChild(li)
+    form.appendChild(buttonn)
+
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+buttonn.setAttribute('onclick', 'noModalDisplay(); clearEventValues();')
+
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+}
+    
+}
 
 
 
@@ -1577,7 +2395,7 @@ function editEventList() {
         button.innerHTML = 'Edit Event'
 
          const button2 = document.createElement('button')
-        button2.setAttribute('onclick', 'clearEventValues(this.id); staffedClassChanges(); venueClassChanges(); locationClassChanges(); dateClassChanges(); beginsClassChanges(); endsClassChanges(); orgClassChanges(); specClassChanges(); numberofstaffClassChanges();')
+        button2.setAttribute('onclick', 'clearEventPopup(this.id);')
         button2.className = 'btn btn-primary button3'
         button2.className += ' '
         button2.className += 'input'
@@ -1772,14 +2590,14 @@ function editEventList() {
 
 
 // If the admin chooses to delete an event, this grabs all of the values of the event and clears them
-function clearEventValues(clicked_id) {
+function clearEventValues() {
 
 
 
-    const clearValues = document.getElementById(clicked_id).parentElement.parentElement.children
+    const clearValues = document.getElementById('clickedid').parentElement.parentElement.children
 
-    document.getElementById(clicked_id).firstElementChild.value = ''
-    document.getElementById(clicked_id).parentElement.parentElement.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild.firstElementChild.value = ''
+    document.getElementById('clickedid').firstElementChild.value = ''
+    document.getElementById('clickedid').parentElement.parentElement.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild.firstElementChild.value = ''
 
 
     for (i = 0; i < clearValues.length; i++) {
@@ -1787,6 +2605,16 @@ function clearEventValues(clicked_id) {
 
 
     }
+    
+    staffedClassChanges()
+    venueClassChanges()
+    locationClassChanges()
+    dateClassChanges()
+    beginsClassChanges()
+    endsClassChanges()
+    orgClassChanges()
+    specClassChanges()
+    numberofstaffClassChanges()
 
 
 }
@@ -2913,7 +3741,7 @@ function employeeSignUp() {
 
                     signEmployeeUp()
 
-                } else {
+                } /*else {
 
                     const selectedArea = document.getElementById('content')
                     selectedArea.innerHTML = ''
@@ -2922,7 +3750,7 @@ function employeeSignUp() {
                     message.style.color = 'red'
                     document.getElementById('content').appendChild(message)
 
-                }
+                }*/
             }
 
 

@@ -26,6 +26,8 @@
       emailjs.init("user_UaK5mQ1mYv1rdoY3RaDpC");
    })();
 </script>
+ 
+ <script src="https://checkout.stripe.com/checkout.js"></script>
   
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -99,7 +101,7 @@
 
 
 
-          <button type="submit" class="btn btn-primary button2" id="authorize-button"  onclick="handleAuthClick(); logIn();">Submit</button>
+          <button type="submit" class="btn btn-primary button2" id="authorize-button"  onclick="handleAuthClick(); logIn(); topFunction();">Submit</button>
           <p>If you'd like to sign up instead, please click <a href="signup.html">here</a>.</p>
 </div>
       
@@ -121,6 +123,15 @@
    <!-- <input id="go" type="submit" value="Go" onclick="listMajors()"> -->
 
     <footer id="footer">
+     <div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <form id = 'modalcontent'></form>
+  </div>
+
+</div>
   <div class="container">
 <div class="row">
  <div id="floating-panel">
@@ -166,6 +177,7 @@
 </footer>
     <div class="footerparttwo">
   <div class="container">
+   
     <p>
       &copy; 2017 EZ Staff. All Rights Reserved
     </p>
