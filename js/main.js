@@ -1692,7 +1692,7 @@ function logIn() {
                 document.getElementById('login').innerText = 'View Plans'
                 document.getElementById('login').className = 'btn btn-primary button4'
                     
-                document.getElementById('login').setAttribute('onclick', 'displayPlans();')
+                document.getElementById('login').setAttribute('onclick', 'displayPlans(); collapse();')
                 }
                 
                 if (row[2] === 'Employee') {
@@ -1753,7 +1753,7 @@ function logIn() {
                 document.getElementById('login').innerText = 'Upgrade Plan'
                 document.getElementById('login').className = 'btn btn-primary button4'
                     
-                document.getElementById('login').setAttribute('onclick', 'displayPlans();')
+                document.getElementById('login').setAttribute('onclick', 'displayPlans(); collapse();')
                     
                     
                      const expiration = new Date(row[7])
