@@ -1,7 +1,22 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>EZ Staff</title>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-112235409-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-112235409-1');
+</script>
+     <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="theme-color" content="#ffffff">
+   <title>Event Staffing Software</title>
        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="js/respond.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -13,6 +28,7 @@
     <!-- Add icon library -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta charset='utf-8' />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700%7CRoboto:300,400,500,700' rel='stylesheet' type='text/css'>
   </head>
   
   <header>
@@ -24,7 +40,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" id="brand" href="index.html" style="font-size: 28px">EZ Staff</a>
+     <a class="navbar-brand" id="brand" href="index.html"><img src="img/imageedit_6_9701024636.png" class= "img-responsive" style="height: 100%"></a>
     </div>
     <div class="navbar-collapse collapse" id="myNavbar">
       <ul class="nav navbar-nav" id="listitems">
@@ -32,11 +48,11 @@
         <li><a href="about.html">About</a></li>
         <li><a href="features.html">Features</a></li>
         <li><a href="pricing.html">Pricing</a></li>
-        <li><a href="#">Demo</a></li>
+        <li><a href="demo.html">Demo</a></li>
       </ul>
-      <ul class="nav navbar-nav navbar-right" id="otherlistitems">
-        <li>  <button class="btn btn-info navbar-btn" id="button">Free 24 Day Trial</button></li>
-        <li id="login"><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+     <ul class="nav navbar-nav navbar-right" id="otherlistitems">
+          <li>  <a href="signup.html" class="btn btn-info navbar-btn button2" id="button">Free 14 Day Trial</a></li>
+        <li id="login"><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
       </ul>
       
     </div>
@@ -54,9 +70,9 @@
   <body>
     <div id="signup">
      <div class="container">
-      <h1 style=" text-align: center">Sign Up</h1>
-      <p style = "text-align: center; opacity: .8">Start your 14 day Free Trial today! No credit card needed.</p>
-      <form id='signupform'>
+      <h1 style=" text-align: center; font-size: 30px">Sign Up</h1>
+      <p style = "text-align: center; opacity: .8; font-size: 22px; font-weight: 100">Start your 14 day Free Trial today! No credit card needed.</p>
+      <form id='signupform' >
       <div class="row">
       <div class="form-group col-md-6 col-sm-12">
     <label for="exampleInputEmail1">First Name</label>
@@ -103,49 +119,52 @@
     
    <!-- <input id="go" type="submit" value="Go" onclick="listMajors()"> -->
     
-    <footer>
+    <footer style="margin-top: -35px">
   <div class="container">
 <div class="row">
 
 <div class="col-md-4 col-sm-4 col-xs-12">
-  <h3>Visit Us</h3>
+    <h3>EZ Staff</h3>
+    <p>"Submit an event and <span style="font-style: italic">relax</span> as the work is done for you."</p>
+</div>
+
+<div class="col-md-4 col-sm-4 col-xs-12" id="resourcefooter">
+<h3>Resources</h3>
+    
+    <p><a href="demo.html">Live Demo</a></p>
+    <p><a href="about.html">About Us</a></p>
+    
+</div>
+
+<div class="col-md-4 col-sm-4 col-xs-12">
+   <h3>Contact Us</h3>
   <p>
-    1111 Fictitional Ave<br />
-    Vallejo, Ca 94589<br /><br />
-    (888)-888-8888<br /><br />
-    info@ezstaff.com
+    1333 N Camino Ave<br />
+      Vallejo, Ca 94589</p>
+      <br>
+    <p id="philezstaff"><a href="mailto:phil@ezstaff.co">phil@ezstaff.co</a>
   </p>
-</div>
-
-<div class="col-md-4 col-sm-4 col-xs-12">
-<h3 >Resources</h3>
-<ul id="resources">
-    
-    <li><a href="#">Live Demo</a></li>
-    <li><a href="#">Support Forum</a></li>
-    <li><a href="about.html">About Us</a></li>
-    <li><a href="#">Blog</a></li>
-    
-</ul>
-</div>
-
-<div class="col-md-4 col-sm-4 col-xs-12">
-<h3 id="socialmedia">Connect With Us</h3>
-<a href="#"><img id="facebook" src="img/facebook.png"></a>
+  <a href="#"><img id="facebook" src="img/facebook.png"></a>
 <a href="#"><img id="instagram" src="img/instagram.png" ></a>
-<a href="#"><img id="googleplus" src="img/googleplus.png" ></a>
-<a href="#"><img id="linkedin" src="img/linkedin.png" ></a>
 <a href="#"><img id="twitter" src="img/twitter.png" ></a>
 </div>
+
+<!--<div class="col-md-4 col-sm-4 col-xs-12">
+    <iframe width="300" height="225" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJbTzvlMoMhYARGOzMvklCVkI&key=AIzaSyDAoGUH88zjiD2XjlpsCDr-HvVNcsEZ5ZQ" allowfullscreen></iframe>
+</div>-->
+
+
+
 
 
 </div>
 </div>
 </footer>
-    <div class="footerparttwo">
+
+<div class="footerparttwo">
   <div class="container">
     <p>
-      &copy 2017 EZ Staff. All Rights Reserved
+      &copy 2018 EZ Staff. All Rights Reserved
     </p>
   </div>
 </div>

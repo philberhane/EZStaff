@@ -7,6 +7,11 @@
 
 body {
     width: 100%;
+    font-family: "Open Sans";
+}
+
+#brand {
+    font-size: 24px;
 }
 
 title {
@@ -16,14 +21,37 @@ title {
 
 @media (min-width:0px) and (max-width:960px) {
 
-    #first, #second, #third, #fourth, #fifth, footer {
+ footer, #fourth, #fifth {
     text-align: center;
     
 }   
     
+   
+    
+    
+    #featuresectionp {
+        display: none;
+    }
+  
+    
+    
+    #annoyingp {
+        display: none;
+    }
+ 
+    
 }
 
-@media (min-width:0px) and (max-width:760px) {
+.featureslink {
+    text-align:center;
+
+}
+
+.pricinglink {
+    text-align:center;
+}
+
+@media (min-width:0px) and (max-width:990px) {
 .navbar-collapse {
         background-color: white;
     }
@@ -31,6 +59,8 @@ title {
     #brand {
         padding-left: 25px;
     }
+    
+    
     
     
 }
@@ -46,28 +76,34 @@ title {
 
 #first h1 {
     margin-top: 50px;
-  font-size: 42px;
+  font-size: 36px;
     padding-bottom: 15px;
 }
 
 #first p {
     color: #777777;
     padding-bottom: 15px;
+    font-family: "Open Sans";
+    font-weight: 100;
+
 }
 
 
 #third {
-  background-color: #f8f8f8;
   padding: 75px 0px;
 }
 
 #third h2 {
-  font-size: 32px;
+  font-size: 28px;
 }
 
 #third p {
     margin-top: 25px;
   font-size: 22px;
+    font-size: 22px;
+    color: #777777;
+    font-family: "Open Sans";
+    font-weight: 100;
 }
 
 #second {
@@ -75,25 +111,34 @@ title {
 }
 
 #second h2 {
-  font-size: 32px;
+  font-size: 28px;
 }
 
 #second p {
  font-size: 22px;
     padding-bottom: 25px;
+    color: #777777;
+    font-family: "Open Sans";
+        font-weight: 100;
+
 }
 
 
 #fourth {
   padding: 75px 0px;
+    
 }
 
 #fourth h2 {
-  font-size: 32px;
+  font-size: 28px;
 }
 
 #fourth p {
  font-size: 22px;
+    color: #777777;
+    font-family: "Open Sans";
+        font-weight: 100;
+
 }
 
 #fourth #button {
@@ -116,30 +161,19 @@ title {
 }
 
 #fifth h2 {
-  font-size: 38px;
+  font-size: 34px;
 }
 
 #fifth p {
-font-size: 22px;}
+font-size: 22px;
+    font-weight: 100;
+        font-family: "Open Sans";
+
+
+}
 
 #fifth #button {
     
-  background-color: white;
-  color: #31B0D5;
-  font-size: 18px;
-}
-
-
-
-#button:hover {
-    border-style: solid;
-    border-color: black;
-
-    background-color: transparent;
-    color: black;
-}
-
-#fifth #button:hover {
      background-color: white;
   color: #31B0D5;
   font-size: 18px;
@@ -154,19 +188,34 @@ font-size: 22px;}
 
 
 
+#button:hover {
+    border-style: solid;
+    border-color: black;
+
+    background-color: transparent;
+    color: black;
+}
+
+#fifth #button:hover {
+    background-color: white;
+  color: #31B0D5;
+  font-size: 18px;
+}
+
+
+
 footer {
-  background-color: #2B2B2B;
+
+      background-color: #141414;
   padding: 75px 0px;
 }
 
 footer h3 {
   color: white;
-    margin-left: ;
 }
 
 footer p {
-  color: #DDDDDD;
-}
+color: #aaa9a9;}
 
 .fa {
     padding: 20px;
@@ -178,14 +227,15 @@ footer p {
 }
 
 .footerparttwo {
-  background-color: #242424;
-  padding-top: 10px;
+  background-color: #1d1d1d;
+  padding-top: 20px;
+    padding-bottom: 10px;
   text-align: center;
 }
 
 .footerparttwo p {
   color: #DDDDDD;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 
@@ -227,7 +277,7 @@ footer p {
 
 #resources {
     list-style-type: none;
-    padding-right: 25px
+    padding-right: 30px
 }
 
 #resources a {
@@ -255,16 +305,20 @@ nav.navbar.transparent {
     background-color: transparent;
 }
 
+footer h3 {
+    font-size: 18px;
+}
+
 #facebook {
     width: 25px; 
     height: 25px;
 }
 
 #facebook:hover {
-     -webkit-transform: scale(1.5) rotateZ(360deg);
-  -moz-transform: scale(1.5) rotateZ(360deg);
-  -o-transform: scale(1.5) rotateZ(-30deg);
-  transform: scale(1.5) rotateZ(360deg);
+     -webkit-transform: scale(1.5);
+  -moz-transform: scale(1.5);
+  -o-transform: scale(1.5);
+  transform: scale(1.5);
 }
 
 #instagram {
@@ -273,35 +327,12 @@ nav.navbar.transparent {
 }
 
 #instagram:hover {
-     -webkit-transform: scale(1.5) rotateZ(360deg);
-  -moz-transform: scale(1.5) rotateZ(360deg);
-  -o-transform: scale(1.5) rotateZ(-30deg);
-  transform: scale(1.5) rotateZ(360deg);
+      -webkit-transform: scale(1.5);
+  -moz-transform: scale(1.5);
+  -o-transform: scale(1.5);
+  transform: scale(1.5);
 }
 
-#googleplus {
-    width: 25px; 
-    height: 25px
-}
-
-#googleplus:hover {
-     -webkit-transform: scale(1.5) rotateZ(360deg);
-  -moz-transform: scale(1.5) rotateZ(360deg);
-  -o-transform: scale(1.5) rotateZ(-30deg);
-  transform: scale(1.5) rotateZ(360deg);
-}
-
-#linkedin {
-    width: 25px; 
-    height: 25px
-}
-
-#linkedin:hover {
-     -webkit-transform: scale(1.5) rotateZ(360deg);
-  -moz-transform: scale(1.5) rotateZ(360deg);
-  -o-transform: scale(1.5) rotateZ(-30deg);
-  transform: scale(1.5) rotateZ(360deg);
-}
 
 #twitter {
     width: 25px; 
@@ -309,10 +340,10 @@ nav.navbar.transparent {
 }
 
 #twitter:hover {
-     -webkit-transform: scale(1.5) rotateZ(360deg);
-  -moz-transform: scale(1.5) rotateZ(360deg);
-  -o-transform: scale(1.5) rotateZ(-30deg);
-  transform: scale(1.5) rotateZ(360deg);
+       -webkit-transform: scale(1.5);
+  -moz-transform: scale(1.5);
+  -o-transform: scale(1.5);
+  transform: scale(1.5);
 }
 
 
@@ -508,7 +539,7 @@ nav.navbar.transparent {
 
 #aboutsection h2 {
     text-align: center;
-    font-size: 36px;
+    font-size: 30px;
     margin-top: 75px;
     padding-bottom: 25px
 }
@@ -516,8 +547,8 @@ nav.navbar.transparent {
 
 #aboutsection p {
     color: #777777;
-  font-size: 24px;
-    text-align: center;
+  font-size: 22px;
+    font-weight: 100
 }
 
 #pricingsection {
@@ -525,27 +556,51 @@ nav.navbar.transparent {
 }
 
 #pricingsection h2 {
-    font-size: 36px;
+    font-size: 30px;
     margin-top: 125px;
-    padding-bottom: 25px;
+   
 }
 
 #pricingsection p {
     padding-bottom: 25px;
-  font-size: 24px;
+  font-size: 22px;
+    color: #777777;
+    font-weight: 100;
+}
+
+.pricingfaqssection {
+    padding-bottom: 25px;
+}
+
+#pricingfaqs{
+    padding-top: 35px;
+}
+
+
+#pricingfaqs h3{
+    font-size: 20px;
+}
+
+#pricingfaqs p {
+    font-size: 16px;
+    color: #777777;
 }
 
 #featuresection {
   background-color: #F8F8F8;
   padding: 75px 0px;
     padding-bottom: 75px;
+    font-weight: 100
+}
+
+#featuresectionp {
     text-align: center;
 }
 
 #featuresection h1 {
   font-size: 42px;
     text-align: center;
-    font-size: 36px;
+    font-size: 24px;
     margin-top: 50px;
 }
 
@@ -556,15 +611,10 @@ nav.navbar.transparent {
 
 #featuresection p {
     font-size: 22px;
-    margin-top: 25px;
+    color: #777777;
 }
 
-#featuresectionp {
-    color: #777777;
-  font-size: 24px;
-    text-align: center;
-    padding-bottom: 50px;
-}
+
 
 .glyphicon:hover {
     color: #31B0D5;
@@ -693,6 +743,8 @@ ul {
 }
 
 
+
+
 /* The Modal (background) */
 .modal {
     display: none; /* Hidden by default */
@@ -721,7 +773,7 @@ ul {
 
 /* The Close Button */
 .close {
-    color: #aaaaaa;
+    color: rgb(0, 0, 0);
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -734,6 +786,198 @@ ul {
     cursor: pointer;
 }
 
+
+.modal1 {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    list-style-type: none;
+}
+
+/* Modal Content */
+.modal-content1 {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    text-align: center;
+}
+
+/* The Close Button */
+#close1 {
+    color: #000;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+#close1:hover,
+#close1:focus {
+    color: #aaaaaa;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal2 {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    list-style-type: none;
+}
+
+
+/* The Close Button */
+#close2 {
+    color: #000;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+#close2:hover,
+#close2:focus {
+    color: #aaaaaa;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal3 {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    list-style-type: none;
+}
+
+/* Modal Content */
+
+
+/* The Close Button */
+#close3 {
+    color: #000;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+#close3:hover,
+#close3:focus {
+    color: #aaaaaa;
+    text-decoration: none;
+    cursor: pointer;
+}
+
 #confirmli {
     list-style-type: none;
+}
+
+#resourcefooter a {
+    color: #aaa9a9;
+    text-decoration: none;
+}
+
+
+#resourcefooter a:hover {
+    color: #31B0D5;
+}
+
+#flex-container {
+ 
+  
+  -ms-box-orient: horizontal;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -moz-flex;
+  display: -webkit-flex;
+  display: flex;
+  
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
+}
+
+
+
+@media (max-width: 990px) {
+    .navbar-header {
+        float: none;
+    }
+    .navbar-left,.navbar-right {
+        float: none !important;
+    }
+    .navbar-toggle {
+        display: block;
+    }
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .navbar-fixed-top {
+        top: 0;
+        border-width: 0 0 1px;
+    }
+    .navbar-collapse.collapse {
+        display: none!important;
+    }
+    .navbar-nav {
+        float: none!important;
+        margin-top: 7.5px;
+    }
+    .navbar-nav>li {
+        float: none;
+    }
+    .navbar-nav>li>a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .collapse.in{
+        display:block !important;
+    }
+    
+    .flex-item:nth-of-type(1) { order: 1; }
+.flex-item:nth-of-type(2) { order: 2; }
+   
+    
+    
+}
+
+
+#philezstaff a {
+    text-decoration: none;
+     color: rgb(144, 144, 144);
+}
+
+#philezstaff a:hover {
+    color: #31B0D5;
+}
+
+
+
+
+#facebook, #instagram, #twitter {
+    display: none;
 }

@@ -7,9 +7,7 @@ const CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuser
 
       // Authorization scopes required by the API multiple scopes can be
       // included, separated by spaces.
-      const SCOPES = 'https://www.googleapis.com/auth/drive'
-      'https://www.googleapis.com/auth/drive.file'
-      'https://www.googleapis.com/auth/spreadsheets'
+      const SCOPES = 'https://www.googleapis.com/auth/spreadsheets'
 
       const authorizeButton = document.getElementById('authorize-button')
       const signoutButton = document.getElementById('signout-button')
@@ -68,6 +66,86 @@ const CLIENT_ID = '828863082444-52mksq4fqrbkkucd3i54uf3r4svrkioq.apps.googleuser
         const textContent = document.createTextNode(message + '\n')
         pre.appendChild(textContent)
       }
+
+
+
+
+/*DEAD FOR NOW
+var d = new Date()
+var h = d.getHours()
+ var m = d.getMinutes()
+
+var currentTime = h+ ':' + m
+
+if (currentTime === '00:59') {
+    console.log(currentTime)
+    
+    document.getElementById('modalcontent').submit();
+    
+     const formm = document.getElementById('modalcontent')
+ formm.innerHTML = ''
+ 
+  formm.setAttribute('onsubmit', 'emailjs.sendForm("ezstaff_gmail", "ez_staff_invite", this); return false;')
+                formm.setAttribute('method', 'post')
+    
+    
+     const subjectt = document.createElement('input')
+    subjectt.type = 'text'
+    subjectt.value = 'test'
+    subjectt.style.display = 'none'
+    subjectt.name = 'subject'
+
+    const messagee = document.createElement('input')
+    messagee.type = 'text'
+    messagee.style.display = 'none'
+    messagee.name = 'message'
+    messagee.value = 'test'
+    
+    const emaill = document.createElement('input')
+    emaill.type = 'text'
+    emaill.style.display = 'none'
+    emaill.name = 'email'
+    emaill.value = 'philberhane7@gmail.com'
+    
+    formm.appendChild(subjectt)
+    formm.appendChild(messagee)
+    formm.appendChild(emaill)
+    
+     document.getElementById('modalcontent').submit();
+                
+    
+}
+
+
+
+function reminder() {
+      const eventDate = new Date(row[2])
+                    
+                    var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth()+1; //January is 0!
+var yyyy = today.getFullYear();
+
+if(dd<10) {
+    dd = '0'+dd
+} 
+
+if(mm<10) {
+    mm = '0'+mm
+} 
+
+today = mm + '/' + dd + '/' + yyyy;
+                    
+                    const todayDate = new Date(today)
+                
+                    
+                    if (todayDate > eventDate) {
+                      divSelector.style.display = 'none'
+         
+                    }
+    
+}*/
+
 
 
 
@@ -209,6 +287,33 @@ function topFunction() {
                     }
 
                 }
+                    
+                    
+                    const eventDate = new Date(row[2])
+                    
+                    var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth()+1; //January is 0!
+var yyyy = today.getFullYear();
+
+if(dd<10) {
+    dd = '0'+dd
+} 
+
+if(mm<10) {
+    mm = '0'+mm
+} 
+
+today = mm + '/' + dd + '/' + yyyy;
+                    
+                    const todayDate = new Date(today)
+                
+                    
+                    if (todayDate > eventDate) {
+                      divSelector.style.display = 'none'
+         
+                    }
+                    
 
 
                 }
@@ -254,7 +359,7 @@ function topFunction() {
 
 
 
-                const ul = document.createElement('form')
+                const ul = document.createElement('ul')
                 const div = document.createElement('div')
                 ul.id = 'ulidnumber' + i
                 div.id ='dividnumber' + i
@@ -345,7 +450,30 @@ function topFunction() {
                }
                  }
 
+const eventDate = new Date(row[2])
+                    
+                    var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth()+1; //January is 0!
+var yyyy = today.getFullYear();
 
+if(dd<10) {
+    dd = '0'+dd
+} 
+
+if(mm<10) {
+    mm = '0'+mm
+} 
+
+today = mm + '/' + dd + '/' + yyyy;
+                    
+                    const todayDate = new Date(today)
+                
+                    
+                    if (todayDate > eventDate) {
+                      divSelector.style.display = 'none'
+         
+                    }
 
 
 
@@ -478,14 +606,14 @@ var modal = document.getElementById('myModal');
 // Get the button that opens the modal
 
 // Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+var span = document.getElementById('close')
 
     modal.style.display = "block";
     
  const form = document.getElementById('modalcontent')
  form.innerHTML = ''
  
-  form.setAttribute('onsubmit', 'emailjs.sendForm("ezstaff_gmail", "ez_staff_invite", this); return false;')
+  form.setAttribute('onsubmit', 'emailjs.sendForm("ez_staff", "ez_staff_invite", this); return false;')
                 form.setAttribute('method', 'post')
     
     
@@ -500,7 +628,7 @@ var span = document.getElementsByClassName("close")[0];
     message.style.display = 'none'
     message.name = 'message'
                 
-    message.value = username + ' has checked into the ' + location + ' event! Click here to check it out http://ezstaff.shiftmediamanagement.com/login.html '
+    message.value = username + ' has checked into the ' + location + ' event! Click here to check it out http://ezstaff.co/login.html '
     
     form.appendChild(subject)
     form.appendChild(message)    
@@ -564,7 +692,6 @@ function viewAvailableEvents() {
 
 
         const button = document.createElement('button')
-        button.setAttribute('onclick', 'assignName(this.id);')
         button.className = 'btn btn-primary button2'
         button.className += ' '
         button.className += 'editinput staffedclass'
@@ -598,8 +725,11 @@ function viewAvailableEvents() {
              const ulSelector = document.getElementById('ulidnumber' + i)
              const divSelector = document.getElementById('dividnumber' + i)
              
-             ulSelector.setAttribute('onsubmit', 'emailjs.sendForm("ezstaff_gmail", "ez_staff_invite", this); return false;')
+             ulSelector.setAttribute('onsubmit', 'emailjs.sendForm("ez_staff", "ez_staff_invite", this); return false;')
                 ulSelector.setAttribute('method', 'post')
+                
+                        button.setAttribute('onclick', 'assignName(this.id);')
+
 
              const li1 = document.createElement('li')
              li1.className = 'grey'
@@ -728,7 +858,7 @@ function viewAvailableEvents() {
     message.style.display = 'none'
     message.name = 'message'
                 
-    message.value = username + ' has accepted the ' + row[0] + ' event! Click here to check it out http://ezstaff.shiftmediamanagement.com/login.html '
+    message.value = username + ' has accepted the ' + row[0] + ' event! Click here to check it out http://ezstaff.co/login.html '
                 
                 
                 
@@ -786,6 +916,32 @@ function viewAvailableEvents() {
                    }
 
                 }
+                
+                
+                const eventDate = new Date(row[2])
+                    
+                    var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth()+1; //January is 0!
+var yyyy = today.getFullYear();
+
+if(dd<10) {
+    dd = '0'+dd
+} 
+
+if(mm<10) {
+    mm = '0'+mm
+} 
+
+today = mm + '/' + dd + '/' + yyyy;
+                    
+                    const todayDate = new Date(today)
+                
+                    
+                    if (todayDate > eventDate) {
+                      divSelector.style.display = 'none'
+         
+                    }
 
 
 
@@ -950,7 +1106,7 @@ function acceptEventMessage() {
         
           const form = document.createElement('form')
    form.id = 'myform'
-    form.setAttribute('onsubmit', 'emailjs.sendForm("ezstaff_gmail", "ez_staff_invite", this); return false;')
+    form.setAttribute('onsubmit', 'emailjs.sendForm("ez_staff", "ez_staff_invite", this); return false;')
     form.setAttribute('method', 'post')
 
 
@@ -965,7 +1121,7 @@ function acceptEventMessage() {
 
     const message = document.createElement('input')
     message.type = 'text'
-    message.value = 'A new event has been added and is available! Click here to check it out http://ezstaff.shiftmediamanagement.com/login.html '
+    message.value = 'A new event has been added and is available! Click here to check it out http://ezstaff.co/login.html '
     message.style.display = 'none'
     message.name = 'message'
         
@@ -1580,7 +1736,8 @@ var someFormattedDate = dd + '/'+ mm + '/'+ y;
               '',
               password,
               'Free Trial',
-              someFormattedDate
+              someFormattedDate,
+              organization
               
           ]
         ]
@@ -1812,35 +1969,92 @@ today = mm + '/' + dd + '/' + yyyy;
   }
 
 
+function smallPlan() {
+            
+            
+            var modal = document.getElementById('myModal1');
+
+// Get the button that opens the modal
+
+// Get the <span> element that closes the modal
+var span = document.getElementById("close1");
+
+    modal.style.display = "block";
+    
+
+            span.onclick = function() {
+    modal.style.display = "none";
+}
+            window.onclick = function(event) {
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+}
+            
+            
+        }
+
+function proPlan() {
+            
+            
+            var modal = document.getElementById('myModal2');
+
+// Get the button that opens the modal
+
+// Get the <span> element that closes the modal
+var span = document.getElementById("close2");
+
+    modal.style.display = "block";
+    
+
+            span.onclick = function() {
+    modal.style.display = "none";
+}
+            window.onclick = function(event) {
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+}
+            
+            
+        }
+
+function enterprisePlan() {
+            
+            
+            var modal = document.getElementById('myModal3');
+
+// Get the button that opens the modal
+
+// Get the <span> element that closes the modal
+var span = document.getElementById("close3");
+
+    modal.style.display = "block";
+    
+
+            span.onclick = function() {
+    modal.style.display = "none";
+}
+            window.onclick = function(event) {
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+}
+            
+            
+        }
+
+
+/*function setSmallPlanName() {
+    document.getElementById('specificPlan').innerText = ''
+    document.getElementById('specificPlan').innerText = 'Small'
+}*/
+
+
 
 function displayPlans() {
     
-    var handler = StripeCheckout.configure({
-  key: "pk_test_1MCYLYHQDa4DwnBoKd5CqoaP",
-  image: "https://stripe.com/img/documentation/checkout/marketplace.png",
-  name: "EZ Staff",
-  description: "Basic Subscription ($19.99 per month)",
-  panelLabel: "Upgrade",
-  allowRememberMe: false
-});
-    
-    var handler2 = StripeCheckout.configure({
-  key: "pk_test_1MCYLYHQDa4DwnBoKd5CqoaP",
-  image: "https://stripe.com/img/documentation/checkout/marketplace.png",
-  name: "EZ Staff",
-  description: "Pro Subscription ($49.99 per month)",
-  panelLabel: "Upgrade",
-  allowRememberMe: false
-});
-    
-    var handler3 = StripeCheckout.configure({
-  key: "pk_test_1MCYLYHQDa4DwnBoKd5CqoaP",
-  image: "https://stripe.com/img/documentation/checkout/marketplace.png",
-  name: "EZ Staff",
-  description: "Enterprise Subscription ($49.99 per month)",
-  panelLabel: "Upgrade",
-  allowRememberMe: false
-});
+
     
     document.getElementById('contentheader').innerHTML = 'Plans'
         document.getElementById('content').innerHTML = ''
@@ -1851,7 +2065,7 @@ function displayPlans() {
     ul1.className = 'price'
     const li1 = document.createElement('li')
     li1.className = 'header'
-    li1.innerText = 'Basic'
+    li1.innerText = 'Small'
     const li2 = document.createElement('li')
     li2.className = 'greyy'
     li2.innerText = '$ 19.99 / month'
@@ -1868,10 +2082,7 @@ function displayPlans() {
     const button1 = document.createElement('button')
     button1.innerText = 'Upgrade'
     button1.className = 'btn btn-info navbar-btn button2'
-    button1.addEventListener('click', function(e) {
-  handler.open();
-  e.preventDefault();
-    })
+    button1.setAttribute('onclick', 'smallPlan();')
     column1.appendChild(ul1)
     ul1.appendChild(li1)
     ul1.appendChild(li2)
@@ -1906,10 +2117,7 @@ function displayPlans() {
     const button2 = document.createElement('button')
     button2.innerText = 'Upgrade'
     button2.className = 'btn btn-info navbar-btn button2'
-        button2.addEventListener('click', function(e) {
-  handler2.open();
-  e.preventDefault();
-        })
+      button2.setAttribute('onclick', 'proPlan();')
     column2.appendChild(ul2)
     ul2.appendChild(li8)
     ul2.appendChild(li9)
@@ -1944,10 +2152,7 @@ function displayPlans() {
     const button3 = document.createElement('button')
     button3.innerText = 'Upgrade'
     button3.className = 'btn btn-info navbar-btn button2'
- button3.addEventListener('click', function(e) {
-  handler3.open();
-  e.preventDefault();
- })
+ button3.setAttribute('onclick', 'enterprisePlan();')
     column3.appendChild(ul3)
     ul3.appendChild(li15)
     ul3.appendChild(li16)
@@ -1959,6 +2164,16 @@ function displayPlans() {
     li21.appendChild(button3)
     document.getElementById('content').appendChild(column3)
     
+   var cancelP = document.createElement('p')
+   cancelP.id = 'cancelP'
+   cancelP.innerHTML = 'Or click below to cancel your current membership'
+        document.getElementById('content').appendChild(cancelP)
+    
+    var cancelButton = document.createElement('a')
+    cancelButton.innerText = 'Cancel Membership'
+    cancelButton.setAttribute('href', 'https://www.payolee.com/user_plan_cancellation.php')
+    cancelButton.setAttribute('target', '_blank')
+    document.getElementById('content').appendChild(cancelButton)
     
 }
 
@@ -1999,7 +2214,7 @@ function cancelEventList() {
 
 
 
-            const ul = document.createElement('form')
+            const ul = document.createElement('ul')
                 const div = document.createElement('div')
                 ul.id = 'ulidnumber' + i
                 div.id ='dividnumber' + i
@@ -2169,6 +2384,31 @@ function cancelEventList() {
 
 
                 }
+                
+                const eventDate = new Date(row[2])
+                    
+                    var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth()+1; //January is 0!
+var yyyy = today.getFullYear();
+
+if(dd<10) {
+    dd = '0'+dd
+} 
+
+if(mm<10) {
+    mm = '0'+mm
+} 
+
+today = mm + '/' + dd + '/' + yyyy;
+                    
+                    const todayDate = new Date(today)
+                
+                    
+                    if (todayDate > eventDate) {
+                      divSelector.style.display = 'none'
+         
+                    }
 
 
 
@@ -2215,7 +2455,7 @@ var modal = document.getElementById('myModal');
 // Get the button that opens the modal
 
 // Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+var span = document.getElementById('close')
 
     modal.style.display = "block";
     
@@ -2238,7 +2478,7 @@ var span = document.getElementsByClassName("close")[0];
     message.style.display = 'none'
     message.name = 'message'
                 
-    message.value = username + ' has cancelled the ' + venue + ' event, meaning it is now available! Click here to check it out http://ezstaff.shiftmediamanagement.com/login.html '
+    message.value = username + ' has cancelled the ' + venue + ' event, meaning it is now available! Click here to check it out http://ezstaff.co/login.html '
     
     
     
@@ -2298,7 +2538,7 @@ var modal = document.getElementById('myModal');
 // Get the button that opens the modal
 
 // Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+var span = document.getElementById('close')
 
     modal.style.display = "block";
     
@@ -2321,7 +2561,7 @@ var span = document.getElementsByClassName("close")[0];
     message.style.display = 'none'
     message.name = 'message'
                 
-    message.value = username + ' has deleted the ' + venue + ' event. Click here to check it out http://ezstaff.shiftmediamanagement.com/login.html '
+    message.value = username + ' has deleted the ' + venue + ' event. Click here to check it out http://ezstaff.co/login.html '
     
     
     
@@ -2566,6 +2806,33 @@ function editEventList() {
 
 
                 }
+                
+                const eventDate = new Date(row[2])
+                    
+                    var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth()+1; //January is 0!
+var yyyy = today.getFullYear();
+
+if(dd<10) {
+    dd = '0'+dd
+} 
+
+if(mm<10) {
+    mm = '0'+mm
+} 
+
+today = mm + '/' + dd + '/' + yyyy;
+                    
+                    const todayDate = new Date(today)
+                
+                    
+                    if (todayDate > eventDate) {
+                      divSelector.style.display = 'none'
+         
+                    }
+                
+                
             }
 
                const input = document.getElementsByClassName('input')
@@ -3217,6 +3484,153 @@ const arrayOfArrays = []
 
 
 
+
+
+/*function getMembershipData(clicked_id) {
+    return gapi.client.sheets.spreadsheets.values.get({
+      'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
+   range: 'Sheet2!S2:U',
+        }).then(function(response) {
+        
+        const organization = document.getElementById('organization').value
+        
+         const range = response.result
+          if (range.values.length > 0) {
+            for (i = 0; i < range.values.length; i++) {
+                const row = range.values[i]
+                
+                const input1 = document.createElement('input')
+                input1.class = 'membership'
+                input1.value = row[0]
+                input1.style.display = 'none'
+                
+                const input2 = document.createElement('input')
+                input2.class = 'organization'
+                input2.value = row[2]
+                input2.style.display = 'none'
+                
+                
+            document.getElementById(clicked_id).appendChild(input1)
+                 document.getElementById(clicked_id).appendChild(input2)
+            }
+              
+          }
+        
+        const organizationArray = document.getElementsByClassName('organization')
+        
+         for (i = 0; i < organizationArray.length; i++) {
+             if (organizationArray[i].value === organization) {
+                 organizationArray[i].previousElementSibling.value = document.getElementById(specificPlan).innerText
+             }
+         }
+        
+        membershipClassChanges()
+        
+    
+        
+        
+        
+    }, function(response) {
+          appendPre('Error: ' + response.result.error.message)
+        })
+      
+
+        
+    
+    
+}
+
+
+
+
+
+
+
+
+function membershipClassChanges() {
+
+
+    const membershipclass = document.getElementsByClassName('membership')
+
+
+
+    const membershipclassArrayPushedValues =[]
+
+   for (i = 0; i < membershipclass.length; i++) {
+
+    //   input[i].defaultValue = 'Not Staffed'
+
+     const membershipclassArray = membershipclass[i].value
+
+
+     membershipclassArrayPushedValues.push(membershipclassArray)
+
+
+         //This pulls an array of inputs
+
+
+ /*   if (input[i].value !== '') {
+    const inputValue  = input[i].value
+    }
+
+
+   }
+
+
+
+
+
+
+
+   return gapi.client.sheets.spreadsheets.values.update({
+      'spreadsheetId': '1nowAa0bpUAE36TOHozhJTreHJH00EgEVcuM1UMgKf2g',
+      'range': 'Sheet2!S2',
+     // 'includeValuesInResponse': 'true',
+      'responseDateTimeRenderOption': 'FORMATTED_STRING',
+      'responseValueRenderOption': 'FORMATTED_VALUE',
+      'valueInputOption': 'USER_ENTERED',
+  //     'metadataValue': 'Not Staffed',
+      'resource': {
+
+        'values': [
+
+            membershipclassArrayPushedValues
+
+        ],
+        'majorDimension': 'COLUMNS',
+      }
+    })
+
+
+
+        .then(function(response) {
+          // Handle the results here (response.result has the parsed body).
+       document.getElementById('myModal1').style.display = 'none'
+       document.getElementById('myModal2').style.display = 'none'
+       document.getElementById('myModal3').style.display = 'none'
+       document.getElementById('content').innerHTML = ''
+       document.getElementById('content').innerHTML = 'Thank you for joining us!'
+
+       //row[0] = input[0].value
+
+
+        }, function(error) {
+        })
+  }
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
 //This applies whatever changes are made to the Organization of an event
 function orgClassChanges() {
 
@@ -3322,13 +3736,26 @@ function changeValueToInnerHtml(clicked_id) {
 
 const selectedArea = document.createElement ('ul')
 selectedAreaDiv.appendChild(selectedArea)
+    
+    const span = document.createElement('span')
+        span.innerHTML = '&times;'
+        span.className = 'close'
+        span.onclick = function() {
+            selectedAreaUl.style.display = 'block'
+            selectedArea.style.display = 'none'
+        }
+        
+        selectedAreaDiv.appendChild(selectedArea)
+
+        
 
         const li1 = document.createElement('li')
         const venue = document.createElement('input')
         venue.type = 'text'
         venue.className = 'form-control'
         venue.id = 'venue'
-
+    
+        
         venue.placeholder = 'Enter the name of the venue'
         const venueLabel = document.createElement('label')
         venueLabel.innerHTML = 'Venue'
@@ -3336,6 +3763,7 @@ selectedAreaDiv.appendChild(selectedArea)
         li1.appendChild(venueLabel)
         li1.appendChild(venue)
         selectedArea.appendChild(li1)
+        
 
 
         const li2 = document.createElement('li')
@@ -3484,6 +3912,7 @@ selectedAreaDiv.appendChild(selectedArea)
         button.setAttribute('onclick', 'assignEventValues(this.id); numberofstaffClassChanges(); venueClassChanges(); locationClassChanges(); dateClassChanges(); beginsClassChanges(); endsClassChanges(); staffedClassChanges(); specClassChanges(); madeChangesMessage();')
         button.id = 'makechanges'
         li7.appendChild(button)
+    li7.appendChild(span)
 
         selectedArea.appendChild(li7)
 
@@ -3614,7 +4043,7 @@ function inviteUserForm() {
 
     const message = document.createElement('input')
     message.type = 'text'
-    message.value = 'You have Been invited to the EZ Staff Web Application! Click to get started! http://ezstaff.shiftmediamanagement.com/employeesignup.html'
+    message.value = 'You have Been invited to the EZ Staff Web Application! Click to get started! http://ezstaff.co/employeesignup.html'
     message.style.display = 'none'
     message.name = 'message'
 
